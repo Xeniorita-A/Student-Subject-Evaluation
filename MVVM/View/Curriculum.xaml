@@ -1,0 +1,278 @@
+﻿<UserControl x:Class="Student_Subject_Evaluation.MVVM.View.Curriculum"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Student_Subject_Evaluation.MVVM.View"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModel="clr-namespace:Student_Subject_Evaluation.MVVM.View_Model"
+             mc:Ignorable="d" 
+             d:DesignHeight="740" d:DesignWidth="900" FontFamily="Tienne Black">
+
+    <UserControl.DataContext>
+        <viewModel:CurriculumViewModel/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Border CornerRadius="15"
+                Background="white" 
+                Grid.RowSpan="2" 
+                Grid.ColumnSpan="2">
+            <StackPanel Margin="80,25,50,0" 
+                        Height="67" 
+                        VerticalAlignment="Top">
+                <TextBlock Text="Course Curriculum" 
+                       Foreground="#FFDF612B" FontSize="45"  
+                       FontWeight="Bold"
+                       FontFamily="Tienne"
+                       VerticalAlignment="Center"/>
+            </StackPanel>
+
+        </Border>
+
+        <!--Code for popupbox-->
+        <StackPanel Grid.Column="1">
+            <materialDesign:PopupBox 
+                HorizontalAlignment="Right"
+                Margin="0 20 20 0"
+                PlacementMode="BottomAndAlignRightEdges"
+                StaysOpen="False"
+                Height="50">
+                <StackPanel Margin="10"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center">
+                    <StackPanel>
+                        <Button ToolTip="Are you Having trouble using the system?"
+                            Margin="10 0 10 0"
+                            Content="Help" Click="Help_Click"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <Button x:Name="btn_exit" Content="Exit"
+                            ToolTip="Exit Application"
+                            Click="ExitApp" Margin="10 0 10 0"/>
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:PopupBox>
+        </StackPanel>
+
+        <!--Orange line-->
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" >
+            <StackPanel Grid.Row="1">
+                <materialDesign:Card Height="10" 
+                    VerticalAlignment="Top" 
+                    Background="#f1ac6a" 
+                    d:LayoutOverrides="LeftMargin, RightMargin, 
+                    TopMargin, BottomMargin"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                    materialDesign:ShadowAssist.ShadowEdges="Bottom"/>
+            </StackPanel>
+            <materialDesign:Card>
+                <TabControl 
+                     Width="880" Height="610"
+                     HorizontalContentAlignment="Left" 
+                     Style="{StaticResource MaterialDesignNavigatilRailTabControl}" 
+                     TabStripPlacement="Top" materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                     >
+
+                    <!--Course Curriculum Table -->
+                    <TabItem
+                    Header="Course Curriculum List" 
+                        IsSelected="True"
+                        FontFamily="Tienne" FontSize="16" 
+                        FontWeight="Bold" Height="50" 
+                        Width="250">
+                        <materialDesign:Card Margin="50 20 50 50"
+                             UniformCornerRadius="20"
+                             Background="White"
+                             materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left">
+                            <!--Stackpanel for the Course Curriculum List-->
+                            <StackPanel Grid.Column="1" Grid.Row="1" Margin="20">
+
+                                <!--Search box and Icon-->
+                                <StackPanel Height="50" Margin="0,0,5,18" >
+                                    <TextBox x:Name="txt_searchCurr"
+                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                    VerticalAlignment="Top"
+                                    Height="40" Width="250"
+                                    AcceptsReturn="True"
+                                    TextWrapping="Wrap"
+                                    Padding="10 10"
+                                    FontFamily="Tienne"
+                                    FontWeight="Bold"
+                                    FontSize="16"
+                                    BorderBrush="#e36934"
+                                    Margin="50,5,0,20"
+                                    HorizontalAlignment="Right"
+                                    materialDesign:HintAssist.Foreground="#e36934"
+                                    materialDesign:HintAssist.Hint="SEARCH" 
+                                    materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                    TextChanged="TextSearchCurr_Changed"/>
+                                </StackPanel>
+
+                                <!--Datagrid for the Course Curriculum-->
+                                <DataGrid x:Name="Course_list"
+                                    FontFamily="Roboto"
+                                    FontSize="14"
+                                    CanUserSortColumns="True"
+                                    CanUserAddRows="False"
+                                    materialDesign:DataGridAssist.CellPadding="4 2 2 2"
+                                    materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Visible" 
+                                    HorizontalContentAlignment="Stretch" 
+                                    VerticalContentAlignment="Stretch"
+                                    ToolTip="Course Curriculum"
+                                    HorizontalAlignment="Center"
+                                    Width="700" Height="380"
+                                    IsReadOnly="True" 
+                                    IsTextSearchEnabled="True" 
+                                    CanUserResizeRows="False" 
+                                    RowDetailsVisibilityMode="Visible"
+                                    CanUserReorderColumns="False" 
+                                    CanUserResizeColumns="False" 
+                                    GridLinesVisibility="None"
+                                    BorderThickness="0" 
+                                    Padding="5,5,5,5" FontWeight="Normal">
+
+                                    <!--<ColumnHeader>-->
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn 
+                                            Header="No." 
+                                            Binding="{Binding CourseNo}"
+                                            Width="50" 
+                                            FontFamily="Tienne" 
+                                            FontSize="16" 
+                                            IsReadOnly="True">
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn 
+                                            Header="Code" 
+                                            Binding="{Binding CourseCode}"
+                                            Width="100" 
+                                            FontFamily="Tienne" 
+                                            FontSize="16" 
+                                            IsReadOnly="True"/>
+                                        <DataGridTextColumn 
+                                            Header="Subject Title" 
+                                            Binding="{Binding CourseTitle}"
+                                            Width="400" 
+                                            FontFamily="Tienne" 
+                                            FontSize="16" 
+                                            IsReadOnly="True"/>
+                                        <DataGridTextColumn 
+                                            Header="Units" 
+                                            Binding="{Binding CourseUnits}"
+                                            Width="60" 
+                                            FontFamily="Tienne" 
+                                            FontSize="16" 
+                                            IsReadOnly="True"/>
+                                        <DataGridTextColumn 
+                                            Header="Pre Requisite(s)" 
+                                            Binding="{Binding CoursePrereq}"
+                                            Width="150" 
+                                            FontFamily="Tienne" 
+                                            FontSize="16" 
+                                            IsReadOnly="True"
+                                            />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </materialDesign:Card>
+                    </TabItem>
+
+                    <!--Importing New Course Curriculum Table-->
+                    <TabItem
+                        Header="Import New Curriculum"
+                        FontFamily="Tienne" FontSize="16" 
+                        FontWeight="Bold" Height="50" 
+                        Width="250">
+                        <materialDesign:Card Grid.Row="1" Margin="50 50 50 80"
+                             UniformCornerRadius="20"
+                             Background="White"
+                             materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left">
+                            
+                            <StackPanel Width="400" Margin="0 10">
+                                <Label Content="Import New Curriculum:" FontFamily="Roboto" 
+                           FontWeight="Bold"
+                           FontSize="16" 
+                           Foreground="#e36934"
+                           HorizontalAlignment="Left"/>
+
+                                <!--Deparrtment-->
+                                <ComboBox x:Name="cbx_currDepartment" Margin="0,0,0,10"
+                          Style="{StaticResource MaterialDesignFilledComboBox}"
+                          materialDesign:HintAssist.Hint="Department"
+                          Width="250" Padding="10"
+                          FontFamily="Roboto"
+                          FontSize="16" FontWeight="Bold">
+                                    <ComboBoxItem Content="BSCE" />
+                                    <ComboBoxItem Content="BSEE" />
+                                    <ComboBoxItem Content="BSIT" />
+                                </ComboBox>
+
+                                <!--Batch Number-->
+                                <ComboBox x:Name="cbx_currBatch" Margin="0,0,0,10"
+                          Style="{StaticResource MaterialDesignFilledComboBox}"
+                          materialDesign:HintAssist.Hint="Batch No."
+                          Width="250" Padding="10"
+                          FontFamily="Roboto"
+                          FontSize="16" FontWeight="Bold">
+                                    <ComboBoxItem Content="2018" />
+                                    <ComboBoxItem Content="2019" />
+                                    <ComboBoxItem Content="2020" />
+                                    <ComboBoxItem Content="2021" />
+                                </ComboBox>
+
+                                <!--Year Level-->
+                                <ComboBox x:Name="cbx_currYearlevel" Margin="0,0,0,10"
+                          Style="{StaticResource MaterialDesignFilledComboBox}"
+                          materialDesign:HintAssist.Hint="Year Level"
+                          Width="250" Padding="10"
+                          FontFamily="Roboto"
+                          FontSize="16" FontWeight="Bold">
+                                    <ComboBoxItem Content="First Year" />
+                                    <ComboBoxItem Content="Second Year" />
+                                    <ComboBoxItem Content="Third Year" />
+                                    <ComboBoxItem Content="Fourth Year" />
+                                </ComboBox>
+
+                                <!--Semester-->
+                                <ComboBox x:Name="cbx_currSemester" Margin="0,0,0,10"
+                          Style="{StaticResource MaterialDesignFilledComboBox}"
+                          materialDesign:HintAssist.Hint="Semester"
+                          Width="250" Padding="10"
+                          FontFamily="Roboto"
+                          FontSize="16" FontWeight="Bold">
+                                    <ComboBoxItem Content="First Semester" />
+                                    <ComboBoxItem Content="Second Semester" />
+                                </ComboBox>
+
+                                <!--Import New Curriculum-->
+                                <Button x:Name="btn_importCurriculum"
+                    Content="Import New"
+                    Margin="0 30 0 10"
+                    BorderThickness="0"
+                    Height="40" Width="150"
+                    FontFamily="Tienne" FontWeight="Bold"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Background="#f1ac6a" Foreground="White"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                    materialDesign:RippleAssist.Feedback="#DD000000"/>
+                            </StackPanel>
+                        </materialDesign:Card>
+
+                    </TabItem>
+                </TabControl>
+            </materialDesign:Card>
+        </StackPanel>
+    </Grid>
+</UserControl>

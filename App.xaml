@@ -1,0 +1,41 @@
+﻿<Application x:Class="Student_Subject_Evaluation.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Student_Subject_Evaluation"
+             xmlns:viewModel="clr-namespace:Student_Subject_Evaluation.MVVM.View_Model"
+             xmlns:view="clr-namespace:Student_Subject_Evaluation.MVVM.View"
+             StartupUri="Login.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
+                <ResourceDictionary Source="Theme/TextBoxTheme.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Orange.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+                <view:Homepage/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:AccountViewModel}">
+                <view:AccountSettings/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:CurriculumViewModel}">
+                <view:Curriculum/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:EvaluationViewModel}">
+                <view:Evaluation/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:StudentViewModel}">
+                <view:Student/>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

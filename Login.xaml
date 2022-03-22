@@ -1,0 +1,175 @@
+﻿<Window x:Class="Student_Subject_Evaluation.Login"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Student_Subject_Evaluation"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Height="740" Width="1180">
+
+    <!--Grid definitions (Lines that act as divider and Guide)-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!--The main background-->
+        <Border CornerRadius="15" Grid.RowSpan="4" Grid.ColumnSpan="4">
+            <StackPanel>
+                <Image Source="/Images/plv_login.png"/>
+            </StackPanel>
+        </Border>
+
+        <!--Stack panel for the login (Helps to ensure it is centered)-->
+        <StackPanel Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
+
+            <!-- (u can only use card if you are using materialdesign theme)-->
+            <materialDesign:Card UniformCornerRadius="20" Grid.Row="1" 
+                Grid.RowSpan="2" Grid.Column="1"
+                Grid.ColumnSpan="2" Height="370"
+                Width="420" Background="#B2E36934" 
+                materialDesign:ShadowAssist.ShadowDepth="Depth3">
+                <StackPanel>
+                    <TextBlock Text="CEIT Student Subject Evaluation System"
+                           FontFamily="Tienne"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           Margin="0,50,0,30">
+                    </TextBlock>
+
+                    <!--Textbox for username/ email (i used border to make the corner rounded)-->
+                    <Border CornerRadius="10" Height="50" Width="300"
+                        Background="white"
+                        Margin="0,0,0,0"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        <TextBox x:Name="txt_username" BorderThickness="0"
+                              FontSize="16" Height="50"
+                              materialDesign:HintAssist.Hint="EMAIL / USERNAME"
+                              materialDesign:HintAssist.Foreground="#f1ac6a"
+                              BorderBrush="{DynamicResource MaterialDesignDivider}"
+                              Foreground="#e36934"
+                              FontWeight="Bold"
+                              FontFamily="Tienne"
+                              Margin="10,0,10,0"
+                              Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        </TextBox>
+                    </Border>
+
+                    <!--Password box (card, so i can have rounded corners)-->
+                    <materialDesign:Card UniformCornerRadius="10" Height="50" Width="300"
+                        Background="white"
+                        Margin="0,20,0,0"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        <StackPanel>
+                            <PasswordBox x:Name="pbx_password" Height="50"
+                              BorderThickness="0"
+                              Background="Transparent"
+                              FontSize="16"
+                              materialDesign:HintAssist.Hint="PASSWORD"
+                              materialDesign:HintAssist.Foreground="#f1ac6a"
+                              BorderBrush="{DynamicResource MaterialDesignDivider}"
+                              Foreground="#e36934"
+                              FontWeight="Bold"
+                              FontFamily="Tienne"
+                              Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                              Width="286" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </materialDesign:Card>
+
+                    <!--The button for LOGIN-->
+                    <Button Margin="0 20 0 0" x:Name="btn_login"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Height="53" Width="300"
+                        Background="#f1ac6a"
+                        Foreground="White"
+                        FontWeight="Bold"
+                        BorderThickness="0"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        FontSize="20" Content="LOGIN" FontFamily="Tienne" Click="btn_login_Click"
+                        />
+                </StackPanel>
+            </materialDesign:Card>
+        </StackPanel>
+
+        <!--The stackpanel for the show password button and icon-->
+        <StackPanel Margin="104,-7,155,0" 
+                    Grid.Column="2" 
+                    Grid.Row="2"
+                    VerticalAlignment="Top" 
+                    d:LayoutOverrides="VerticalAlignment" 
+                    RenderTransformOrigin="0.5,0.5" Height="37">
+            <Button  Height="30" Background="Transparent" 
+                     BorderBrush="{x:Null}" 
+                     BorderThickness="0,0,0,0" 
+                     Width="33" Padding="0">
+                <Image Source="Images/eye.png"
+                       MouseEnter="mouseentercover" 
+                       MouseLeave="mouseleaving"
+                       HorizontalAlignment="Center"
+                       ToolTip="Show Password" Height="30" Width="28"
+                       RenderTransformOrigin="-0.313,0.424"/>
+            </Button>
+        </StackPanel>
+
+        <!--Stackpanel for the textbox where we will show the password-->
+        <Grid Margin="147,-13,0,0" 
+                    Grid.Column="1" 
+                    Grid.Row="2"
+                    VerticalAlignment="Top" Height="49" HorizontalAlignment="Left" Grid.ColumnSpan="2" Width="296">
+            <TextBox x:Name="Passwordtext" 
+                    Height="37" 
+                    FontFamily="Tienne" FontWeight="Bold" 
+                    FontSize="16" Width="249" 
+                    Foreground="#e36934" Padding="0"
+                    PreviewKeyDown="passwordtextbox_PreviewKeyDown" 
+                    IsEnabled="False" SpellCheck.IsEnabled="True"
+                    Background="Transparent" HorizontalAlignment="Left" Margin="10,15,0,0" 
+                    />
+        </Grid>
+
+        <!--Code for the Popupbox-->
+        <StackPanel Grid.Column="3" Grid.Row="0">
+            <materialDesign:PopupBox 
+                HorizontalAlignment="Right"
+                Margin="0 20 20 0"
+                PlacementMode="BottomAndAlignRightEdges"
+                StaysOpen="False"
+                Height="50">
+                <StackPanel Margin="10"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center">
+                    <StackPanel>
+                        <Button ToolTip="Are you Having trouble using the system?"
+                            Margin="10 0 10 0"
+                            Content="Help" Click="btn_help_Click"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <Button x:Name="btn_exit" Content="Exit"
+                            ToolTip="Exit Application"
+                            Click="exitApp" Margin="10 0 10 0"/>
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:PopupBox>
+        </StackPanel>
+
+    </Grid>
+</Window>

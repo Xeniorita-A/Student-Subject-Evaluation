@@ -1,0 +1,44 @@
+f1ac6a Light orange
+e36934 Orange
+484848 Gray
+FFFFFF White
+FFCC531E dark orange
+#FFCC1E37 Red cancel
+"#B2E36934" faded orange
+#FFFAF9F7 dirty white
+Roboto
+Tienne
+
+PAMANTASAN NG LUNGSOD NG VALENZUELA
+College of Engineering and Information Technology
+2F Engineering Bldg., Pamantasan ng Lungsod ng Valenzuela, Tongco St., Maysan, Valenzuela
+
+Break A line in Xaml :
+&#x0a;
+
+Curriculum List
+Binding:
+courseNo
+courseCode
+courseTitle
+courseUnits
+coursePrereq
+
+Student List (datagrid: student_list)
+Binding
+StudentID
+StudentName
+StudentLvl
+StudentDep
+StudentBatch
+
+"SELECT `tbl_curriculum`.`curr_ID`, " +
+                "`tbl_curriculum`.`curr_No`, `tbl_curriculum`.`curr_Code`," +
+                " `tbl_curriculum`.`curr_Title`, `tbl_curriculum`.`curr_Units`," +
+                " `tbl_curriculum`.`curr_Pre_Req`, `tbl_curriculum`.`curr_Department`," +
+                " `tbl_curriculum`.`curr_Yearlevel`, `tbl_curriculum`.`curr_Semester`," +
+                " `tbl_curriculum`.`curr_Batch` FROM `tbl_curriculum`;";
+
+
+
+

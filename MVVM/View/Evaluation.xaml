@@ -1,0 +1,147 @@
+﻿<UserControl x:Class="Student_Subject_Evaluation.MVVM.View.Evaluation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModel="clr-namespace:Student_Subject_Evaluation.MVVM.View_Model"
+             mc:Ignorable="d" 
+             d:DesignHeight="740" d:DesignWidth="910">
+
+    <UserControl.DataContext>
+        <viewModel:EvaluationViewModel/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Border CornerRadius="15" Background="white" Grid.RowSpan="2">
+            <StackPanel Margin="80,25,50,0" Height="67" VerticalAlignment="Top">
+                <TextBlock Text="Subject Evaluation" 
+                       Foreground="#FFDF612B" FontSize="45"  
+                       FontWeight="Bold"
+                       FontFamily="Tienne"
+                       VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+        <!--Code for popupbox-->
+        <StackPanel>
+            <materialDesign:PopupBox 
+                HorizontalAlignment="Right"
+                Margin="0 20 20 0"
+                PlacementMode="BottomAndAlignRightEdges"
+                StaysOpen="False"
+                Height="50">
+                <StackPanel Margin="10"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center">
+                    <StackPanel>
+                        <Button ToolTip="Are you Having trouble using the system?"
+                            Margin="10 0 10 0"
+                            Content="Help" Click="btn_help_Click"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <Button x:Name="btn_exit" Content="Exit"
+                            ToolTip="Exit Application"
+                            Click="exitApp" Margin="10 0 10 0"/>
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:PopupBox>
+
+        </StackPanel>
+        
+        <!--Orange line-->
+        <StackPanel Grid.Row="1">
+            <materialDesign:Card Height="10" 
+                    VerticalAlignment="Top" 
+                    Background="#f1ac6a" 
+                    d:LayoutOverrides="LeftMargin, RightMargin, 
+                    TopMargin, BottomMargin"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                    materialDesign:ShadowAssist.ShadowEdges="Bottom"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Margin="70,80,80,55">
+            <materialDesign:Card Grid.Row="1" Margin="30"
+                             UniformCornerRadius="20"
+                             Background="White"
+                             materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left">
+
+                <StackPanel Width="400" Margin="0 10">
+                    <Label Content="EXPORT EVALUATION FORM:" FontFamily="Roboto" 
+                           FontWeight="Bold"
+                           FontSize="16" 
+                           Foreground="#e36934"
+                           HorizontalAlignment="Left"/>
+
+                    <!--Deparrtment-->
+                    <ComboBox x:Name="cbx_evalDepartment" Margin="0,0,0,10"
+                          Style="{StaticResource MaterialDesignFilledComboBox}"
+                          materialDesign:HintAssist.Hint="Department"
+                          Width="250" Padding="10"
+                          FontFamily="Roboto"
+                          FontSize="16" FontWeight="Bold">
+                        <ComboBoxItem Content="BSCE" />
+                        <ComboBoxItem Content="BSEE" />
+                        <ComboBoxItem Content="BSIT" />
+                    </ComboBox>
+
+                    <!--Batch Number-->
+                    <ComboBox x:Name="cbx_evalBatch" Margin="0,0,0,10"
+                          Style="{StaticResource MaterialDesignFilledComboBox}"
+                          materialDesign:HintAssist.Hint="Batch No."
+                          Width="250" Padding="10"
+                          FontFamily="Roboto"
+                          FontSize="16" FontWeight="Bold">
+                        <ComboBoxItem Content="2018" />
+                        <ComboBoxItem Content="2019" />
+                        <ComboBoxItem Content="2020" />
+                        <ComboBoxItem Content="2021" />
+                    </ComboBox>
+
+                    <!--Year Level-->
+                    <ComboBox x:Name="cbx_evalYearlevel" Margin="0,0,0,10"
+                          Style="{StaticResource MaterialDesignFilledComboBox}"
+                          materialDesign:HintAssist.Hint="Year Level"
+                          Width="250" Padding="10"
+                          FontFamily="Roboto"
+                          FontSize="16" FontWeight="Bold">
+                        <ComboBoxItem Content="First Year" />
+                        <ComboBoxItem Content="Second Year" />
+                        <ComboBoxItem Content="Third Year" />
+                        <ComboBoxItem Content="Fourth Year" />
+                    </ComboBox>
+
+                    <!--Semester-->
+                    <ComboBox x:Name="cbx_evalSemester" Margin="0,0,0,10"
+                          Style="{StaticResource MaterialDesignFilledComboBox}"
+                          materialDesign:HintAssist.Hint="Semester"
+                          Width="250" Padding="10"
+                          FontFamily="Roboto"
+                          FontSize="16" FontWeight="Bold">
+                        <ComboBoxItem Content="First Semester" />
+                        <ComboBoxItem Content="Second Semester" />
+                    </ComboBox>
+
+                    <!--Import New Curriculum-->
+                    <Button x:Name="btn_exportEval"
+                            Content="EXPORT"
+                            Margin="0 30 0 10"
+                            BorderThickness="0" FontSize="16"
+                            Height="40" Width="150"
+                            FontFamily="Tienne" FontWeight="Bold"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Background="#f1ac6a" Foreground="White"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                            materialDesign:RippleAssist.Feedback="#DD000000"/>  
+                </StackPanel>
+            </materialDesign:Card>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,285 @@
+﻿<UserControl x:Class="Student_Subject_Evaluation.MVVM.View.AccountSettings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Student_Subject_Evaluation.MVVM.View"
+             xmlns:view="clr-namespace:Student_Subject_Evaluation.MVVM.View"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModel="clr-namespace:Student_Subject_Evaluation.MVVM.View_Model"
+             mc:Ignorable="d" 
+             d:DesignHeight="740" d:DesignWidth="910">
+
+    <UserControl.DataContext>
+        <viewModel:AccountViewModel/>
+    </UserControl.DataContext>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <!--The main background-->
+        <Border CornerRadius="15" Background="white" 
+                Grid.RowSpan="2">
+            <StackPanel Margin="80,25,50,0" Height="67" 
+                        VerticalAlignment="Top">
+                <TextBlock Text="Account Settings" 
+                       Foreground="#FFDF612B" FontSize="45"  
+                       FontWeight="Bold"
+                       FontFamily="Tienne"
+                       VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+        <!--Where we put the contents for Account Settings-->
+        <Grid Grid.Row="1" Margin="50,0,50,50">
+            <Grid>
+                <TextBlock x:Name="txtUserDetails"  
+                       Foreground="#FFDF612B"
+                       FontSize="16" Margin="20,20,0,190"
+                       Padding="0" Text="Hello"
+                       Height="30" d:LayoutOverrides="Height"
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Top" Visibility="Hidden"/>
+            </Grid>
+            <materialDesign:Card Height="515" Width="540"
+                        UniformCornerRadius="20"
+                        Background="White"
+                        Padding="10"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                        materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" Margin="0,20,0,0">
+                <StackPanel Margin="10">
+                    <Label Content="Name" FontFamily="Roboto" 
+                           FontWeight="Bold"
+                           FontSize="16" Margin="20,0,0,0" 
+                           HorizontalAlignment="Left"
+                           Foreground="#e36934"/>
+                    <TextBox x:Name="txt_accountname"
+                           Height="40" Width="250"
+                           Margin="20 0 0 0"
+                           Padding="10 0 0 0"
+                           VerticalContentAlignment="Stretch"
+                           HorizontalAlignment="Left"
+                           Foreground="Black"
+                           FontSize="16"
+                           FontFamily="Roboto"
+                           materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                           materialDesign:TextFieldAssist.HasClearButton="True"
+                           materialDesign:HintAssist.Foreground="#f1ac6a" 
+                           CaretBrush="#FFE36934" 
+                           SelectionBrush="#FFF1AC6A"
+                           VerticalAlignment="Top"
+                           TextWrapping="Wrap"
+                           Style="{StaticResource MaterialDesignFilledTextBox}"/>
+                    <Label Content="Email" FontFamily="Roboto" 
+                           FontWeight="Bold"
+                           FontSize="16" 
+                           HorizontalAlignment="Left" 
+                           Margin="20,10,0,0"
+                           Foreground="#e36934"/>
+                    <TextBox x:Name="txt_accountEmail"
+                           Height="40" Width="250" 
+                           HorizontalAlignment="Left" 
+                           Padding="10 0 0 0"
+                           VerticalContentAlignment="Stretch"
+                           Foreground="Black"
+                           FontSize="16"
+                           FontFamily="Roboto"
+                           materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                           materialDesign:TextFieldAssist.HasClearButton="True"
+                           materialDesign:HintAssist.Foreground="#f1ac6a" 
+                           CaretBrush="#FFE36934" 
+                           SelectionBrush="#FFF1AC6A"
+                           VerticalAlignment="Top"
+                           TextWrapping="Wrap"
+                           Style="{StaticResource MaterialDesignFilledTextBox}"
+                           Margin="20,0,0,0"/>
+                    <Label Content="Username" FontFamily="Roboto" 
+                           FontWeight="Bold"
+                           FontSize="16" 
+                           HorizontalAlignment="Left" 
+                           Margin="20,10,0,0"
+                           Foreground="#e36934"/>
+                    <TextBox x:Name="txt_acountUsername"
+                           Margin="20,0,10,0"
+                           Height="40" Width="250" 
+                           Padding="10 0 0 0"
+                           VerticalContentAlignment="Stretch"
+                           HorizontalAlignment="Left"
+                           Foreground="Black"
+                           FontSize="16"
+                           FontFamily="Roboto"
+                           materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                           materialDesign:TextFieldAssist.HasClearButton="True"
+                           materialDesign:HintAssist.Foreground="#f1ac6a" 
+                           CaretBrush="#FFE36934" 
+                           SelectionBrush="#FFF1AC6A"
+                           VerticalAlignment="Top"
+                           TextWrapping="Wrap"
+                           Style="{StaticResource MaterialDesignFilledTextBox}"/>
+                    <Label Content="Password" FontFamily="Roboto" 
+                           FontWeight="Bold"
+                           FontSize="16" 
+                           HorizontalAlignment="Left" 
+                           Margin="20,10,0,0"
+                           Foreground="#e36934"/>
+                    <PasswordBox x:Name="pbx_acountPassword"
+                           Margin="20,0,10,0"
+                           Height="40" Width="250"
+                           CaretBrush="#FFE36934"
+                           Style="{StaticResource MaterialDesignFilledPasswordBox}"
+                           BorderThickness="0" VerticalAlignment="Top" 
+                           HorizontalAlignment="Left"
+                           MaxLength="8"
+                           materialDesign:HintAssist.Hint="Set new password"
+                           materialDesign:HintAssist.HelperText="Atleast 8 Characters"
+                           materialDesign:TextFieldAssist.HasClearButton="True"
+                           HorizontalContentAlignment="Left"
+                           Padding="10 0 0 0"
+                           Foreground="Black"
+                           FontSize="16" FontFamily="Roboto"
+                           materialDesign:HintAssist.Foreground="#f1ac6a" 
+                           SelectionBrush="#FFF1AC6A"/>
+                    <Label Content="Department" FontFamily="Roboto" 
+                           FontWeight="Bold"
+                           FontSize="16" 
+                           HorizontalAlignment="Left" 
+                           Margin="20,20,0,0"
+                           Foreground="#e36934"/>
+                    <ComboBox x:Name="cbx_accDepartment"
+                           Height="50" Width="250" Padding="10 0 0 0"
+                           HorizontalAlignment="Left" 
+                           Margin="20,0,0,0" FontSize="18" FontFamily="Roboto"
+                           Style="{StaticResource MaterialDesignFilledComboBox}" 
+                           HorizontalContentAlignment="Left" 
+                           ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                           VerticalContentAlignment="Center">
+                        <ComboBoxItem Content="BSCE"
+                                      FontFamily="Roboto" FontSize="18"
+                                      HorizontalAlignment="Left" 
+                                      VerticalAlignment="Center"
+                                      Padding="10 0 0 0"
+                                      Style="{StaticResource MaterialDesignComboBoxItemStyle}"/>
+                        <ComboBoxItem Content="BSEE"
+                                      FontFamily="Roboto" FontSize="18"
+                                      HorizontalAlignment="Left" 
+                                      VerticalAlignment="Center"
+                                      Padding="10 0 0 0"
+                                      Style="{StaticResource MaterialDesignComboBoxItemStyle}"/>
+                        <ComboBoxItem Content="BSIT"
+                                      FontFamily="Roboto" FontSize="18"
+                                      HorizontalAlignment="Left" 
+                                      VerticalAlignment="Center"
+                                      Padding="10 0 0 0"
+                                      Style="{StaticResource MaterialDesignComboBoxItemStyle}"/>
+                    </ComboBox>
+                </StackPanel>
+            </materialDesign:Card>
+        </Grid>
+
+        <StackPanel Grid.Row="1">
+            <Button x:Name="changeName"
+                    Content="CHANGE"
+                    Margin="314,95,10,0"
+                    BorderThickness="0"
+                    Height="40" Width="150"
+                    FontFamily="Tienne" FontWeight="Bold"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Background="#f1ac6a" Foreground="White"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                    materialDesign:RippleAssist.Feedback="#DD000000" Click="changeName_click"
+                    />
+            <Button x:Name="changeEmail"
+                    Content="CHANGE"
+                    BorderThickness="0"
+                    Margin="314 37 10 0"
+                    Height="40" Width="150"
+                    FontFamily="Tienne" FontWeight="Bold"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Background="#f1ac6a" Foreground="White"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                    materialDesign:RippleAssist.Feedback="#DD000000" Click="changeEmail_click"/>
+            <Button x:Name="changeUsername"
+                    Content="CHANGE"
+                    BorderThickness="0"
+                    Margin="314 37 10 0"
+                    Height="40" Width="150"
+                    FontFamily="Tienne" FontWeight="Bold"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Background="#f1ac6a" Foreground="White"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                    materialDesign:RippleAssist.Feedback="#DD000000" Click="changeUsername_click"/>
+            <Button x:Name="changePassword"
+                    Content="CHANGE"
+                    Margin="314 37 10 0"
+                    BorderThickness="0"
+                    Height="40" Width="150"
+                    FontFamily="Tienne" FontWeight="Bold"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Background="#f1ac6a" Foreground="White"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                    materialDesign:RippleAssist.Feedback="#DD000000" Click="changePassword_click"/>
+            <Button x:Name="btn_updateAccount"
+                    Content="SAVE"
+                    Margin="314 60 10 0"
+                    BorderThickness="0"
+                    Height="40" Width="150"
+                    FontFamily="Tienne" FontWeight="Bold"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Background="#e36934" Foreground="White"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                    materialDesign:RippleAssist.Feedback="#DD000000" Click="updateAccount_click"/>
+            <Button x:Name="btn_cancel"
+                    Content="CANCEL"
+                    Margin="314 20 10 0"
+                    BorderThickness="0"
+                    Height="40" Width="150"
+                    FontFamily="Tienne" FontWeight="Bold"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Background="#FFCC1E37" Foreground="White"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                    materialDesign:RippleAssist.Feedback="#DD000000" Click="cancelChanges"/>
+
+
+        </StackPanel>
+
+        <!--Code for the popupbox-->
+        <StackPanel>
+            <materialDesign:PopupBox 
+                HorizontalAlignment="Right"
+                Margin="0 20 20 0"
+                PlacementMode="BottomAndAlignRightEdges"
+                StaysOpen="False"
+                Height="50">
+                <StackPanel Margin="10"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center">
+                    <StackPanel>
+                        <Button ToolTip="Are you Having trouble using the system?"
+                            Margin="10 0 10 0"
+                            Content="Help" Click="btn_help_Click"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <Button x:Name="btn_exit" Content="Exit"
+                            ToolTip="Exit Application"
+                            Click="exitApp" Margin="10 0 10 0"/>
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:PopupBox>
+        </StackPanel>
+
+        <!--Orange line-->
+        <StackPanel Grid.Row="1">
+            <materialDesign:Card Height="10" 
+                    VerticalAlignment="Top" 
+                    Background="#f1ac6a" 
+                    d:LayoutOverrides="LeftMargin, RightMargin, 
+                    TopMargin, BottomMargin"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                    materialDesign:ShadowAssist.ShadowEdges="Bottom"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
