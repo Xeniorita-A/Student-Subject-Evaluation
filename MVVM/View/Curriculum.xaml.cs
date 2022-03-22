@@ -26,6 +26,9 @@ namespace Student_Subject_Evaluation.MVVM.View
             public string? CourseTitle { get; set; }
             public int CourseUnits { get; set; }
             public string? CoursePrereq { get; set; }
+            public string? CourseYearlvl { get; set; }
+            public string? CourseSem { get; set; }
+            public string? CourseBatch { get; set; }
         }
 
         //Open a connection
@@ -50,17 +53,39 @@ namespace Student_Subject_Evaluation.MVVM.View
             {
                 while (reader.Read())
                 {
-                    //we will store the data into the variable _subject so we can add it in the datagrid
-                    CourseCurriculum _subjects = new CourseCurriculum
+                    if (reader.GetInt16(8) == 0)
                     {
-                        CourseNo = reader.GetInt16(1),
-                        CourseCode = reader.GetString(2),
-                        CourseTitle = reader.GetString(3),
-                        CourseUnits = reader.GetInt16(4),
-                        CoursePrereq = reader.GetString(5),
-                    };
-                    //This is the code to add the data stored in _subjects to the datagrid
-                    Course_list.Items.Add(_subjects);
+                        CourseCurriculum _subjects1 = new CourseCurriculum
+                        {
+                            CourseNo = reader.GetInt16(1),
+                            CourseCode = reader.GetString(2),
+                            CourseTitle = reader.GetString(3),
+                            CourseUnits = reader.GetInt16(4),
+                            CoursePrereq = reader.GetString(5),
+                            CourseYearlvl = reader.GetString(7),
+                            CourseSem = "First Semester",
+                            CourseBatch = reader.GetString(9),
+                        };
+                            Course_list.Items.Add(_subjects1);
+                    }
+
+                    else if (reader.GetInt16(8) == 1)
+                    {
+                        //we will store the data into the variable _subject so we can add it in the datagrid
+                        CourseCurriculum _subjects = new CourseCurriculum
+                        {
+                            CourseNo = reader.GetInt16(1),
+                            CourseCode = reader.GetString(2),
+                            CourseTitle = reader.GetString(3),
+                            CourseUnits = reader.GetInt16(4),
+                            CoursePrereq = reader.GetString(5),
+                            CourseYearlvl = reader.GetString(7),
+                            CourseSem = "Second Semester",
+                            CourseBatch = reader.GetString(9),
+                        };
+                        //This is the code to add the data stored in _subjects to the datagrid
+                            Course_list.Items.Add(_subjects);
+                    }
                 }
             }
             else

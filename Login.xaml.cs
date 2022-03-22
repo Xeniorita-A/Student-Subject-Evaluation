@@ -1,5 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows;
 using System.Windows.Input;
 
@@ -17,6 +19,33 @@ namespace Student_Subject_Evaluation
         {
             InitializeComponent();
             Passwordtext.Visibility = System.Windows.Visibility.Hidden;
+
+            //This is to encrypt the password
+            string plainData = "Mahesh";
+            Console.WriteLine("Raw data: {0}", plainData);
+            string hashedData = ComputeSha256Hash(plainData);
+            Console.WriteLine("Hash {0}", hashedData);
+            Console.WriteLine(ComputeSha256Hash("Mahesh"));
+            Console.ReadLine();
+        }
+
+        //Hash the password
+        static string ComputeSha256Hash(string rawData)
+        {
+            // Create a SHA256   
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                // ComputeHash - returns byte array  
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+                // Convert byte array to a string   
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
 
         //This is the method for show password (mouseenter = when you hover to the icon it will show the password)
@@ -51,6 +80,7 @@ namespace Student_Subject_Evaluation
         public void login()
         {
             //Tatawagin everytime na maglogin
+            String hashedData = ComputeSha256Hash(pbx_password.Password);
             const string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=db_commission;";
             MySqlConnection databaseConnection = new MySqlConnection(connectionString);
             databaseConnection.Open();
@@ -65,7 +95,7 @@ namespace Student_Subject_Evaluation
                     ("SELECT * from `tbl_account` WHERE `account_Username` = '"
                     + txt_username.Text + "' OR `account_Email` = '"
                     + txt_username.Text + "' AND `account_Password`= '"
-                    + pbx_password.Password + "' ", databaseConnection);
+                    + (hashedData) + "' ", databaseConnection);
 
                 MySqlDataReader reader;
                 reader = commandDatabase.ExecuteReader();
