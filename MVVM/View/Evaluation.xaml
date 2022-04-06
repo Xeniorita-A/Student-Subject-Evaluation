@@ -6,7 +6,9 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModel="clr-namespace:Student_Subject_Evaluation.MVVM.View_Model"
              mc:Ignorable="d" 
-             d:DesignHeight="740" d:DesignWidth="910">
+             Height="auto" Width="Auto"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch">
 
     <UserControl.DataContext>
         <viewModel:EvaluationViewModel/>
@@ -18,7 +20,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Border CornerRadius="15" Background="white" Grid.RowSpan="2">
+        <Border Background="white" Grid.RowSpan="2">
             <StackPanel Margin="80,25,50,0" Height="67" VerticalAlignment="Top">
                 <TextBlock Text="Subject Evaluation" 
                        Foreground="#FFDF612B" FontSize="45"  
@@ -65,22 +67,22 @@
                     materialDesign:ShadowAssist.ShadowEdges="Bottom"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Margin="70,80,80,55">
-            <materialDesign:Card Grid.Row="1" Margin="30"
+        <StackPanel Grid.Row="1" Margin="0,30,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <materialDesign:Card Grid.Row="1" Margin="30" Height="auto" Width="auto"
                              UniformCornerRadius="20"
                              Background="White"
                              materialDesign:ShadowAssist.ShadowDepth="Depth2"
                              materialDesign:ShadowAssist.ShadowEdges="Bottom,Left">
 
-                <StackPanel Width="400" Margin="0 10">
+                <StackPanel Width="400" Margin="30">
                     <Label Content="EXPORT EVALUATION FORM:" FontFamily="Roboto" 
                            FontWeight="Bold"
-                           FontSize="16" 
+                           FontSize="20" 
                            Foreground="#e36934"
-                           HorizontalAlignment="Left"/>
+                           HorizontalAlignment="Left" Margin="0,0,0,30"/>
 
                     <!--Deparrtment-->
-                    <ComboBox x:Name="cbx_evalDepartment" Margin="0,0,0,10"
+                    <ComboBox x:Name="cbx_evalDepartment" Margin="0,0,0,15"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:HintAssist.Hint="Department"
                           Width="250" Padding="10"
@@ -92,7 +94,7 @@
                     </ComboBox>
 
                     <!--Batch Number-->
-                    <ComboBox x:Name="cbx_evalBatch" Margin="0,0,0,10"
+                    <ComboBox x:Name="cbx_evalBatch" Margin="0,0,0,15"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:HintAssist.Hint="Batch No."
                           Width="250" Padding="10"
@@ -105,7 +107,7 @@
                     </ComboBox>
 
                     <!--Year Level-->
-                    <ComboBox x:Name="cbx_evalYearlevel" Margin="0,0,0,10"
+                    <ComboBox x:Name="cbx_evalYearlevel" Margin="0,0,0,15"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:HintAssist.Hint="Year Level"
                           Width="250" Padding="10"
@@ -118,7 +120,7 @@
                     </ComboBox>
 
                     <!--Semester-->
-                    <ComboBox x:Name="cbx_evalSemester" Margin="0,0,0,10"
+                    <ComboBox x:Name="cbx_evalSemester" Margin="0,0,0,15"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:HintAssist.Hint="Semester"
                           Width="250" Padding="10"
@@ -131,7 +133,7 @@
                     <!--Import New Curriculum-->
                     <Button x:Name="btn_exportEval"
                             Content="EXPORT"
-                            Margin="0 30 0 10"
+                            Margin="0,50,0,50"
                             BorderThickness="0" FontSize="16"
                             Height="40" Width="150"
                             FontFamily="Tienne" FontWeight="Bold"

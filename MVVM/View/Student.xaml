@@ -6,7 +6,9 @@
              xmlns:viewModel="clr-namespace:Student_Subject_Evaluation.MVVM.View_Model"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="740" d:DesignWidth="900">
+             Height="auto" Width="Auto"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch">
 
     <UserControl.DataContext>
         <viewModel:StudentViewModel/>
@@ -23,7 +25,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Border CornerRadius="15" Background="white" Grid.RowSpan="3" Grid.ColumnSpan="2">
+        <Border Background="white" Grid.RowSpan="3" Grid.ColumnSpan="2">
             <StackPanel Margin="80,25,50,0" Height="67" VerticalAlignment="Top">
                 <TextBlock Text="Students" 
                        Foreground="#FFDF612B" FontSize="45"  
@@ -65,16 +67,14 @@
                 <materialDesign:Card Height="10" 
                     VerticalAlignment="Top" 
                     Background="#f1ac6a" 
-                    d:LayoutOverrides="LeftMargin, RightMargin, 
-                    TopMargin, BottomMargin"
                     materialDesign:ShadowAssist.ShadowDepth="Depth2"
                     materialDesign:ShadowAssist.ShadowEdges="Bottom"/>
             </StackPanel>
 
             <!--Main Content-->
             <materialDesign:Card>
-                <TabControl 
-                     Width="880" Height="610"
+                <TabControl Margin="0"
+                     Width="Auto" Height="Auto"
                      HorizontalContentAlignment="Left" 
                      Style="{StaticResource MaterialDesignNavigatilRailTabControl}" 
                      TabStripPlacement="Top" materialDesign:ShadowAssist.ShadowDepth="Depth2"
@@ -84,29 +84,29 @@
                     <TabItem
                     Header="Student List" 
                         IsSelected="True"
-                        FontFamily="Tienne" FontSize="16" 
-                        FontWeight="Bold" Height="50" 
+                        FontFamily="Tienne" FontSize="20" 
+                        FontWeight="Bold" Height="70" 
                         Width="250">
-                        <materialDesign:Card Margin="50 20 50 50"
+                        <Grid Margin="30 30 30 100" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <materialDesign:Card 
                              UniformCornerRadius="20"
-                             Background="White"
+                             Background="White" Padding="10"
                              materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left">
+                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left"
+                             HorizontalAlignment="Center" VerticalAlignment="Top"
+                             Height="Auto" Width="Auto" d:LayoutOverrides="Height" Margin="0,0,0,100">
 
-                            <!--Stackpanel for the Student List-->
-                            <!--Contents of Students' List-->
-                            <StackPanel Grid.Row="1" Margin="10">
-                                <Grid Margin="0"
-                             Height="470"
-                             Background="White"
-                             materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left">
-                                    <!--Stackpanel for the Student List-->
-                                    <StackPanel Grid.Column="1" Grid.Row="1" Margin="10">
-
-                                        <!--Search box and Icon-->
-                                        <StackPanel Height="50" Margin="0,0,5,18" >
-                                            <TextBox x:Name="txt_searchStudents"
+                                <!--Stackpanel for the Student List-->
+                                <!--Contents of Students' List-->
+                                <StackPanel Margin="0"
+                                     Height="Auto"
+                                     Background="White"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                     materialDesign:ShadowAssist.ShadowEdges="Bottom,Left">
+                                    <!--Search box and Icon-->
+                                    <Grid Height="50" Margin="405,10,30,0"
+                                                        VerticalAlignment="Top">
+                                        <TextBox x:Name="txt_searchStudents"
                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                             VerticalAlignment="Top"
                                             Height="40" Width="250"
@@ -117,14 +117,16 @@
                                             FontWeight="Bold"
                                             FontSize="16"
                                             BorderBrush="#e36934"
-                                            Margin="50,5,0,0"
+                                            Margin="50,0,0,0"
+                                            materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
                                             HorizontalAlignment="Right"
                                             materialDesign:HintAssist.Foreground="#e36934"
                                             materialDesign:HintAssist.Hint="SEARCH" 
                                             materialDesign:ShadowAssist.ShadowDepth="Depth1"
                                             TextChanged="TextSearchStuds_Changed"/>
-                                        </StackPanel>
-
+                                    </Grid>
+                                    <!--Stackpanel for the Student List-->
+                                    <StackPanel Grid.Column="1" Grid.Row="1" Margin="50 0 50 30">
                                         <!--Datagrid for the Student List-->
                                         <DataGrid x:Name="Students_list"
                                             FontFamily="Roboto"
@@ -138,7 +140,7 @@
                                             VerticalContentAlignment="Stretch"
                                             ToolTip="Student List"
                                             HorizontalAlignment="Center"
-                                            Width="700" Height="325"
+                                            Width="700" Height="420"
                                             IsReadOnly="True" 
                                             IsTextSearchEnabled="True" 
                                             CanUserResizeRows="False" 
@@ -147,7 +149,7 @@
                                             CanUserResizeColumns="False" 
                                             GridLinesVisibility="None"
                                             BorderThickness="0" 
-                                            Padding="5,5,5,5" Margin="0,0,0,12">
+                                            Padding="5,5,5,5" VerticalAlignment="Top" Margin="0,10,0,10">
 
                                             <!--<ColumnHeader>-->
                                             <DataGrid.Columns>
@@ -194,30 +196,31 @@
                                                 Content="Import Grade"
                                                 BorderThickness="0"
                                                 Height="40" Width="150"
+                                                VerticalAlignment="Bottom"
+                                                HorizontalAlignment="Right"
                                                 FontFamily="Tienne" FontWeight="Bold"
                                                 Style="{StaticResource MaterialDesignRaisedButton}"
-                                                Background="#f1ac6a" Foreground="White"
+                                                Background="#F6F1AC6A" Foreground="White"
                                                 materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                                materialDesign:RippleAssist.Feedback="#DD000000" 
-                                                HorizontalAlignment="Right" Margin="0,0,20,0" Click="ImportGrade_Click"/>
+                                                materialDesign:RippleAssist.Feedback="#DD000000" Click="ImportGrade_Click" Margin="0,10,0,0"/>
 
                                     </StackPanel>
-                                </Grid>
-                            </StackPanel>
-                        </materialDesign:Card>
+                                </StackPanel>
+                            </materialDesign:Card>
+                        </Grid>
                     </TabItem>
 
                     <!--View Specific Student Record-->
                     <TabItem
                         Header="View Student Record"
-                        FontFamily="Tienne" FontSize="16" 
-                        FontWeight="Bold" Height="50" 
+                        FontFamily="Tienne" FontSize="20" 
+                        FontWeight="Bold" Height="70" 
                         Width="250">
-                        <Grid Grid.ColumnSpan="2">
+                        <Grid Grid.ColumnSpan="2" Margin="30,50,30,200">
                             <StackPanel HorizontalAlignment="Left"
                              Background="White" Grid.Column="0" 
                              materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" Width="267" Margin="50,50,50,0">
+                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" Width="267" Margin="30,50,20,0">
                                 <Label Content="Student Information:" FontFamily="Roboto"
                                    FontWeight="Bold"
                                    FontSize="20" Margin="10,0,0,10" 
@@ -326,29 +329,9 @@
                                     />
                             </StackPanel>
 
-                            <StackPanel Width="500" Height="511" 
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Top" Margin="0,20,50,0">
-                                <StackPanel Height="50" Margin="0,10,5,8" 
-                                        Width="328" HorizontalAlignment="Right">
-                                    <TextBox x:Name="txt_searchStudReport"
-                                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                        VerticalAlignment="Top"
-                                        Height="40" Width="250"
-                                        AcceptsReturn="True"
-                                        TextWrapping="Wrap"
-                                        Padding="10 10"
-                                        FontFamily="Tienne"
-                                        FontWeight="Bold"
-                                        FontSize="16"
-                                        BorderBrush="#e36934"
-                                        Margin="50,5,0,20"
-                                        HorizontalAlignment="Right"
-                                        materialDesign:HintAssist.Foreground="#e36934"
-                                        materialDesign:HintAssist.Hint="SEARCH" 
-                                        materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                                        TextChanged="TxtSearchStudReport_Changed"/>
-                                </StackPanel>
+                            <Grid Width="Auto" Height="Auto" 
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Top" Margin="0,60,0,0">
 
                                 <DataGrid x:Name="Report_list"
                                     FontFamily="Roboto"
@@ -361,8 +344,8 @@
                                     HorizontalContentAlignment="Stretch" 
                                     VerticalContentAlignment="Stretch"
                                     ToolTip="Course Curriculum"
-                                    HorizontalAlignment="Center"
-                                    Width="496" Height="433"
+                                    HorizontalAlignment="Left"
+                                    Width="420" Height="450"
                                     IsReadOnly="True" 
                                     IsTextSearchEnabled="True" 
                                     CanUserResizeRows="False" 
@@ -371,7 +354,7 @@
                                     CanUserResizeColumns="False" 
                                     GridLinesVisibility="None"
                                     BorderThickness="0" 
-                                    Padding="5,5,5,5" FontWeight="Normal">
+                                    Padding="5,5,5,5" FontWeight="Normal" Margin="320,0,0,50" VerticalAlignment="Top">
 
                                     <!--<ColumnHeader>-->
                                     <DataGrid.Columns>
@@ -427,7 +410,24 @@
                                             IsReadOnly="True"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
-                            </StackPanel>
+                            </Grid>
+                            <TextBox x:Name="txt_searchStudReport"
+                                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                        VerticalAlignment="Top"
+                                        Height="40"
+                                        AcceptsReturn="True"
+                                        TextWrapping="Wrap"
+                                        Padding="10 10"
+                                        FontFamily="Tienne"
+                                        FontWeight="Bold"
+                                        FontSize="16"
+                                        BorderBrush="#e36934"
+                                        Margin="0,0,50,20"
+                                        materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
+                                        materialDesign:HintAssist.Foreground="#e36934"
+                                        materialDesign:HintAssist.Hint="SEARCH" 
+                                        materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                        TextChanged="TxtSearchStudReport_Changed" HorizontalAlignment="Right" Width="250"/>
                         </Grid>
                     </TabItem>
                 </TabControl>

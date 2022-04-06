@@ -18,6 +18,7 @@ namespace Student_Subject_Evaluation
             MWinstance = this;
             User = UserPass;
             date.Text = DateTime.Now.ToString("dddddd , MM/dd/yyyy, hh:mm");
+            
         }
 
         private void btn_logout_Checked(object sender, RoutedEventArgs e)
@@ -29,6 +30,5 @@ namespace Student_Subject_Evaluation
                 this.Close();
             }
         }
-
     }
 }

@@ -13,16 +13,19 @@
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True"
-        Height="740" Width="1180">
+        Height="auto" Width="Auto"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        WindowState="Maximized">
 
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
 
-    <Border Background = "#FFDF612B" CornerRadius="15">
+    <Border Background = "#FFDF612B">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="280"/>
+                <ColumnDefinition Width="300"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
@@ -42,8 +45,8 @@
 
             <!--LOGO-->
             <StackPanel Orientation="Horizontal">
-                <StackPanel Width="282" Height="250" VerticalAlignment="Center">
-                    <Image x:Name="Plv_logo" Source="/Images/Plv-logo.png" Height="150" Width="150" Margin="0,70,0,50"/>
+                <StackPanel Width="300" Height="250" VerticalAlignment="Center">
+                    <Image x:Name="Plv_logo" Source="/Images/Plv-logo.png" Height="150" Width="150" Margin="0,70,0,50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </StackPanel>
             </StackPanel>
 

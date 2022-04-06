@@ -8,26 +8,27 @@
              xmlns:local="clr-namespace:Student_Subject_Evaluation.MVVM.View"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="740" d:DesignWidth="900">
+             Height="auto" Width="Auto"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch">
     <!--to acces the viewmodel-->
     <UserControl.DataContext>
         <viewModel:HomeViewModel/>
     </UserControl.DataContext>
-    
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="330"/>
+            <RowDefinition Height="400"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        
+
+        <!--Background-->
+        <Border Background="White" Grid.RowSpan="2"/>
+
         <!--PLV picture-->
-        <Border CornerRadius="15" Background="White" Grid.RowSpan="2">
-            <StackPanel Orientation="Horizontal">
-                <Border Width="900" Height="330" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <Image Source="/Images/plv-home.png"/>
-                </Border>
-            </StackPanel>
-        </Border>
+        <Grid>
+            <Image Source="/Images/plv-home.png"/>
+        </Grid>
 
         <!--Orange line-->
         <StackPanel Grid.Row="1">
@@ -40,45 +41,54 @@
                     materialDesign:ShadowAssist.ShadowEdges="Bottom"/>
         </StackPanel>
 
-        <!--Content of the Homepage-->
-        <materialDesign:Card Grid.Row="1" UniformCornerRadius="20" 
-                materialDesign:ShadowAssist.ShadowDepth="Depth2" Background="#FFDF612B" Margin="55,42,550,313" Height="50">
-            <TextBlock Grid.Row="1" Text="Mission and Vision" 
+        <StackPanel Grid.Row="1">
+            <!--Content of the Homepage-->
+            <Border Grid.Row="1" CornerRadius="10" 
+                materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                             Background="#FFDF612B" 
+                             Margin="50,50,0,0" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" d:LayoutOverrides="Height">
+                <TextBlock Grid.Row="1" Text="Mission and Vision" 
                        VerticalAlignment="Center"
-                       Foreground="White" FontSize="25" 
-                       HorizontalAlignment="Center" FontFamily="Tienne"
+                       Foreground="White" FontSize="30" FontFamily="Tienne" Margin="62,0,62,0" d:LayoutOverrides="Width" FontWeight="Bold"
                        />
-        </materialDesign:Card>
+            </Border>
 
-        <!--The mission and vision-->
-        <materialDesign:Card Grid.Row="1" Margin="70,110,40,40" Background="Transparent">
-            <StackPanel Margin="0,10">
-                <TextBlock Grid.Row="1" Text="Mission"
-                       VerticalAlignment="Center"
+            <!--The mission and vision-->
+            <materialDesign:Card Grid.Row="1" Margin="50,30,50,50" 
+                             Background="Transparent" 
+                             HorizontalAlignment="Left" 
+                             Width="auto" Height="auto"
+                             VerticalAlignment="Top">
+                <StackPanel Margin="0,10,0,50">
+                    <TextBlock Grid.Row="1" Text="Mission"
+                       VerticalAlignment="Stretch"
                        Foreground="Black" 
-                       FontSize="20"  Margin="0 0 20 0"
+                       FontSize="24"  Margin="0 0 20 0"
                        HorizontalAlignment="Left" 
                        FontWeight="Bold" FontFamily="Tienne"/>
-                <TextBlock Grid.Row="1" Text="To provide the citizens of Valenzuela an efficient and effective institution of higher learning that will make&#x0a;them skillful, productive, competent, competitive, civic-minded, and God loving toward a peaceful, healthy&#x0a;and progressive city of Valenzuela."
-                       Foreground="Black"  FontSize="16"  
+                    <TextBlock Grid.Row="1" Text="To provide the citizens of Valenzuela an efficient and effective institution of higher learning that will make them skillful,&#x0a; productive, competent, competitive, civic-minded, and God loving toward a peaceful, healthy&#x0a;and progressive city of Valenzuela."
+                       Foreground="Black"  FontSize="20"  
                        HorizontalAlignment="Left" 
-                       Width="803" Margin="0 20 20 0"
+                       Width="1054" Margin="50,20,20,0"
                        FontFamily="Roboto"/>
-                <TextBlock Grid.Row="1" Text="Vision" 
-                       VerticalAlignment="Center"
-                       Foreground="Black" FontSize="20"  
+                    <TextBlock Grid.Row="1" Text="Vision" 
+                       VerticalAlignment="Stretch"
+                       Foreground="Black" FontSize="24"  
                        HorizontalAlignment="Left" 
                        FontWeight="Bold" Margin="0 20 20 0"
                        FontFamily="Tienne"/>
-                <TextBlock Grid.Row="1" Text="A dynamic center for the development of competent and competitive human resource as foundation for &#x0a;growth and advancement of the City of Valenzuela. "
-                       Foreground="Black" FontSize="16"  
-                       HorizontalAlignment="Left" Margin="0 20 20 0"
-                       Width="806" FontFamily="Roboto"/>
-            </StackPanel>
-        </materialDesign:Card>
+                    <TextBlock Grid.Row="1" Text="A dynamic center for the development of competent and competitive human resource as foundation for growth and &#x0a;advancement of the City of Valenzuela. "
+                       Foreground="Black" FontSize="20"  
+                       HorizontalAlignment="Left" Margin="50,20,20,50"
+                       Width="1097" FontFamily="Roboto"/>
+                </StackPanel>
+            </materialDesign:Card>
+        </StackPanel>
+       
 
         <!--Popupbox (three dots)-->
-        <StackPanel Grid.Column="3" Grid.Row="0">
+        <StackPanel Grid.Row="0" Margin="0,0,0,5">
+
             <materialDesign:PopupBox 
                 HorizontalAlignment="Right"
                 Margin="0 20 20 0"

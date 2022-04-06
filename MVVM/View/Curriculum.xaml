@@ -7,7 +7,9 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModel="clr-namespace:Student_Subject_Evaluation.MVVM.View_Model"
              mc:Ignorable="d" 
-             d:DesignHeight="740" d:DesignWidth="900" FontFamily="Tienne Black">
+             Height="auto" Width="Auto"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch" FontFamily="Tienne Black">
 
     <UserControl.DataContext>
         <viewModel:CurriculumViewModel/>
@@ -23,8 +25,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Border CornerRadius="15"
-                Background="white" 
+        <Border Background="white" 
                 Grid.RowSpan="2" 
                 Grid.ColumnSpan="2">
             <StackPanel Margin="80,25,50,0" 
@@ -66,7 +67,7 @@
 
         <!--Orange line-->
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" >
-            <StackPanel Grid.Row="1">
+            <StackPanel Grid.Row="1" Margin="0">
                 <materialDesign:Card Height="10" 
                     VerticalAlignment="Top" 
                     Background="#f1ac6a" 
@@ -75,32 +76,34 @@
                     materialDesign:ShadowAssist.ShadowDepth="Depth2"
                     materialDesign:ShadowAssist.ShadowEdges="Bottom"/>
             </StackPanel>
-            <materialDesign:Card>
+            <materialDesign:Card Margin="0">
                 <TabControl 
-                     Width="880" Height="610"
+                     Width="Auto" Height="Auto" 
                      HorizontalContentAlignment="Left" 
                      Style="{StaticResource MaterialDesignNavigatilRailTabControl}" 
                      TabStripPlacement="Top" materialDesign:ShadowAssist.ShadowDepth="Depth2"
                      materialDesign:ShadowAssist.ShadowEdges="Bottom"
+                     Margin="0" BorderThickness="0,0,0,0"
                      >
 
                     <!--Course Curriculum Table -->
                     <TabItem
                     Header="Course Curriculum List" 
                         IsSelected="True"
-                        FontFamily="Tienne" FontSize="16" 
-                        FontWeight="Bold" Height="50" 
+                        FontFamily="Tienne" FontSize="20" 
+                        FontWeight="Bold" Height="70" 
                         Width="250">
-                        <materialDesign:Card Margin="50,20,50,30"
+                        <materialDesign:Card Margin="30,30,30,200"
                              UniformCornerRadius="20"
-                             Background="White"
+                             Background="White" VerticalAlignment="Top"
+                             HorizontalAlignment="Center"
                              materialDesign:ShadowAssist.ShadowDepth="Depth2"
                              materialDesign:ShadowAssist.ShadowEdges="Bottom,Left">
                             <!--Stackpanel for the Course Curriculum List-->
-                            <StackPanel Grid.Column="1" Grid.Row="1" Margin="20">
+                            <StackPanel Grid.Column="1" Grid.Row="1" Margin="30">
 
                                 <!--Search box and Icon-->
-                                <StackPanel Height="50" Margin="0,0,10,18" >
+                                <StackPanel Height="50" Margin="0,0,0,20" >
                                     <TextBox x:Name="txt_searchCurr"
                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                     Height="40" Width="240"
@@ -111,8 +114,10 @@
                                     FontWeight="Bold"
                                     FontSize="16"
                                     BorderBrush="#e36934"
-                                    Margin="50,5,10,20"
+                                    Margin="50,5,10,10"
                                     HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
                                     materialDesign:HintAssist.Foreground="#e36934"
                                     materialDesign:HintAssist.Hint="SEARCH" 
                                     materialDesign:ShadowAssist.ShadowDepth="Depth1"
@@ -132,7 +137,7 @@
                                     VerticalContentAlignment="Stretch"
                                     ToolTip="Course Curriculum"
                                     HorizontalAlignment="Center"
-                                    Width="700" Height="403"
+                                    Width="1040" Height="440"
                                     IsReadOnly="True" 
                                     IsTextSearchEnabled="True" 
                                     CanUserResizeRows="False" 
@@ -141,7 +146,7 @@
                                     CanUserResizeColumns="False" 
                                     GridLinesVisibility="None"
                                     BorderThickness="0" 
-                                    Padding="5,5,5,5" FontWeight="Normal">
+                                    Padding="5,5,5,5" FontWeight="Normal" Margin="10,0,10,10" VerticalAlignment="Top">
 
                                     <!--<ColumnHeader>-->
                                     <DataGrid.Columns>
@@ -193,7 +198,7 @@
                                         <DataGridTextColumn 
                                             Header="Batch No." 
                                             Binding="{Binding CourseBatch}"
-                                            Width="100" 
+                                            Width="80" 
                                             FontFamily="Tienne" 
                                             FontSize="16" 
                                             IsReadOnly="True"
@@ -207,29 +212,33 @@
                     <!--Importing New Course Curriculum Table-->
                     <TabItem
                         Header="Import New Curriculum"
-                        FontFamily="Tienne" FontSize="16" 
-                        FontWeight="Bold" Height="50" 
+                        FontFamily="Tienne" FontSize="20" 
+                        FontWeight="Bold" Height="70" 
                         Width="250">
-                        <materialDesign:Card Grid.Row="1" Margin="50 50 50 80"
+                        <materialDesign:Card Grid.Row="1" 
                              UniformCornerRadius="20"
                              Background="White"
                              materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left">
+                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" 
+                                             Height="Auto"  Width="Auto" VerticalAlignment="Top"
+                                             HorizontalAlignment="Center" Margin="0,30,0,100">
 
-                            <StackPanel Width="400" Margin="0 10">
-                                <Label Content="Import New Curriculum:" FontFamily="Roboto" 
+                            <StackPanel Width="400" Margin="30,30,30,30" 
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Top">
+                                <Label Content="Import New Curriculum:" FontFamily="Tienne" 
                            FontWeight="Bold"
-                           FontSize="16" 
+                           FontSize="20" 
                            Foreground="#e36934"
-                           HorizontalAlignment="Left"/>
+                           HorizontalAlignment="Left" Padding="4,4,4,4" Margin="0,0,0,10"/>
 
                                 <!--Deparrtment-->
-                                <ComboBox x:Name="cbx_currDepartment" Margin="0,0,0,10"
+                                <ComboBox x:Name="cbx_currDepartment" Margin="0,0,0,15"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:HintAssist.Hint="Department"
                           Width="250" Padding="10"
                           FontFamily="Roboto"
-                          FontSize="16" FontWeight="Bold">
+                          FontSize="16" FontWeight="Bold" BorderThickness="0,0,0,1">
                                     <ComboBoxItem Content="BSCE" />
                                     <ComboBoxItem Content="BSEE" />
                                     <ComboBoxItem Content="BSIT" />
@@ -249,7 +258,7 @@
                                 </ComboBox>
 
                                 <!--Year Level-->
-                                <ComboBox x:Name="cbx_currYearlevel" Margin="0,0,0,10"
+                                <ComboBox x:Name="cbx_currYearlevel" Margin="0,0,0,15"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:HintAssist.Hint="Year Level"
                           Width="250" Padding="10"
@@ -262,7 +271,7 @@
                                 </ComboBox>
 
                                 <!--Semester-->
-                                <ComboBox x:Name="cbx_currSemester" Margin="0,0,0,10"
+                                <ComboBox x:Name="cbx_currSemester" Margin="0,0,0,15"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:HintAssist.Hint="Semester"
                           Width="250" Padding="10"
@@ -275,8 +284,8 @@
                                 <!--Import New Curriculum-->
                                 <Button x:Name="btn_importCurriculum"
                     Content="Import New"
-                    Margin="0 30 0 10"
-                    BorderThickness="0"
+                    Margin="0,50,0,50"
+                    BorderThickness="0,0,0,0"
                     Height="40" Width="150"
                     FontFamily="Tienne" FontWeight="Bold"
                     Style="{StaticResource MaterialDesignRaisedButton}"

@@ -18,6 +18,7 @@ namespace Student_Subject_Evaluation
         public Login()
         {
             InitializeComponent();
+
             Passwordtext.Visibility = System.Windows.Visibility.Hidden;
 
             //This is to encrypt the password
@@ -63,18 +64,6 @@ namespace Student_Subject_Evaluation
         {
             pbx_password.Visibility = System.Windows.Visibility.Visible;
             Passwordtext.Visibility = Visibility.Hidden;
-        }
-
-        private void passwordtextbox_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (pbx_password.Password != "" && txt_username.Text != "" && e.Key == Key.Enter)
-            {
-                login();
-            }
-            else
-            {
-                MessageBox.Show("Please input your username/email and password to login.");
-            }
         }
 
         public void login()
@@ -148,5 +137,6 @@ namespace Student_Subject_Evaluation
         {
             Application.Current.Shutdown();
         }
+        
     }
 }

@@ -11,7 +11,10 @@
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True"
-        Height="740" Width="1180">
+        Height="auto" Width="Auto"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        WindowState="Maximized">
 
     <!--Grid definitions (Lines that act as divider and Guide)-->
     <Grid>
@@ -30,9 +33,12 @@
         </Grid.ColumnDefinitions>
 
         <!--The main background-->
-        <Border CornerRadius="15" Grid.RowSpan="4" Grid.ColumnSpan="4">
-            <StackPanel>
-                <Image Source="/Images/plv_login.png"/>
+        <Border Grid.RowSpan="4" Grid.ColumnSpan="4">
+            <StackPanel Margin="1">
+                <Image Source="/Images/plv_login.png" 
+                       Height="Auto" Width="Auto"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Stretch"/>
             </StackPanel>
         </Border>
 
@@ -42,6 +48,7 @@
             <!-- (u can only use card if you are using materialdesign theme)-->
             <materialDesign:Card UniformCornerRadius="20" Grid.Row="1" 
                 Grid.RowSpan="2" Grid.Column="1"
+                Margin ="20"
                 Grid.ColumnSpan="2" Height="370"
                 Width="420" Background="#B2E36934" 
                 materialDesign:ShadowAssist.ShadowDepth="Depth3">
@@ -52,7 +59,7 @@
                            FontWeight="Bold"
                            Foreground="White"
                            HorizontalAlignment="Center"
-                           Margin="0,50,0,30">
+                           Margin="0,60,0,30">
                     </TextBlock>
 
                     <!--Textbox for username/ email (i used border to make the corner rounded)-->
@@ -78,7 +85,7 @@
                         Background="white"
                         Margin="0,20,0,0"
                         materialDesign:ShadowAssist.ShadowDepth="Depth0">
-                        <StackPanel>
+                        <Grid>
                             <PasswordBox x:Name="pbx_password" Height="50"
                               BorderThickness="0"
                               Background="Transparent"
@@ -89,9 +96,36 @@
                               Foreground="#e36934"
                               FontWeight="Bold"
                               FontFamily="Tienne"
-                              Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
-                              Width="286" Margin="10,0,0,0"/>
-                        </StackPanel>
+                              Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Margin="10,0,2,0"/>
+
+                            <!--The stackpanel for the show password button and icon-->
+                            <Grid 
+                                RenderTransformOrigin="0.5,0.5" Margin="252,10,10,12" VerticalAlignment="Bottom">
+                                <Button  Height="30" Background="Transparent" 
+                                         BorderBrush="{x:Null}" 
+                                         BorderThickness="0,0,0,0" 
+                                         Width="33" Padding="0">
+                                    <Image Source="Images/eye.png"
+                                           MouseEnter="mouseentercover" 
+                                           MouseLeave="mouseleaving"
+                                           HorizontalAlignment="Center"
+                                           ToolTip="Show Password" Height="30" Width="28"
+                                           RenderTransformOrigin="-0.313,0.424"/>
+                                </Button>
+                            </Grid>
+
+                            <!--Textbox for the textbox where we will show the password-->
+                            <TextBox x:Name="Passwordtext" 
+                                     Height="21" 
+                                     FontFamily="Tienne" FontWeight="Bold" 
+                                     FontSize="16" 
+                                     BorderThickness="0"
+                                     HorizontalContentAlignment="Left"
+                                     VerticalContentAlignment="Bottom"
+                                     Foreground="#e36934" Padding="0"
+                                     IsEnabled="False" SpellCheck.IsEnabled="True"
+                                     Background="Transparent" Margin="10,16,53,13" d:LayoutOverrides="VerticalAlignment"/>
+                        </Grid>
                     </materialDesign:Card>
 
                     <!--The button for LOGIN-->
@@ -110,41 +144,7 @@
             </materialDesign:Card>
         </StackPanel>
 
-        <!--The stackpanel for the show password button and icon-->
-        <StackPanel Margin="104,-7,155,0" 
-                    Grid.Column="2" 
-                    Grid.Row="2"
-                    VerticalAlignment="Top" 
-                    d:LayoutOverrides="VerticalAlignment" 
-                    RenderTransformOrigin="0.5,0.5" Height="37">
-            <Button  Height="30" Background="Transparent" 
-                     BorderBrush="{x:Null}" 
-                     BorderThickness="0,0,0,0" 
-                     Width="33" Padding="0">
-                <Image Source="Images/eye.png"
-                       MouseEnter="mouseentercover" 
-                       MouseLeave="mouseleaving"
-                       HorizontalAlignment="Center"
-                       ToolTip="Show Password" Height="30" Width="28"
-                       RenderTransformOrigin="-0.313,0.424"/>
-            </Button>
-        </StackPanel>
 
-        <!--Stackpanel for the textbox where we will show the password-->
-        <Grid Margin="147,-13,0,0" 
-                    Grid.Column="1" 
-                    Grid.Row="2"
-                    VerticalAlignment="Top" Height="49" HorizontalAlignment="Left" Grid.ColumnSpan="2" Width="296">
-            <TextBox x:Name="Passwordtext" 
-                    Height="37" 
-                    FontFamily="Tienne" FontWeight="Bold" 
-                    FontSize="16" Width="249" 
-                    Foreground="#e36934" Padding="0"
-                    PreviewKeyDown="passwordtextbox_PreviewKeyDown" 
-                    IsEnabled="False" SpellCheck.IsEnabled="True"
-                    Background="Transparent" HorizontalAlignment="Left" Margin="10,15,0,0" 
-                    />
-        </Grid>
 
         <!--Code for the Popupbox-->
         <StackPanel Grid.Column="3" Grid.Row="0">
