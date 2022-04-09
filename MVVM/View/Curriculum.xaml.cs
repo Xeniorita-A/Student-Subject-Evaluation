@@ -174,11 +174,6 @@ namespace Student_Subject_Evaluation.MVVM.View
             }
         }
 
-        private void btnImport(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
         //For the list where we load the csv file
         public class ImportSubject
         {
@@ -191,6 +186,7 @@ namespace Student_Subject_Evaluation.MVVM.View
         }
 
         //added for curriculum import: This will display the CSV data into the Datagrid
+        //I still have problem regarding this method. When the CSV data has comma "," it will be transfered to another column
         void bindDataCSV(string filePath)
         {
             try
@@ -199,6 +195,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                 string[] lines = System.IO.File.ReadAllLines(filePath);
                 if (lines.Length > 0)
                 {
+                    //the first line on the csv file will be our column header on the datagrid
                     string firstline = lines[0];
                     string[] headerLabels = firstline.Split(',');
 
@@ -207,8 +204,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                         dt.Columns.Add(new DataColumn(headerWord));
                     }
 
-                    //for data
-
+                    //for the data
                     for (int r = 1; r < lines.Length; r++)
                     {
                         string[] dataWords = lines[r].Split(',');
@@ -222,6 +218,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                     }
                     if (dt.Rows.Count > 0)
                     {
+                        //We will make the datatable the source for the datagrid
                         Import_list.ItemsSource = dt.DefaultView;
                     }
                 }
@@ -235,11 +232,9 @@ namespace Student_Subject_Evaluation.MVVM.View
         //Button choose file
         private void btnChoose(object sender, RoutedEventArgs e)
         {
-            //Import_list.ItemsSource = ReadCSV();
-            //lFnLoadFileData();
-          
             try
             {
+                //this will open the windows dialog so we can shoose the file
                 Microsoft.Win32.OpenFileDialog lObjFileDlge = new Microsoft.Win32.OpenFileDialog();
                 lObjFileDlge.Filter = "CSV Files|*.csv";
                 lObjFileDlge.FilterIndex = 1;
@@ -255,7 +250,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                     StreamReader lObjStreamReader = new StreamReader(fName);
                     var lines = File.ReadAllLines(fName);
                     txt_Filepath.Text = fName.ToString();
-                    //System.Windows.MessageBox.Show(lObjStreamReader.ToString());
                     bindDataCSV(txt_Filepath.Text);
                     lObjStreamReader.Close();
                 }
