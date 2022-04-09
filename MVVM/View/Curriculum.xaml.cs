@@ -1,7 +1,14 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.Win32;
+using MySql.Data.MySqlClient;
 using System;
+using System.Data;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Student_Subject_Evaluation.MVVM.View
 {
@@ -21,7 +28,6 @@ namespace Student_Subject_Evaluation.MVVM.View
         //This is case sensitive so always check the spelling
         public class CourseCurriculum
         {
-            public int CourseNo { get; set; }
             public string? CourseCode { get; set; }
             public string? CourseTitle { get; set; }
             public int CourseUnits { get; set; }
@@ -57,7 +63,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                     {
                         CourseCurriculum _subjects1 = new CourseCurriculum
                         {
-                            CourseNo = reader.GetInt16(1),
                             CourseCode = reader.GetString(2),
                             CourseTitle = reader.GetString(3),
                             CourseUnits = reader.GetInt16(4),
@@ -74,7 +79,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                         //we will store the data into the variable _subject so we can add it in the datagrid
                         CourseCurriculum _subjects = new CourseCurriculum
                         {
-                            CourseNo = reader.GetInt16(1),
                             CourseCode = reader.GetString(2),
                             CourseTitle = reader.GetString(3),
                             CourseUnits = reader.GetInt16(4),
@@ -124,7 +128,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                 {
                     CourseCurriculum _subjects = new CourseCurriculum
                     {
-                        CourseNo = reader.GetInt16(1),
                         CourseCode = reader.GetString(2),
                         CourseTitle = reader.GetString(3),
                         CourseUnits = reader.GetInt16(4),
@@ -167,10 +170,123 @@ namespace Student_Subject_Evaluation.MVVM.View
             if (MessageBox.Show("Are you sure you want to log out and exit application?", "EXIT",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                Application.Current.Shutdown();
+                System.Windows.Application.Current.Shutdown();
+            }
+        }
+
+        private void btnImport(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        //For the list where we load the csv file
+        public class ImportSubject
+        {
+            public string? SubjectCode { get; set; }
+            public string? SubjectTitle { get; set; }
+            public int SubjectUnits { get; set; }
+            public string? SubjectPrereq { get; set; }
+            public string? SubjectSem { get; set; }
+            public int SubjectYear { get; set; }
+        }
+
+        //added for curriculum import: This will display the CSV data into the Datagrid
+        void bindDataCSV(string filePath)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                string[] lines = System.IO.File.ReadAllLines(filePath);
+                if (lines.Length > 0)
+                {
+                    string firstline = lines[0];
+                    string[] headerLabels = firstline.Split(',');
+
+                    foreach (string headerWord in headerLabels)
+                    {
+                        dt.Columns.Add(new DataColumn(headerWord));
+                    }
+
+                    //for data
+
+                    for (int r = 1; r < lines.Length; r++)
+                    {
+                        string[] dataWords = lines[r].Split(',');
+                        DataRow dr = dt.NewRow();
+                        int columnIndex = 0;
+                        foreach (string headerWord in headerLabels)
+                        {
+                            dr[headerWord] = dataWords[columnIndex++];
+                        }
+                        dt.Rows.Add(dr);
+                    }
+                    if (dt.Rows.Count > 0)
+                    {
+                        Import_list.ItemsSource = dt.DefaultView;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("There's something wrong with the file choosen. File not found or file was corrupted.");
+            }
+        }
+
+        //Button choose file
+        private void btnChoose(object sender, RoutedEventArgs e)
+        {
+            //Import_list.ItemsSource = ReadCSV();
+            //lFnLoadFileData();
+          
+            try
+            {
+                Microsoft.Win32.OpenFileDialog lObjFileDlge = new Microsoft.Win32.OpenFileDialog();
+                lObjFileDlge.Filter = "CSV Files|*.csv";
+                lObjFileDlge.FilterIndex = 1;
+                lObjFileDlge.Multiselect = false;
+                string fName = "";
+                bool? lBlnUserclicked = lObjFileDlge.ShowDialog();
+                if (lBlnUserclicked != null || lBlnUserclicked == true)
+                {
+                    fName = lObjFileDlge.FileName;
+                }
+                if (System.IO.File.Exists(fName) == true)
+                {
+                    StreamReader lObjStreamReader = new StreamReader(fName);
+                    var lines = File.ReadAllLines(fName);
+                    txt_Filepath.Text = fName.ToString();
+                    //System.Windows.MessageBox.Show(lObjStreamReader.ToString());
+                    bindDataCSV(txt_Filepath.Text);
+                    lObjStreamReader.Close();
+                }
+                else
+                {
+                    MessageBox.Show("File not found!");
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        private void txt_Filepath_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                if (txt_Filepath.Text == "")
+                {
+                    MessageBox.Show("Please input the file path or click choose");
+                }
+                else if (txt_Filepath.Text != "")
+                {
+                    bindDataCSV(txt_Filepath.Text);
+                }
             }
         }
     }
-}
+
+ }
+
 
 

@@ -96,7 +96,7 @@
                               Foreground="#e36934"
                               FontWeight="Bold"
                               FontFamily="Tienne"
-                              Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Margin="10,0,2,0"/>
+                              Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Margin="10,0,2,0" KeyDown="pbx_password_KeyDown"/>
 
                             <!--The stackpanel for the show password button and icon-->
                             <Grid 

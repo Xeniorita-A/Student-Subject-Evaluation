@@ -137,6 +137,20 @@ namespace Student_Subject_Evaluation
         {
             Application.Current.Shutdown();
         }
-        
+
+        private void pbx_password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                if (txt_username.Text == "" && pbx_password.Password == "")
+                {
+                    MessageBox.Show("Please input your username/email and password.");
+                }
+                else 
+                {
+                    login();
+                }
+            }
+        }
     }
 }

@@ -18,7 +18,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
-            <RowDefinition />
+            <RowDefinition Height="334*" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -26,8 +26,7 @@
         </Grid.ColumnDefinitions>
 
         <Border Background="white" 
-                Grid.RowSpan="2" 
-                Grid.ColumnSpan="2">
+                Grid.RowSpan="3">
             <StackPanel Margin="80,25,50,0" 
                         Height="67" 
                         VerticalAlignment="Top">
@@ -41,7 +40,7 @@
         </Border>
 
         <!--Code for popupbox-->
-        <StackPanel Grid.Column="1">
+        <StackPanel>
             <materialDesign:PopupBox 
                 HorizontalAlignment="Right"
                 Margin="0 20 20 0"
@@ -66,7 +65,7 @@
         </StackPanel>
 
         <!--Orange line-->
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" >
+        <StackPanel Grid.Row="1" Grid.RowSpan="2" >
             <StackPanel Grid.Row="1" Margin="0">
                 <materialDesign:Card Height="10" 
                     VerticalAlignment="Top" 
@@ -172,7 +171,7 @@
                                             FontSize="16" 
                                             IsReadOnly="True"/>
                                         <DataGridTextColumn 
-                                            Header="Pre Requisite(s)" 
+                                            Header="Pre Req" 
                                             Binding="{Binding CoursePrereq}"
                                             Width="120" 
                                             FontFamily="Tienne" 
@@ -180,7 +179,7 @@
                                             IsReadOnly="True"
                                             />
                                         <DataGridTextColumn 
-                                            Header="Year Level" 
+                                            Header="Subject Year" 
                                             Binding="{Binding CourseYearlvl}"
                                             Width="100" 
                                             FontFamily="Tienne" 
@@ -188,7 +187,7 @@
                                             IsReadOnly="True"
                                             />
                                         <DataGridTextColumn 
-                                            Header="Semester" 
+                                            Header="Subject Semester" 
                                             Binding="{Binding CourseSem}"
                                             Width="150" 
                                             FontFamily="Tienne" 
@@ -215,86 +214,153 @@
                         FontFamily="Tienne" FontSize="20" 
                         FontWeight="Bold" Height="70" 
                         Width="250">
-                        <materialDesign:Card Grid.Row="1" 
+                        <materialDesign:Card Margin="30,30,30,50"
                              UniformCornerRadius="20"
-                             Background="White"
+                             Background="White" VerticalAlignment="Top"
+                             HorizontalAlignment="Center"
                              materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" 
-                                             Height="Auto"  Width="Auto" VerticalAlignment="Top"
-                                             HorizontalAlignment="Center" Margin="0,30,0,100">
+                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left">
 
-                            <StackPanel Width="400" Margin="30,30,30,30" 
+                            <!--Grid for the Course Curriculum List where we load the excel file-->
+                            <Grid Width="Auto" Margin="0,0,0,20" 
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Top">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="49*"/>
+                                    <RowDefinition Height="151*"/>
+                                    <RowDefinition Height="331*"/>
+                                </Grid.RowDefinitions>
                                 <Label Content="Import New Curriculum:" FontFamily="Tienne" 
-                           FontWeight="Bold"
-                           FontSize="20" 
-                           Foreground="#e36934"
-                           HorizontalAlignment="Left" Padding="4,4,4,4" Margin="0,0,0,10"/>
+                                   FontWeight="Bold"
+                                   FontSize="20" 
+                                   Foreground="#e36934"
+                                   HorizontalAlignment="Left" Padding="4,4,4,4" Margin="30,15,0,2" Width="237" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
 
                                 <!--Deparrtment-->
-                                <ComboBox x:Name="cbx_currDepartment" Margin="0,0,0,15"
-                          Style="{StaticResource MaterialDesignFilledComboBox}"
-                          materialDesign:HintAssist.Hint="Department"
-                          Width="250" Padding="10"
-                          FontFamily="Roboto"
-                          FontSize="16" FontWeight="Bold" BorderThickness="0,0,0,1">
+                                <ComboBox x:Name="cbx_currDepartment" Margin="330,0,0,16"
+                                      Style="{StaticResource MaterialDesignFilledComboBox}"
+                                      materialDesign:HintAssist.Hint="Department" Padding="10 0 0 0"
+                                      FontFamily="Roboto" Height="40"
+                                      FontSize="16" FontWeight="Bold" BorderThickness="0,0,0,1" 
+                                      VerticalAlignment="Bottom" 
+                                      d:LayoutOverrides="VerticalAlignment" 
+                                      RenderTransformOrigin="0.49,-0.186" 
+                                      Grid.Row="2" HorizontalAlignment="Left" Width="250">
                                     <ComboBoxItem Content="BSCE" />
                                     <ComboBoxItem Content="BSEE" />
                                     <ComboBoxItem Content="BSIT" />
                                 </ComboBox>
-
+                                <!--File Name-->
+                                <Label Content="File Path:" FontFamily="Tienne" 
+                                   FontWeight="Bold"
+                                   FontSize="16" 
+                                   Foreground="#e36934"
+                                   HorizontalAlignment="Left" 
+                                   Padding="4,4,4,4" 
+                                   Margin="40,16,0,0" 
+                                   Height="34" VerticalAlignment="Top" Grid.Row="1" d:LayoutOverrides="HorizontalAlignment" Width="77"/>
+                                <TextBox x:Name="txt_Filepath"
+                                   Height="40"
+                                   Margin="160,10,0,0"
+                                   Padding="10 0 0 0"
+                                   BorderThickness="0"
+                                   VerticalContentAlignment="Stretch"
+                                   HorizontalAlignment="Left"
+                                   Foreground="Black"
+                                   FontSize="16"
+                                   FontFamily="Roboto"
+                                   FontWeight="Regular"
+                                   materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                   materialDesign:TextFieldAssist.HasClearButton="True"
+                                   materialDesign:HintAssist.Foreground="#f1ac6a" 
+                                   CaretBrush="#FFE36934" 
+                                   SelectionBrush="#FFF1AC6A"
+                                   VerticalAlignment="Top"
+                                   materialDesign:TextFieldAssist.TextFieldCornerRadius="4"
+                                   Style="{StaticResource MaterialDesignFilledTextBox}" 
+                                         Grid.Row="1" Width="650" KeyDown="txt_Filepath_KeyDown"/>
                                 <!--Batch Number-->
-                                <ComboBox x:Name="cbx_currBatch" Margin="0,0,0,10"
-                          Style="{StaticResource MaterialDesignFilledComboBox}"
-                          materialDesign:HintAssist.Hint="Batch No."
-                          Width="250" Padding="10"
-                          FontFamily="Roboto"
-                          FontSize="16" FontWeight="Bold">
+                                <ComboBox x:Name="cbx_currBatch" Margin="40,0,750,20"
+                                      Style="{StaticResource MaterialDesignFilledComboBox}"
+                                      materialDesign:HintAssist.Hint="Batch No." Padding="10 0 0 0"
+                                      FontFamily="Roboto" Height="40"
+                                      FontSize="16" FontWeight="Bold" 
+                                      VerticalAlignment="Bottom" 
+                                      Grid.Row="2">
                                     <ComboBoxItem Content="2018" />
                                     <ComboBoxItem Content="2019" />
                                     <ComboBoxItem Content="2020" />
                                     <ComboBoxItem Content="2021" />
                                 </ComboBox>
 
-                                <!--Year Level-->
-                                <ComboBox x:Name="cbx_currYearlevel" Margin="0,0,0,15"
-                          Style="{StaticResource MaterialDesignFilledComboBox}"
-                          materialDesign:HintAssist.Hint="Year Level"
-                          Width="250" Padding="10"
-                          FontFamily="Roboto"
-                          FontSize="16" FontWeight="Bold">
-                                    <ComboBoxItem Content="First Year" />
-                                    <ComboBoxItem Content="Second Year" />
-                                    <ComboBoxItem Content="Third Year" />
-                                    <ComboBoxItem Content="Fourth Year" />
-                                </ComboBox>
-
-                                <!--Semester-->
-                                <ComboBox x:Name="cbx_currSemester" Margin="0,0,0,15"
-                          Style="{StaticResource MaterialDesignFilledComboBox}"
-                          materialDesign:HintAssist.Hint="Semester"
-                          Width="250" Padding="10"
-                          FontFamily="Roboto"
-                          FontSize="16" FontWeight="Bold">
-                                    <ComboBoxItem Content="First Semester" />
-                                    <ComboBoxItem Content="Second Semester" />
-                                </ComboBox>
-
                                 <!--Import New Curriculum-->
-                                <Button x:Name="btn_importCurriculum"
-                    Content="Import New"
-                    Margin="0,50,0,50"
-                    BorderThickness="0,0,0,0"
-                    Height="40" Width="150"
-                    FontFamily="Tienne" FontWeight="Bold"
-                    Style="{StaticResource MaterialDesignRaisedButton}"
-                    Background="#f1ac6a" Foreground="White"
-                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                    materialDesign:RippleAssist.Feedback="#DD000000"/>
-                            </StackPanel>
-                        </materialDesign:Card>
+                                <Button x:Name="btn_choose"
+                                    Content="CHOOSE"
+                                    Margin="0,14,48,0"
+                                    BorderThickness="0,0,0,0"
+                                    Height="32"
+                                    FontFamily="Tienne" FontWeight="Bold"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Background="#f1ac6a" Foreground="White"
+                                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                    materialDesign:RippleAssist.Feedback="#DD000000" 
+                                    Click="btnChoose" 
+                                    materialDesign:HintAssist.Hint="Choose and Load file"
+                                    Grid.Row="1" 
+                                    VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" 
+                                    Width="120"/>
 
+                                <Button x:Name="btn_importCurriculum"
+                                    Content="SAVE"
+                                    Margin="0,0,48,20"
+                                    BorderThickness="0,0,0,0"
+                                    FontFamily="Tienne" FontWeight="Bold"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Background="#f1ac6a" Foreground="White"
+                                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                    materialDesign:RippleAssist.Feedback="#DD000000" 
+                                    Click="btnImport" 
+                                    Grid.Row="2" RenderTransformOrigin="0.567,-0.45" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120"/>
+                                <!--Semester-->
+
+                                <!--This is the List-->
+                                <StackPanel Grid.Row="2" Margin="30,20,30,0" VerticalAlignment="Top" Height="454">
+                                    <!--Datagrid for the Course Curriculum-->
+                                    <DataGrid x:Name="Import_list"
+                                        FontFamily="Roboto"
+                                        FontSize="14"
+                                        CanUserSortColumns="True"
+                                        CanUserAddRows="False"
+                                        materialDesign:DataGridAssist.CellPadding="4 2 2 2"
+                                        materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
+                                        ScrollViewer.HorizontalScrollBarVisibility="Visible" 
+                                        HorizontalContentAlignment="Stretch" 
+                                        VerticalContentAlignment="Stretch"
+                                        ToolTip="Course Curriculum from CSV file"
+                                        HorizontalAlignment="Center"
+                                        Width="950" Height="350"
+                                        IsReadOnly="True" 
+                                        IsTextSearchEnabled="True" 
+                                        CanUserResizeRows="False" 
+                                        RowDetailsVisibilityMode="Visible"
+                                        CanUserReorderColumns="False" 
+                                        CanUserResizeColumns="False" 
+                                        GridLinesVisibility="None"
+                                        BorderThickness="0" 
+                                        Padding="5,5,5,5" FontWeight="Normal" Margin="10,0,10,50" VerticalAlignment="Top">
+                                    </DataGrid>
+                                </StackPanel>
+                                <Label Content="*Note: Please choose the Batch no. and department before saving" FontFamily="Tienne" 
+                                    FontWeight="Bold"
+                                    FontSize="12" 
+                                    Foreground="#e36934"
+                                    HorizontalAlignment="Left" 
+                                    Padding="4,4,4,4" 
+                                    Margin="40,385,0,0" 
+                                    Height="34" VerticalAlignment="Top" Grid.Row="2" Width="540"/>
+                            </Grid>
+                        </materialDesign:Card>
                     </TabItem>
                 </TabControl>
             </materialDesign:Card>
