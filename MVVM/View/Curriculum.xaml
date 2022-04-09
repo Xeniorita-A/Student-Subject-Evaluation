@@ -311,7 +311,7 @@
                                     HorizontalAlignment="Right" 
                                     Width="120"/>
 
-                                <Button x:Name="btn_importCurriculum"
+                                <Button x:Name="btn_saveCurriculum"
                                     Content="SAVE"
                                     Margin="0,0,48,20"
                                     BorderThickness="0,0,0,0"
@@ -320,7 +320,6 @@
                                     Background="#f1ac6a" Foreground="White"
                                     materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                     materialDesign:RippleAssist.Feedback="#DD000000" 
-                                    Click="btnImport" 
                                     Grid.Row="2" RenderTransformOrigin="0.567,-0.45" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120"/>
                                 <!--Semester-->
 
