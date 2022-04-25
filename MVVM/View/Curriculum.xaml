@@ -121,6 +121,8 @@
                                     materialDesign:HintAssist.Hint="SEARCH" 
                                     materialDesign:ShadowAssist.ShadowDepth="Depth1"
                                     TextChanged="TextSearchCurr_Changed"/>
+                                    
+                                    
                                 </StackPanel>
 
                                 <!--Datagrid for the Course Curriculum-->
@@ -204,6 +206,19 @@
                                             />
                                     </DataGrid.Columns>
                                 </DataGrid>
+
+                                <Button x:Name="btn_refresh"
+                                        Height="40"
+                                        Width="100"
+                                        Content="REFRESH"
+                                        BorderThickness="0"
+                                        FontFamily="Tienne" FontWeight="Bold"
+                                        Style="{StaticResource MaterialDesignRaisedButton}"
+                                        Background="#f1ac6a" Foreground="White"
+                                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                        materialDesign:RippleAssist.Feedback="#DD000000" 
+                                        Click="refresh_List" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,0"
+                                    ></Button>
                             </StackPanel>
                         </materialDesign:Card>
                     </TabItem>
@@ -280,18 +295,23 @@
                                    Style="{StaticResource MaterialDesignFilledTextBox}" 
                                          Grid.Row="1" Width="650" KeyDown="txt_Filepath_KeyDown"/>
                                 <!--Batch Number-->
-                                <ComboBox x:Name="cbx_currBatch" Margin="40,0,750,20"
-                                      Style="{StaticResource MaterialDesignFilledComboBox}"
+                                <TextBox x:Name="txt_currBatch" Margin="40,0,750,20"
                                       materialDesign:HintAssist.Hint="Batch No." Padding="10 0 0 0"
-                                      FontFamily="Roboto" Height="40"
                                       FontSize="16" FontWeight="Bold" 
                                       VerticalAlignment="Bottom" 
-                                      Grid.Row="2">
-                                    <ComboBoxItem Content="2018" />
-                                    <ComboBoxItem Content="2019" />
-                                    <ComboBoxItem Content="2020" />
-                                    <ComboBoxItem Content="2021" />
-                                </ComboBox>
+                                      Grid.Row="2"
+                                      Height="40" Width="250"
+                                      Foreground="Black"
+                                      FontFamily="Roboto"
+                                      materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                      materialDesign:TextFieldAssist.HasClearButton="True"
+                                      materialDesign:HintAssist.Foreground="#f1ac6a" 
+                                      CaretBrush="#FFE36934" 
+                                      SelectionBrush="#FFF1AC6A"
+                                      TextWrapping="Wrap"
+                                      materialDesign:TextFieldAssist.TextFieldCornerRadius="4"
+                                      Style="{StaticResource MaterialDesignFilledTextBox}">
+                                </TextBox>
 
                                 <!--Import New Curriculum-->
                                 <Button x:Name="btn_choose"
@@ -320,7 +340,7 @@
                                     Background="#f1ac6a" Foreground="White"
                                     materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                     materialDesign:RippleAssist.Feedback="#DD000000" 
-                                    Grid.Row="2" RenderTransformOrigin="0.567,-0.45" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120"/>
+                                    Grid.Row="2" RenderTransformOrigin="0.567,-0.45" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Click="btn_saveCurriculum_Click"/>
                                 <!--Semester-->
 
                                 <!--This is the List-->
@@ -349,6 +369,7 @@
                                         BorderThickness="0" 
                                         Padding="5,5,5,5" FontWeight="Normal" Margin="10,0,10,50" VerticalAlignment="Top">
                                     </DataGrid>
+                                    
                                 </StackPanel>
                                 <Label Content="*Note: Please choose the Batch no. and department before saving" FontFamily="Tienne" 
                                     FontWeight="Bold"

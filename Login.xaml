@@ -138,7 +138,8 @@
                         BorderThickness="0"
                         materialDesign:ShadowAssist.ShadowDepth="Depth0"
                         materialDesign:ButtonAssist.CornerRadius="10"
-                        FontSize="20" Content="LOGIN" FontFamily="Tienne" Click="btn_login_Click"
+                        FontSize="20" Content="LOGIN" FontFamily="Tienne" 
+                        Click="btn_login_Click"
                         />
                 </StackPanel>
             </materialDesign:Card>

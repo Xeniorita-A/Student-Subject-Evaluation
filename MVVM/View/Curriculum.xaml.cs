@@ -9,6 +9,8 @@ using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using System.Data;
+using System.Windows.Media;
+using System.Windows.Controls.Primitives;
 
 namespace Student_Subject_Evaluation.MVVM.View
 {
@@ -59,37 +61,17 @@ namespace Student_Subject_Evaluation.MVVM.View
             {
                 while (reader.Read())
                 {
-                    if (reader.GetInt16(8) == 0)
-                    {
-                        CourseCurriculum _subjects1 = new CourseCurriculum
+                   CourseCurriculum _subjects1 = new CourseCurriculum
                         {
-                            CourseCode = reader.GetString(2),
-                            CourseTitle = reader.GetString(3),
-                            CourseUnits = reader.GetInt16(4),
-                            CoursePrereq = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(7),
-                            CourseSem = "First Semester",
-                            CourseBatch = reader.GetString(9),
+                            CourseCode = reader.GetString(1),
+                            CourseTitle = reader.GetString(2),
+                            CourseUnits = reader.GetInt16(3),
+                            CoursePrereq = reader.GetString(4),
+                            CourseYearlvl = reader.GetString(6),
+                            CourseSem = reader.GetString(7),
+                            CourseBatch = reader.GetString(8),
                         };
                             Course_list.Items.Add(_subjects1);
-                    }
-
-                    else if (reader.GetInt16(8) == 1)
-                    {
-                        //we will store the data into the variable _subject so we can add it in the datagrid
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(2),
-                            CourseTitle = reader.GetString(3),
-                            CourseUnits = reader.GetInt16(4),
-                            CoursePrereq = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(7),
-                            CourseSem = "Second Semester",
-                            CourseBatch = reader.GetString(9),
-                        };
-                        //This is the code to add the data stored in _subjects to the datagrid
-                            Course_list.Items.Add(_subjects);
-                    }
                 }
             }
             else
@@ -128,10 +110,10 @@ namespace Student_Subject_Evaluation.MVVM.View
                 {
                     CourseCurriculum _subjects = new CourseCurriculum
                     {
-                        CourseCode = reader.GetString(2),
-                        CourseTitle = reader.GetString(3),
-                        CourseUnits = reader.GetInt16(4),
-                        CoursePrereq = reader.GetString(5),
+                        CourseCode = reader.GetString(1),
+                        CourseTitle = reader.GetString(2),
+                        CourseUnits = reader.GetInt16(3),
+                        CoursePrereq = reader.GetString(4),
                     };
 
                     Course_list.Items.Add(_subjects);
@@ -232,6 +214,10 @@ namespace Student_Subject_Evaluation.MVVM.View
         //Button choose file
         private void btnChoose(object sender, RoutedEventArgs e)
         {
+            //Let's clear these fields first.
+            txt_Filepath.Text = "";
+            cbx_currDepartment.SelectedIndex = -1;
+            txt_currBatch.Text = "";
             try
             {
                 //this will open the windows dialog so we can shoose the file
@@ -264,6 +250,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             }
         }
 
+        //This will let us paste the file path of the file. once enter key was press the system will read the csv
         private void txt_Filepath_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Enter)
@@ -277,6 +264,149 @@ namespace Student_Subject_Evaluation.MVVM.View
                     bindDataCSV(txt_Filepath.Text);
                 }
             }
+        }
+
+        private void btn_saveCurriculum_Click(object sender, RoutedEventArgs e)
+        { 
+            try
+            {
+                if (txt_Filepath.Text != "" && Import_list.Items.IsEmpty == false && txt_currBatch.Text != "")
+                {
+                    MySqlConnection dbc = new MySqlConnection(connectionString);
+                    dbc.Open();
+                    String q = "Insert into `tbl_curriculum` (`curr_ID`,`curr_Code`,`curr_Title`,`curr_Units`, `curr_Pre_Req`, `curr_Department`, `curr_Semester`, `curr_Yearlevel`, `curr_Batch`)" +
+                      " Values(@curr_ID, @curr_Code,@curr_Title,@curr_Units, @curr_Pre_Req, @curr_Department,@curr_Semester, @curr_Yearlevel, @curr_Batch)";
+                    MySqlCommand cmd = new MySqlCommand(q, dbc);
+
+                    //dito magdagdag ng code para mabasa ang datagrid
+                    //convert the datagrid data into datatable so we can access the "rows"
+                    DataTable dt = new DataTable();
+                    dt = ((DataView)Import_list.ItemsSource).ToTable();
+                    //Define the parameter bago magloop instead of clearing the parameters every loop
+                    cmd.Parameters.Add(new MySqlParameter("@curr_ID", MySqlDbType.Int16));
+                    cmd.Parameters.Add(new MySqlParameter("@curr_Code", MySqlDbType.VarChar));
+                    cmd.Parameters.Add(new MySqlParameter("@curr_Title", MySqlDbType.VarChar));
+                    cmd.Parameters.Add(new MySqlParameter("@curr_Units", MySqlDbType.Int16));
+                    cmd.Parameters.Add(new MySqlParameter("@curr_Pre_Req", MySqlDbType.VarChar));
+                    cmd.Parameters.Add(new MySqlParameter("@curr_Semester", MySqlDbType.VarChar));
+                    cmd.Parameters.Add(new MySqlParameter("@curr_Yearlevel", MySqlDbType.Int16));
+                    cmd.Parameters.Add(new MySqlParameter("@curr_Batch", MySqlDbType.Int16));
+                    cmd.Parameters.Add(new MySqlParameter("@curr_Department", MySqlDbType.Int16));
+
+                    //Nested for loop to access both the rows and column
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        //this is for the columns
+                        for (int j = 0; j < Import_list.Columns.Count; j++)
+                        {
+                            //Let's insert the data into the database
+                            Console.Write((dt.Rows[i][j]).ToString());
+                            cmd.Parameters["@curr_ID"].Value = 0;
+                            cmd.Parameters["@curr_Code"].Value = dt.Rows[i][0].ToString();
+                            cmd.Parameters["@curr_Title"].Value = dt.Rows[i][1].ToString();
+                            cmd.Parameters["@curr_Units"].Value = dt.Rows[i][2];
+                            cmd.Parameters["@curr_Pre_Req"].Value = dt.Rows[i][3].ToString();
+                            cmd.Parameters["@curr_Semester"].Value = dt.Rows[i][4].ToString();
+                            cmd.Parameters["@curr_Yearlevel"].Value = dt.Rows[i][5];
+                            cmd.Parameters["@curr_Batch"].Value = Convert.ToInt16(txt_currBatch.Text);
+                            if (cbx_currDepartment.SelectedIndex == 2)
+                            {
+                                cmd.Parameters["@curr_Department"].Value = 3;
+                            }
+                            else if (cbx_currDepartment.SelectedIndex == 0)
+                            {
+                                cmd.Parameters["@curr_Department"].Value = 1;
+                            }
+                            else if (cbx_currDepartment.SelectedIndex == 1)
+                            {
+                                cmd.Parameters["@curr_Department"].Value = 2;
+                            }
+                            else if (cbx_currDepartment.SelectedIndex == -1)
+                            {
+                                MessageBox.Show("Please select the department first and try again.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Department does not exist.");
+                            }
+                            cmd.CommandTimeout = 60;
+                        }
+                        //Used for executing queries that does not return any data
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    //close the connection
+                    dbc.Close();
+                    MessageBox.Show("Succesfully saved into the database!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else if (Import_list.Items.IsEmpty)
+                {
+                    MessageBox.Show("Please choose the file you want to save.");
+                }
+                else
+                {
+                    MessageBox.Show("Please make sure all the fields are filled.");
+                }
+
+                DataGridCell GetCell(int row, int column)
+                {
+                    DataGridRow rowData = GetRow(row);
+                    if (rowData != null)
+                    {
+                        DataGridCellsPresenter cellPresenter = GetVisualChild<DataGridCellsPresenter>(rowData);
+                        DataGridCell cell = (DataGridCell)cellPresenter.ItemContainerGenerator.ContainerFromIndex(column);
+                        if (cell == null)
+                        {
+                            Import_list.ScrollIntoView(rowData, Import_list.Columns[column]);
+                            cell = (DataGridCell)cellPresenter.ItemContainerGenerator.ContainerFromIndex(column);
+                        }
+                        return cell;
+                    }
+                    return null;
+                }
+
+                DataGridRow GetRow(int index)
+                {
+                    DataGridRow row = (DataGridRow)Import_list.ItemContainerGenerator.ContainerFromIndex(index);
+                    if (row == null)
+                    {
+                        Import_list.UpdateLayout();
+                        Import_list.ScrollIntoView(Import_list.Items[index]);
+                        row = (DataGridRow)Import_list.ItemContainerGenerator.ContainerFromIndex(index);
+                    }
+                    return row;
+                }
+
+                static T GetVisualChild<T>(Visual parent) where T : Visual
+                {
+                    T child = default(T);
+                    int numVisuals = VisualTreeHelper.GetChildrenCount(parent);
+                    for (int i = 0; i < numVisuals; i++)
+                    {
+                        Visual v = (Visual)VisualTreeHelper.GetChild(parent, i);
+                        child = v as T;
+                        if (child == null)
+                        {
+                            child = GetVisualChild<T>(v);
+                        }
+                        if (child != null)
+                        {
+                            break;
+                        }
+                    }
+                    return child;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("The file was either corrupted or data are incorrect format.");
+            }    
+        }
+
+        //refresah the curriculum list
+        private void refresh_List(object sender, RoutedEventArgs e)
+        {
+            Curriculumlist();
         }
     }
 
