@@ -63,14 +63,14 @@ namespace Student_Subject_Evaluation.MVVM.View
                 {
                    CourseCurriculum _subjects1 = new CourseCurriculum
                         {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
-                        };
+                           CourseCode = reader.GetString(1),
+                           CourseTitle = reader.GetString(2),
+                           CourseUnits = reader.GetInt16(3),
+                           CoursePrereq = reader.GetString(4),
+                           CourseSem = reader.GetString(5),
+                           CourseYearlvl = reader.GetString(6),
+                           CourseBatch = reader.GetString(7),
+                   };
                             Course_list.Items.Add(_subjects1);
                 }
             }
@@ -115,9 +115,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                         CourseTitle = reader.GetString(2),
                         CourseUnits = reader.GetInt16(3),
                         CoursePrereq = reader.GetString(4),
+                        CourseSem = reader.GetString(5),
                         CourseYearlvl = reader.GetString(6),
-                        CourseSem = reader.GetString(7),
-                        CourseBatch = reader.GetString(8),
+                        CourseBatch = reader.GetString(7),
                     };
 
                     Course_list.Items.Add(_subjects);
@@ -471,9 +471,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -524,9 +524,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -577,9 +577,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -630,9 +630,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -679,9 +679,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -728,9 +728,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -777,9 +777,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -826,9 +826,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -875,9 +875,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -924,9 +924,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -973,9 +973,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1022,9 +1022,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1071,9 +1071,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1120,9 +1120,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1169,9 +1169,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1218,9 +1218,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1267,9 +1267,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1316,9 +1316,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1335,8 +1335,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //If the filter for semester was selected (First Semester only)
             else if (check_secsem.IsChecked == true && check_BSCE.IsChecked == false && check_BSEE.IsChecked == false
                 && check_BSIT.IsChecked == false && check_secsem.IsChecked == false && check_year1.IsChecked == false
-                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked ==false && check_allsem.IsChecked ==false && check_alldep.IsChecked ==false)
+                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 semester1 = "Second Sem";
                 semester2 = "Second Semester";
@@ -1360,9 +1359,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1379,8 +1378,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //If the filter for semester was selected (First Semester)
             else if (check_firstsem.IsChecked == true && check_BSCE.IsChecked == false && check_BSEE.IsChecked == false
                 && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false && check_year1.IsChecked == false
-                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 semester1 = "First Sem";
                 semester2 = "First Semester";
@@ -1404,9 +1402,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1422,8 +1420,7 @@ namespace Student_Subject_Evaluation.MVVM.View
 
             else if (check_secsem.IsChecked == true && check_BSCE.IsChecked == false && check_BSEE.IsChecked == false
                 && check_BSIT.IsChecked == false && check_secsem.IsChecked == false && check_year1.IsChecked == false
-                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 semester1 = "Second Sem";
                 semester2 = "Second Semester";
@@ -1447,9 +1444,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1466,8 +1463,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //if the filter for department was selected (BSCE)
             else if (check_BSCE.IsChecked == true && check_secsem.IsChecked == false && check_BSEE.IsChecked == false
                 && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false && check_year1.IsChecked == false
-                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 department = 1;
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` ='"
@@ -1489,9 +1485,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1508,8 +1504,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //if only the filter for department was selected (BSEE)
             if (check_BSEE.IsChecked == true && check_secsem.IsChecked == false && check_BSCE.IsChecked == false
                 && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false && check_year1.IsChecked == false
-                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 department = 2;
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` ='"
@@ -1531,9 +1526,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1550,8 +1545,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //if the filter for department was selected (BSIT)
             if (check_BSIT.IsChecked == true && check_secsem.IsChecked == false && check_BSEE.IsChecked == false
                 && check_BSCE.IsChecked == false && check_firstsem.IsChecked == false && check_year1.IsChecked == false
-                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 department = 3;
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` ='"
@@ -1573,9 +1567,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1592,8 +1586,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //if the filter for yearLevel was selected (1st year)
             if (check_year1.IsChecked == true && check_secsem.IsChecked == false && check_BSEE.IsChecked == false
                 && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false && check_BSCE.IsChecked == false
-                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 1;
                 string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` ='"
@@ -1615,9 +1608,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1634,8 +1627,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //if the filter for yearLevel was selected (2nd year)
             if (check_year2.IsChecked == true && check_secsem.IsChecked == false && check_BSEE.IsChecked == false
                 && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false && check_BSCE.IsChecked == false
-                && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 2;
                 string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` ='"
@@ -1657,9 +1649,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1676,8 +1668,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //if the filter for yearLevel was selected (3rd year)
             if (check_year3.IsChecked == true && check_secsem.IsChecked == false && check_BSEE.IsChecked == false
                 && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false && check_BSCE.IsChecked == false
-                && check_year2.IsChecked == false && check_year1.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year2.IsChecked == false && check_year1.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 3;
                 string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` ='"
@@ -1699,9 +1690,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1718,8 +1709,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //if the filter for yearLevel was selected (4th year)
             if (check_year4.IsChecked == true && check_secsem.IsChecked == false && check_BSEE.IsChecked == false
                 && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false && check_BSCE.IsChecked == false
-                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year1.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year1.IsChecked == false)
             {
                 year = 4;
                 string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` ='"
@@ -1741,9 +1731,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1760,8 +1750,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //First year BSCE, first sem
             else if (check_BSCE.IsChecked == true && check_firstsem.IsChecked == true && check_year1.IsChecked == true
                 && check_BSEE.IsChecked == false && check_BSIT.IsChecked == false && check_secsem.IsChecked == false
-                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 department = 1;
                 year = 1;
@@ -1789,9 +1778,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1808,8 +1797,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //First year BSEE, first sem
             else if (check_BSEE.IsChecked == true && check_firstsem.IsChecked == true && check_year1.IsChecked == true
                 && check_BSCE.IsChecked == false && check_BSIT.IsChecked == false && check_secsem.IsChecked == false
-                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 department = 2;
                 year = 1;
@@ -1837,9 +1825,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1856,8 +1844,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //first year BSIT, first sem
             else if (check_BSIT.IsChecked == true && check_firstsem.IsChecked == true && check_year1.IsChecked == true
                 && check_BSEE.IsChecked == false && check_BSCE.IsChecked == false && check_secsem.IsChecked == false
-                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 department = 3;
                 year = 1;
@@ -1885,9 +1872,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1904,8 +1891,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //first year BSCE, second sem
             else if (check_BSCE.IsChecked == true && check_secsem.IsChecked == true && check_year1.IsChecked == true
                 && check_BSEE.IsChecked == false && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false
-                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 department = 1;
                 year = 1;
@@ -1933,9 +1919,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -1952,8 +1938,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //First year BSEE, second sem
             else if (check_BSEE.IsChecked == true && check_secsem.IsChecked == true && check_year1.IsChecked == true
                 && check_BSCE.IsChecked == false && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false
-                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 department = 2;
                 year = 1;
@@ -1981,9 +1966,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2000,8 +1985,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //First year BSIT, second sem
             else if (check_BSIT.IsChecked == true && check_secsem.IsChecked == true && check_year1.IsChecked == true
                 && check_BSEE.IsChecked == false && check_BSCE.IsChecked == false && check_firstsem.IsChecked == false
-                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 department = 3;
                 year = 1;
@@ -2029,9 +2013,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2048,8 +2032,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //Second year BSCE, first sem
             else if (check_BSCE.IsChecked == true && check_firstsem.IsChecked == true && check_year2.IsChecked == true
                 && check_BSEE.IsChecked == false && check_BSIT.IsChecked == false && check_secsem.IsChecked == false
-                && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 department = 1;
                 year = 2;
@@ -2077,9 +2060,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2096,8 +2079,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //second year BSEE, first sem
             else if (check_BSEE.IsChecked == true && check_firstsem.IsChecked == true && check_year2.IsChecked == true
                 && check_BSCE.IsChecked == false && check_BSIT.IsChecked == false && check_secsem.IsChecked == false
-                && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 department = 2;
                 year = 2;
@@ -2126,9 +2108,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2145,8 +2127,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //Second year BSIT, first sem
             else if (check_BSIT.IsChecked == true && check_firstsem.IsChecked == true && check_year2.IsChecked == true
                 && check_BSEE.IsChecked == false && check_BSCE.IsChecked == false && check_secsem.IsChecked == false
-                && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
                 
             {
                 department = 3;
@@ -2175,9 +2156,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2194,8 +2175,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //Second year BSCE second sem
             else if (check_BSCE.IsChecked == true && check_secsem.IsChecked == true && check_year2.IsChecked == true
                 && check_BSEE.IsChecked == false && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false
-                && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
                 
             {
                 department = 1;
@@ -2224,9 +2204,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2243,8 +2223,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //Second year BSEE, second sem
             else if (check_BSEE.IsChecked == true && check_secsem.IsChecked == true && check_year2.IsChecked == true
                 && check_BSCE.IsChecked == false && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false
-                && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
 
             {
                 department = 2;
@@ -2273,9 +2252,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2292,8 +2271,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //Second year BSIT, second sem
             else if (check_BSIT.IsChecked == true && check_secsem.IsChecked == true && check_year2.IsChecked == true
                 && check_BSCE.IsChecked == false && check_BSEE.IsChecked == false && check_firstsem.IsChecked == false
-                && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
 
             {
                 department = 3;
@@ -2322,9 +2300,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2341,8 +2319,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //Third year BSCE, first sem
             else if (check_BSCE.IsChecked == true && check_firstsem.IsChecked == true && check_year3.IsChecked == true
                 && check_BSEE.IsChecked == false && check_BSIT.IsChecked == false && check_secsem.IsChecked == false
-                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year4.IsChecked == false)
 
             {
                 department = 1;
@@ -2371,9 +2348,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2390,8 +2367,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //third year BSEE, first sem
             else if (check_BSEE.IsChecked == true && check_firstsem.IsChecked == true && check_year3.IsChecked == true
                 && check_BSCE.IsChecked == false && check_BSIT.IsChecked == false && check_secsem.IsChecked == false
-                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year4.IsChecked == false)
             {
                 department = 2;
                 year = 3;
@@ -2419,9 +2395,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2438,8 +2414,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //Third year BSIT, first sem
             else if (check_BSIT.IsChecked == true && check_firstsem.IsChecked == true && check_year3.IsChecked == true
                 && check_BSEE.IsChecked == false && check_BSCE.IsChecked == false && check_secsem.IsChecked == false
-                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year4.IsChecked == false)
             {
                 department = 3;
                 year = 3;
@@ -2467,9 +2442,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2486,8 +2461,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //Third year BSCE, second sem
             else if (check_BSCE.IsChecked == true && check_secsem.IsChecked == true && check_year3.IsChecked == true
                 && check_BSEE.IsChecked == false && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false
-                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year4.IsChecked == false)
             {
                 department = 1;
                 year = 3;
@@ -2515,9 +2489,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2534,8 +2508,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //third year BSEE, second sem
             else if (check_BSEE.IsChecked == true && check_secsem.IsChecked == true && check_year3.IsChecked == true
                 && check_BSCE.IsChecked == false && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false
-                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year4.IsChecked == false)
             {
                 department = 2;
                 year = 3;
@@ -2563,9 +2536,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2582,8 +2555,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //Third year BSIT, second sem
             else if (check_BSIT.IsChecked == true && check_secsem.IsChecked == true && check_year3.IsChecked == true
                 && check_BSEE.IsChecked == false && check_BSCE.IsChecked == false && check_firstsem.IsChecked == false
-                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year4.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year4.IsChecked == false)
             {
                 department = 3;
                 year = 3;
@@ -2611,9 +2583,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2630,8 +2602,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //Fourth year BSCE, first sem
             else if (check_BSCE.IsChecked == true && check_firstsem.IsChecked == true && check_year4.IsChecked == true
                 && check_BSEE.IsChecked == false && check_BSIT.IsChecked == false && check_secsem.IsChecked == false
-                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false)
             {
                 department = 1;
                 year = 4;
@@ -2659,9 +2630,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2678,8 +2649,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //Fourth year BSEE, first sem
             else if (check_BSEE.IsChecked == true && check_firstsem.IsChecked == true && check_year4.IsChecked == true
                 && check_BSCE.IsChecked == false && check_BSIT.IsChecked == false && check_secsem.IsChecked == false
-                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false)
             {
                 department = 2;
                 year = 4;
@@ -2707,9 +2677,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2726,8 +2696,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //Fourth yeat BSIT, first sem
             else if (check_BSIT.IsChecked == true && check_firstsem.IsChecked == true && check_year4.IsChecked == true
                 && check_BSEE.IsChecked == false && check_BSCE.IsChecked == false && check_secsem.IsChecked == false
-                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false)
             {
                 department = 3;
                 year = 4;
@@ -2755,9 +2724,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2774,8 +2743,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //Fourth year BSCE, second sem
             else if (check_BSCE.IsChecked == true && check_secsem.IsChecked == true && check_year4.IsChecked == true
                 && check_BSEE.IsChecked == false && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false
-                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false)
             {
                 department = 1;
                 year = 4;
@@ -2803,9 +2771,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2822,8 +2790,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //Fourth year BSEE, second sem
             else if (check_BSEE.IsChecked == true && check_secsem.IsChecked == true && check_year4.IsChecked == true
                 && check_BSCE.IsChecked == false && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false
-                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false)
             {
                 department = 2;
                 year = 4;
@@ -2851,9 +2818,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
@@ -2870,8 +2837,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             //Fourth year BSIT, second sem
             else if (check_BSIT.IsChecked == true && check_secsem.IsChecked == true && check_year4.IsChecked == true
                 && check_BSEE.IsChecked == false && check_BSCE.IsChecked == false && check_firstsem.IsChecked == false
-                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false
-                && check_allyear.IsChecked == false && check_allsem.IsChecked == false && check_alldep.IsChecked == false)
+                && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false)
             {
                 department = 3;
                 year = 4;
@@ -2899,9 +2865,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseTitle = reader.GetString(2),
                             CourseUnits = reader.GetInt16(3),
                             CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
                             CourseYearlvl = reader.GetString(6),
-                            CourseSem = reader.GetString(7),
-                            CourseBatch = reader.GetString(8),
+                            CourseBatch = reader.GetString(7),
                         };
 
                         Course_list.Items.Add(_subjects);
