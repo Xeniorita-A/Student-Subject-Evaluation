@@ -98,14 +98,15 @@
                              HorizontalAlignment="Center"
                              materialDesign:ShadowAssist.ShadowDepth="Depth2"
                              materialDesign:ShadowAssist.ShadowEdges="Bottom,Left">
+
                             <!--Stackpanel for the Course Curriculum List-->
-                            <StackPanel Grid.Column="1" Grid.Row="1" Margin="30">
+                            <Grid Grid.Column="1" Grid.Row="1" Margin="30">
 
                                 <!--Search box and Icon-->
-                                <StackPanel Height="50" Margin="0,0,0,20" >
+                                <Grid Height="50" Margin="794,0,0,0" VerticalAlignment="Top" Width="266" >
                                     <TextBox x:Name="txt_searchCurr"
                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                    Height="40" Width="240"
+                                    Height="45" Width="240"
                                     AcceptsReturn="True"
                                     TextWrapping="Wrap"
                                     Padding="10 10"
@@ -113,7 +114,7 @@
                                     FontWeight="Bold"
                                     FontSize="16"
                                     BorderBrush="#e36934"
-                                    Margin="50,5,10,10"
+                                    Margin="0,5,10,0"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Top"
                                     materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
@@ -121,12 +122,11 @@
                                     materialDesign:HintAssist.Hint="SEARCH" 
                                     materialDesign:ShadowAssist.ShadowDepth="Depth1"
                                     TextChanged="TextSearchCurr_Changed"/>
-                                    
-                                    
-                                </StackPanel>
+                                </Grid>
 
                                 <!--Datagrid for the Course Curriculum-->
-                                <DataGrid x:Name="Course_list"
+                                <Grid>
+                                    <DataGrid x:Name="Course_list"
                                     FontFamily="Roboto"
                                     FontSize="14"
                                     CanUserSortColumns="True"
@@ -147,32 +147,32 @@
                                     CanUserResizeColumns="False" 
                                     GridLinesVisibility="None"
                                     BorderThickness="0" 
-                                    Padding="5,5,5,5" FontWeight="Normal" Margin="10,0,10,10" VerticalAlignment="Top">
+                                    Padding="5,5,5,5" FontWeight="Normal" Margin="10,60,10,60" VerticalAlignment="Top">
 
-                                    <!--<ColumnHeader>-->
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn 
+                                        <!--<ColumnHeader>-->
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn 
                                             Header="Code" 
                                             Binding="{Binding CourseCode}"
                                             Width="100" 
                                             FontFamily="Tienne" 
                                             FontSize="16" 
                                             IsReadOnly="True"/>
-                                        <DataGridTextColumn 
+                                            <DataGridTextColumn 
                                             Header="Subject Title" 
                                             Binding="{Binding CourseTitle}"
                                             Width="380" 
                                             FontFamily="Tienne" 
                                             FontSize="16" 
                                             IsReadOnly="True"/>
-                                        <DataGridTextColumn 
+                                            <DataGridTextColumn 
                                             Header="Units" 
                                             Binding="{Binding CourseUnits}"
                                             Width="60" 
                                             FontFamily="Tienne" 
                                             FontSize="16" 
                                             IsReadOnly="True"/>
-                                        <DataGridTextColumn 
+                                            <DataGridTextColumn 
                                             Header="Pre Req" 
                                             Binding="{Binding CoursePrereq}"
                                             Width="120" 
@@ -180,7 +180,7 @@
                                             FontSize="16" 
                                             IsReadOnly="True"
                                             />
-                                        <DataGridTextColumn 
+                                            <DataGridTextColumn 
                                             Header="Subject Year" 
                                             Binding="{Binding CourseYearlvl}"
                                             Width="100" 
@@ -188,7 +188,7 @@
                                             FontSize="16" 
                                             IsReadOnly="True"
                                             />
-                                        <DataGridTextColumn 
+                                            <DataGridTextColumn 
                                             Header="Subject Semester" 
                                             Binding="{Binding CourseSem}"
                                             Width="150" 
@@ -196,7 +196,7 @@
                                             FontSize="16" 
                                             IsReadOnly="True"
                                             />
-                                        <DataGridTextColumn 
+                                            <DataGridTextColumn 
                                             Header="Batch No." 
                                             Binding="{Binding CourseBatch}"
                                             Width="80" 
@@ -204,22 +204,97 @@
                                             FontSize="16" 
                                             IsReadOnly="True"
                                             />
-                                    </DataGrid.Columns>
-                                </DataGrid>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Grid>
 
-                                <Button x:Name="btn_refresh"
+                                <StackPanel HorizontalAlignment="Left" Width="Auto" Height="Auto">
+
+                                    <TreeView x:Name="treeView_Filter" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left">
+                                        <StackPanel Background="White" Height="Auto" Width="Auto">
+                                            <TreeViewItem
+                                                    Header="Filter Table" 
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top" FontSize="12">
+                                                <TreeViewItem FontSize="12"
+                                                      Header="Department"
+                                                      materialDesign:TreeViewAssist.AdditionalTemplate="{x:Static materialDesign:TreeViewAssist.SuppressAdditionalTemplate}" Padding="5,5,5,5">
+                                                    <CheckBox Name="check_alldep"
+                                                        Content="All"
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Checked="check_alldep_Checked" Unchecked="check_alldep_Checked" />
+                                                    <CheckBox Name="check_BSCE"
+                                                        Content="BSCE" 
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Checked="check_singleDep" Unchecked="check_singleDep" />
+                                                    <CheckBox Name="check_BSEE"
+                                                        Content="BSEE"
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Unchecked="check_singleDep" Checked="check_singleDep" />
+                                                    <CheckBox Name="check_BSIT"
+                                                        Content="BSIT"
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Checked="check_singleDep" Unchecked="check_singleDep" />
+                                                </TreeViewItem>
+                                                <TreeViewItem FontSize="12"
+                                                      Header="Subject Semester"
+                                                      materialDesign:TreeViewAssist.AdditionalTemplate="{x:Static materialDesign:TreeViewAssist.SuppressAdditionalTemplate}" Padding="5,5,5,5">
+                                                    <CheckBox Name="check_allsem"
+                                                        Content="All"
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Checked="check_allSem" Unloaded="check_allSem" />
+                                                    <CheckBox Name="check_firstsem"
+                                                        Content="First Semester"
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Checked="check_singleSem" Unchecked="check_singleSem" />
+                                                    <CheckBox Name="check_secsem"
+                                                        Content="Second Semester"
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Unchecked="check_singleSem" Checked="check_singleSem" />
+                                                </TreeViewItem>
+                                                <TreeViewItem FontSize="12"
+                                                      Header="Subject Year"
+                                                      materialDesign:TreeViewAssist.AdditionalTemplate="{x:Static materialDesign:TreeViewAssist.SuppressAdditionalTemplate}" Padding="5,5,5,5">
+                                                    <CheckBox Name="check_allyear"
+                                                        Content="All"
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Checked="check_allYearlevel" Unchecked="check_allYearlevel" />
+                                                    <CheckBox Name="check_year1"
+                                                        Content="1st Year"
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Checked="check_singleYear" Unchecked="check_singleYear" />
+                                                    <CheckBox Name="check_year2"
+                                                        Content="2nd Year"
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Unchecked="check_singleYear" Checked="check_singleYear" />
+                                                    <CheckBox Name="check_year3"
+                                                        Content="3rd Year"
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Unchecked="check_singleYear" Checked="check_singleYear" />
+                                                    <CheckBox Name="check_year4"
+                                                        Content="4th Year"
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Unchecked="check_singleYear" Checked="check_singleYear" />
+                                                </TreeViewItem>
+                                            </TreeViewItem>
+                                        </StackPanel>
+                                    </TreeView>
+                                </StackPanel>
+                                <Grid HorizontalAlignment="Left" Width="144" Margin="0,13,0,532">
+                                    <Button x:Name="filter" HorizontalAlignment="Right" VerticalAlignment="Top" Width="20" Height="20" Padding="0" Click="filter_clicked" ToolTip="Click to filter the table">
+                                        <Image Source="/Images/filter.png" Stretch="Uniform" ToolTip="Click to apply filter"/>
+
+                                    </Button>
+                                </Grid>
+                                <StackPanel VerticalAlignment="Bottom" Margin="0,15,15,0" HorizontalAlignment="Right">
+                                    <Button x:Name="btn_refresh"
                                         Height="40"
-                                        Width="100"
-                                        Content="REFRESH"
-                                        BorderThickness="0"
-                                        FontFamily="Tienne" FontWeight="Bold"
-                                        Style="{StaticResource MaterialDesignRaisedButton}"
-                                        Background="#f1ac6a" Foreground="White"
+                                        Width="140"
                                         materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                         materialDesign:RippleAssist.Feedback="#DD000000" 
-                                        Click="refresh_List" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,0"
-                                    ></Button>
-                            </StackPanel>
+                                        Click="refresh_List" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,20,0,0" ToolTip="Refresh the table and clear filters">
+
+                                        <Grid>
+                                            <Image Source="/Images/refresh.png" Stretch="Uniform" HorizontalAlignment="Left" Margin="0,0,10,0"/>
+                                            <TextBlock Text="REFRESH" 
+                                                   Padding="10" 
+                                                   Foreground="#DDFCFCFC"
+                                                   FontFamily="Tienne" 
+                                                   FontSize="16" 
+                                                   FontWeight="Bold" Margin="25,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                   />
+                                        </Grid>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
                         </materialDesign:Card>
                     </TabItem>
 
@@ -369,7 +444,7 @@
                                         BorderThickness="0" 
                                         Padding="5,5,5,5" FontWeight="Normal" Margin="10,0,10,50" VerticalAlignment="Top">
                                     </DataGrid>
-                                    
+
                                 </StackPanel>
                                 <Label Content="*Note: Please choose the Batch no. and department before saving" FontFamily="Tienne" 
                                     FontWeight="Bold"

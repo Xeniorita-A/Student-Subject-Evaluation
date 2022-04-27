@@ -26,9 +26,11 @@
     <None Remove="Fonts\Tienne\Tienne-Bold.ttf" />
     <None Remove="Fonts\Tienne\Tienne-Regular.ttf" />
     <None Remove="Images\eye.png" />
+    <None Remove="Images\filter.png" />
     <None Remove="Images\plv-home.png" />
     <None Remove="Images\plv-logo.png" />
     <None Remove="Images\plv_login.png" />
+    <None Remove="Images\refresh.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -83,6 +85,9 @@
     <Resource Include="Images\eye.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\filter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\plv-logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -90,6 +95,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\plv_login.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\refresh.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
