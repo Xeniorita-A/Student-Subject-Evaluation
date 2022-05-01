@@ -11,10 +11,9 @@
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True"
-        Height="auto" Width="Auto"
+        Height="768" Width="1366"
         HorizontalAlignment="Stretch"
-        VerticalAlignment="Stretch"
-        WindowState="Maximized">
+        VerticalAlignment="Stretch">
 
     <!--Grid definitions (Lines that act as divider and Guide)-->
     <Grid>
@@ -36,9 +35,8 @@
         <Border Grid.RowSpan="4" Grid.ColumnSpan="4">
             <StackPanel Margin="1">
                 <Image Source="/Images/plv_login.png" 
-                       Height="Auto" Width="Auto"
-                       HorizontalAlignment="Stretch"
-                       VerticalAlignment="Stretch"/>
+                       Height="769" Width="Auto"
+                       HorizontalAlignment="Stretch"/>
             </StackPanel>
         </Border>
 
@@ -148,7 +146,7 @@
 
 
         <!--Code for the Popupbox-->
-        <StackPanel Grid.Column="3" Grid.Row="0">
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" Width="198" Grid.Column="3">
             <materialDesign:PopupBox 
                 HorizontalAlignment="Right"
                 Margin="0 20 20 0"
