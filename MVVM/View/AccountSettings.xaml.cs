@@ -65,15 +65,11 @@ namespace Student_Subject_Evaluation.MVVM.View
             databaseConnection.Open();
 
             MySqlCommand commandDatabase = new MySqlCommand
-                    ("SELECT `tbl_account`.`account_ID`,`tbl_account`.`account_Username`, " +
-                    "`tbl_account`.`account_Email`, " +
-                    "`tbl_account`.`account_Password`, " +
-                    "`tbl_department`.`dept_Code`, " +
-                    "`tbl_department`.`dept_Chairperson` " +
-                    "FROM `tbl_account` LEFT JOIN `tbl_department` " +
-                    "ON `tbl_account`.`account_Department` = " +
-                    "`tbl_department`.`dept_ID` " +
-                    "Where `tbl_account`.`account_Username` = '"
+                    ("SELECT `account_ID`,`account_Username`, " +
+                    "`account_Email`,`account_Password`, `account_Name`," +
+                    "`account_Department` " +
+                    "FROM `tbl_account`" +
+                    "Where `account_Username` = '"
                     + txtUserDetails.Text + "' OR `account_Email` = '"
                     + txtUserDetails.Text + "' ", databaseConnection);
 
@@ -92,11 +88,11 @@ namespace Student_Subject_Evaluation.MVVM.View
                 int ID = int.Parse(txtUserID.Text);
                 ID = reader.GetInt16(0);
                 txtUserID.Text = ID.ToString();
-                txt_accountname.Text = reader.GetString(5);
-                txt_accountEmail.Text = reader.GetString(2);
                 txt_acountUsername.Text = reader.GetString(1);
-                PasswordTemp.Text = reader.GetString(3);
-                cbx_accDepartment.Text = reader.GetString(4);
+                txt_accountEmail.Text = reader.GetString(2);
+                PasswordTemp.Text = reader.GetString(3); 
+                txt_accountname.Text = reader.GetString(4);
+                cbx_accDepartment.Text = reader.GetString(5);
             }
             else if (count > 0)
             {
@@ -136,70 +132,51 @@ namespace Student_Subject_Evaluation.MVVM.View
         //This is to update the Account details of the user
         private void updateAccount_click(object sender, RoutedEventArgs e)
         {
-            if (txt_accountEmail.Text != "" && txt_accountname.Text != "" && txt_acountUsername.Text != "")
+            try
             {
-                String query = "UPDATE `tbl_account` SET `account_ID` = @id, `account_Username`= @username, `account_Email` = @email,`account_Password`= @password WHERE account_ID = @id";
-                String hashedData = ComputeSha256Hash(pbx_acountPassword.Password);
-                MySqlConnection databaseConnection2 = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase2 = new MySqlCommand(query, databaseConnection2);
-                commandDatabase2.Parameters.AddWithValue("@id", Convert.ToInt16(txtUserID.Text));
-                commandDatabase2.Parameters.AddWithValue("@username", txt_acountUsername.Text);
-                commandDatabase2.Parameters.AddWithValue("@email", txt_accountEmail.Text);
-                //To set new Password
-                if (pbx_acountPassword.Password == "")
+                const string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=db_commission;";
+                if (txt_accountEmail.Text != "" && txt_accountname.Text != "" && txt_acountUsername.Text != "")
                 {
-                    commandDatabase2.Parameters.AddWithValue("@password", PasswordTemp.Text);
-                }else if (pbx_acountPassword.Password != "")
-                {
-                    commandDatabase2.Parameters.AddWithValue("@password", hashedData);
+                    string query = "UPDATE tbl_account SET account_ID = @id, " +
+                        "account_Username= @username, account_Email = @email, account_Password = @password," +
+                        "account_Name = @name,account_Department = @department WHERE account_ID = @id";
+                    String hashedData = ComputeSha256Hash(pbx_acountPassword.Password);
+                    MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+                    MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
+                    databaseConnection.Open();
+                    commandDatabase.Parameters.AddWithValue("@id", Convert.ToInt16(txtUserID.Text));
+                    commandDatabase.Parameters.AddWithValue("@username", txt_acountUsername.Text);
+                    commandDatabase.Parameters.AddWithValue("@email", txt_accountEmail.Text);
+                    commandDatabase.Parameters.AddWithValue("@name", txt_accountname.Text);
+                    commandDatabase.Parameters.AddWithValue("@department", cbx_accDepartment.Text);
+                    //To set new Password
+                    if (pbx_acountPassword.Password == "")
+                    {
+                        commandDatabase.Parameters.AddWithValue("@password", PasswordTemp.Text);
+                    }
+                    else if (pbx_acountPassword.Password != "")
+                    {
+                        commandDatabase.Parameters.AddWithValue("@password", hashedData);
+                    }
+                    MySqlDataReader myReader = commandDatabase.ExecuteReader();
+                    commandDatabase.CommandTimeout = 60;
+                    databaseConnection.Close();
+                    accountView();
+                    MessageBox.Show("Updated successfully!", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                databaseConnection2.Open();
-                MySqlDataReader myReader = commandDatabase2.ExecuteReader();
-                commandDatabase2.CommandTimeout = 60;
-                databaseConnection2.Close();
-                updateDepartment();
+                else
+                {
+                    MessageBox.Show("One of the fields is empty!");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("One of the fields is empty!");
+                MessageBox.Show(ex.ToString(), "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             
+            
         }
-
-        //This is to update the department and the name of the chairperson
-        public void updateDepartment()
-        {
-            string query = "UPDATE `tbl_department` SET `dept_ID`= @depID,`dept_Code`= @depcode,`dept_Chairperson`=@chairperson WHERE dept_ID = @depID";
-            MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-            MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
-            commandDatabase.Parameters.AddWithValue("@depcode", cbx_accDepartment.Text);
-            commandDatabase.Parameters.AddWithValue("@chairperson", txt_accountname.Text);
-            commandDatabase.CommandTimeout = 60;
-            MySqlDataReader reader;
-            databaseConnection.Open();
-            if (cbx_accDepartment.Text == "BSCE")
-            {
-                commandDatabase.Parameters.AddWithValue("@depID", "1");
-                reader = commandDatabase.ExecuteReader();
-                MessageBox.Show("Successfully Updated!");
-            }else if (cbx_accDepartment.Text == "BSEE")
-            {
-                commandDatabase.Parameters.AddWithValue("@depID", "2");
-                reader = commandDatabase.ExecuteReader();
-                MessageBox.Show("Successfully Updated!");
-            }else if (cbx_accDepartment.Text == "BSIT")
-            {
-                commandDatabase.Parameters.AddWithValue("@depID", "3");
-                reader = commandDatabase.ExecuteReader();
-                MessageBox.Show("Successfully Updated!");
-            }
-            else
-            {
-                MessageBox.Show("Please check your inputs!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            databaseConnection.Close();
-            accountView();
-        }
+       
         //If the user changes his/her mind and decided to cancel 
         private void cancelChanges(object sender, RoutedEventArgs e)
         {

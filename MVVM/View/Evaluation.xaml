@@ -93,19 +93,6 @@
                         <ComboBoxItem Content="BSIT" />
                     </ComboBox>
 
-                    <!--Batch Number-->
-                    <ComboBox x:Name="cbx_evalBatch" Margin="0,0,0,15"
-                          Style="{StaticResource MaterialDesignFilledComboBox}"
-                          materialDesign:HintAssist.Hint="Batch No."
-                          Width="250" Padding="10"
-                          FontFamily="Roboto"
-                          FontSize="16" FontWeight="Bold">
-                        <ComboBoxItem Content="2018" />
-                        <ComboBoxItem Content="2019" />
-                        <ComboBoxItem Content="2020" />
-                        <ComboBoxItem Content="2021" />
-                    </ComboBox>
-
                     <!--Year Level-->
                     <ComboBox x:Name="cbx_evalYearlevel" Margin="0,0,0,15"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
@@ -130,6 +117,24 @@
                         <ComboBoxItem Content="Second Semester" />
                     </ComboBox>
 
+                    <!--Batch Number-->
+                    <TextBox x:Name="txt_currYear" Margin="0,0,0,15"
+                           materialDesign:HintAssist.Hint="Curriculum Year" Padding="10 0 0 0"
+                                              FontSize="16" FontWeight="Bold" 
+                                              VerticalAlignment="Bottom" 
+                                              Height="40" Width="250"
+                                              Foreground="Black"
+                                              FontFamily="Roboto"
+                                              materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                              materialDesign:TextFieldAssist.HasClearButton="True"
+                                              materialDesign:HintAssist.Foreground="#f1ac6a" 
+                                              CaretBrush="#FFE36934" 
+                                              SelectionBrush="#FFF1AC6A"
+                                              TextWrapping="Wrap"
+                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="4"
+                                              Style="{StaticResource MaterialDesignFilledTextBox}">
+                    </TextBox>
+                    
                     <!--Import New Curriculum-->
                     <Button x:Name="btn_exportEval"
                             Content="EXPORT"
@@ -140,7 +145,7 @@
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Background="#f1ac6a" Foreground="White"
                             materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                            materialDesign:RippleAssist.Feedback="#DD000000"/>  
+                            materialDesign:RippleAssist.Feedback="#DD000000" Click="btn_exportEval_Click"/>  
                 </StackPanel>
             </materialDesign:Card>
         </StackPanel>

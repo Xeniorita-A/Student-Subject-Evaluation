@@ -151,7 +151,7 @@
                                             BorderThickness="0" 
                                             Padding="5,5,5,5" 
                                             FontWeight="Normal" 
-                                            Margin="20,60,30,10"
+                                            Margin="25,60,30,10"
                                             VerticalAlignment="Top"
                                             CanUserDeleteRows="False" 
                                             ScrollViewer.VerticalScrollBarVisibility="Visible" 
@@ -190,7 +190,7 @@
                                                     IsReadOnly="True"
                                                 />
                                                 <DataGridTextColumn 
-                                                    Header="Subject Year" 
+                                                    Header="Year Level" 
                                                     Binding="{Binding CourseYearlvl}"
                                                     Width="100" 
                                                     FontFamily="Tienne" 
@@ -206,9 +206,9 @@
                                                     IsReadOnly="True"
                                                 />
                                                 <DataGridTextColumn 
-                                                    Header="Batch No." 
+                                                    Header="Curriculum Year" 
                                                     Binding="{Binding CourseBatch}"
-                                                    Width="80" 
+                                                    Width="120" 
                                                     FontFamily="Tienne" 
                                                     FontSize="12" 
                                                     IsReadOnly="True"
@@ -352,7 +352,7 @@
                                         HorizontalContentAlignment="Stretch" 
                                         VerticalContentAlignment="Stretch"
                                         ToolTip="Course Curriculum from CSV file"
-                                        HorizontalAlignment="Center" Height="318"
+                                        HorizontalAlignment="Center" Height="337"
                                         IsReadOnly="True" 
                                         IsTextSearchEnabled="True" 
                                         CanUserResizeRows="False" 
@@ -361,51 +361,14 @@
                                         CanUserResizeColumns="False" 
                                         GridLinesVisibility="None"
                                         BorderThickness="0" 
-                                        Padding="5,5,5,5" FontWeight="Normal" VerticalAlignment="Top" Margin="0,0,0,10" Width="930"/>
+                                        Padding="5,5,5,5" FontWeight="Normal" VerticalAlignment="Top" Width="930"/>
                                         <!--Datagrid for the Course Curriculum-->
                                     </WrapPanel>
 
-                                    <Label Content="*Note: Please choose the Batch no. and department before saving" FontFamily="Tienne" 
-                                            FontWeight="Bold"
-                                            FontSize="12" 
-                                            Foreground="#e36934"
-                                            HorizontalAlignment="Left" 
-                                            Padding="4,4,4,4" 
-                                            Height="30" VerticalAlignment="Bottom" Grid.Row="2" Width="379" Margin="20,0,0,40"/>
-
                                     <!--Deparrtment-->
                                     <WrapPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="40" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                                        <ComboBox x:Name="cbx_currDepartment"
-                                              Style="{StaticResource MaterialDesignFilledComboBox}"
-                                              materialDesign:HintAssist.Hint="Department" Padding="10 0 0 0"
-                                              FontFamily="Roboto" Height="40"
-                                              FontSize="16" FontWeight="Bold" BorderThickness="0,0,0,1" 
-                                              VerticalAlignment="Bottom" 
-                                              d:LayoutOverrides="VerticalAlignment" 
-                                              RenderTransformOrigin="0.49,-0.186" 
-                                              Grid.Row="2" HorizontalAlignment="Left" Width="250" Margin="20,0,30,0">
-                                            <ComboBoxItem Content="BSCE" />
-                                            <ComboBoxItem Content="BSEE" />
-                                            <ComboBoxItem Content="BSIT" />
-                                        </ComboBox>
 
                                         <!--Batch Number-->
-                                        <TextBox x:Name="txt_currBatch"
-                                              materialDesign:HintAssist.Hint="Batch No." Padding="10 0 0 0"
-                                              FontSize="16" FontWeight="Bold" 
-                                              VerticalAlignment="Bottom" 
-                                              Grid.Row="2"
-                                              Height="40" Width="250"
-                                              Foreground="Black"
-                                              FontFamily="Roboto"
-                                              materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                              materialDesign:TextFieldAssist.HasClearButton="True"
-                                              materialDesign:HintAssist.Foreground="#f1ac6a" 
-                                              CaretBrush="#FFE36934" 
-                                              SelectionBrush="#FFF1AC6A"
-                                              TextWrapping="Wrap"
-                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="4"
-                                              Style="{StaticResource MaterialDesignFilledTextBox}" Margin="10,0,0,0"/>
                                     </WrapPanel>
                                     <!--File Name-->
                                     <Label Content="File Path:" FontFamily="Tienne" 

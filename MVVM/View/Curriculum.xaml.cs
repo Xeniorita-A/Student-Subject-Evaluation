@@ -61,17 +61,38 @@ namespace Student_Subject_Evaluation.MVVM.View
             {
                 while (reader.Read())
                 {
-                   CourseCurriculum _subjects1 = new CourseCurriculum
+                    if (reader.GetString(4).ToString() == " ")
+                    {
+                        CourseCurriculum _subjects = new CourseCurriculum
                         {
-                           CourseCode = reader.GetString(1),
-                           CourseTitle = reader.GetString(2),
-                           CourseUnits = reader.GetInt16(3),
-                           CoursePrereq = reader.GetString(4),
-                           CourseSem = reader.GetString(5),
-                           CourseYearlvl = reader.GetString(6),
-                           CourseBatch = reader.GetString(7),
-                   };
-                            Course_list.Items.Add(_subjects1);
+                            CourseCode = reader.GetString(1),
+                            CourseTitle = reader.GetString(2),
+                            CourseUnits = reader.GetInt16(3),
+                            CoursePrereq = " ",
+                            CourseSem = reader.GetString(5),
+                            CourseYearlvl = reader.GetString(6),
+                            CourseBatch = reader.GetString(7)
+
+                        };
+
+                        Course_list.Items.Add(_subjects);
+                    }
+                    else
+                    {
+                        CourseCurriculum _subjects = new CourseCurriculum
+                        {
+                            CourseCode = reader.GetString(1),
+                            CourseTitle = reader.GetString(2),
+                            CourseUnits = reader.GetInt16(3),
+                            CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
+                            CourseYearlvl = reader.GetString(6),
+                            CourseBatch = reader.GetString(7)
+
+                        };
+
+                        Course_list.Items.Add(_subjects);
+                    }
                 }
             }
             else
@@ -109,18 +130,38 @@ namespace Student_Subject_Evaluation.MVVM.View
             {
                 while (reader.Read())
                 {
-                    CourseCurriculum _subjects = new CourseCurriculum
+                    if (reader.GetString(4).ToString() == " ")
                     {
-                        CourseCode = reader.GetString(1),
-                        CourseTitle = reader.GetString(2),
-                        CourseUnits = reader.GetInt16(3),
-                        CoursePrereq = reader.GetString(4),
-                        CourseSem = reader.GetString(5),
-                        CourseYearlvl = reader.GetString(6),
-                        CourseBatch = reader.GetString(7),
-                    };
+                        CourseCurriculum _subjects = new CourseCurriculum
+                        {
+                            CourseCode = reader.GetString(1),
+                            CourseTitle = reader.GetString(2),
+                            CourseUnits = reader.GetInt16(3),
+                            CoursePrereq = " ",
+                            CourseSem = reader.GetString(5),
+                            CourseYearlvl = reader.GetString(6),
+                            CourseBatch = reader.GetString(7)
 
-                    Course_list.Items.Add(_subjects);
+                        };
+
+                        Course_list.Items.Add(_subjects);
+                    }
+                    else
+                    {
+                        CourseCurriculum _subjects = new CourseCurriculum
+                        {
+                            CourseCode = reader.GetString(1),
+                            CourseTitle = reader.GetString(2),
+                            CourseUnits = reader.GetInt16(3),
+                            CoursePrereq = reader.GetString(4),
+                            CourseSem = reader.GetString(5),
+                            CourseYearlvl = reader.GetString(6),
+                            CourseBatch = reader.GetString(7)
+
+                        };
+
+                        Course_list.Items.Add(_subjects);
+                    }
                 }
             }
             else
@@ -220,8 +261,6 @@ namespace Student_Subject_Evaluation.MVVM.View
         {
             //Let's clear these fields first.
             txt_Filepath.Text = "";
-            cbx_currDepartment.SelectedIndex = -1;
-            txt_currBatch.Text = "";
             try
             {
                 //this will open the windows dialog so we can shoose the file
@@ -271,10 +310,8 @@ namespace Student_Subject_Evaluation.MVVM.View
         }
 
         private void btn_saveCurriculum_Click(object sender, RoutedEventArgs e)
-        { 
-            try
-            {
-                if (txt_Filepath.Text != "" && Import_list.Items.IsEmpty == false && txt_currBatch.Text != "")
+        {
+                if (txt_Filepath.Text != "" && Import_list.Items.IsEmpty == false)
                 {
                     MySqlConnection dbc = new MySqlConnection(connectionString);
                     dbc.Open();
@@ -294,8 +331,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                     cmd.Parameters.Add(new MySqlParameter("@curr_Pre_Req", MySqlDbType.VarChar));
                     cmd.Parameters.Add(new MySqlParameter("@curr_Semester", MySqlDbType.VarChar));
                     cmd.Parameters.Add(new MySqlParameter("@curr_Yearlevel", MySqlDbType.Int16));
+                    cmd.Parameters.Add(new MySqlParameter("@curr_Department", MySqlDbType.VarChar));
                     cmd.Parameters.Add(new MySqlParameter("@curr_Batch", MySqlDbType.Int16));
-                    cmd.Parameters.Add(new MySqlParameter("@curr_Department", MySqlDbType.Int16));
 
                     //Nested for loop to access both the rows and column
                     for (int i = 0; i < dt.Rows.Count; i++)
@@ -309,104 +346,58 @@ namespace Student_Subject_Evaluation.MVVM.View
                             cmd.Parameters["@curr_Code"].Value = dt.Rows[i][0].ToString();
                             cmd.Parameters["@curr_Title"].Value = dt.Rows[i][1].ToString();
                             cmd.Parameters["@curr_Units"].Value = dt.Rows[i][2];
+                        //check if the cell was blank
+                            if (!String.IsNullOrEmpty((dt.Rows[i][3].ToString())) == true)
+                        {
                             cmd.Parameters["@curr_Pre_Req"].Value = dt.Rows[i][3].ToString();
+                        }
+                        else
+                        {
+                            cmd.Parameters["@curr_Pre_Req"].Value = " ";
+                        }
                             cmd.Parameters["@curr_Semester"].Value = dt.Rows[i][4].ToString();
+                        if (!String.IsNullOrEmpty((dt.Rows[i][5].ToString())) == true)
+                        {
                             cmd.Parameters["@curr_Yearlevel"].Value = dt.Rows[i][5];
-                            cmd.Parameters["@curr_Batch"].Value = Convert.ToInt16(txt_currBatch.Text);
-                            if (cbx_currDepartment.SelectedIndex == 2)
-                            {
-                                cmd.Parameters["@curr_Department"].Value = 3;
-                            }
-                            else if (cbx_currDepartment.SelectedIndex == 0)
-                            {
-                                cmd.Parameters["@curr_Department"].Value = 1;
-                            }
-                            else if (cbx_currDepartment.SelectedIndex == 1)
-                            {
-                                cmd.Parameters["@curr_Department"].Value = 2;
-                            }
-                            else if (cbx_currDepartment.SelectedIndex == -1)
-                            {
-                                MessageBox.Show("Please select the department first and try again.");
-                            }
-                            else
-                            {
-                                MessageBox.Show("Department does not exist.");
-                            }
+                        }
+                        else
+                        {
+                            cmd.Parameters["@curr_Yearlevel"].Value = 0;
+                        }
+                            cmd.Parameters["@curr_Department"].Value = dt.Rows[i][6].ToString();
+                            cmd.Parameters["@curr_Batch"].Value = dt.Rows[i][7];
                             cmd.CommandTimeout = 60;
                         }
+
                         //Used for executing queries that does not return any data
                         cmd.ExecuteNonQuery();
                     }
 
                     //close the connection
                     dbc.Close();
+                    
                     MessageBox.Show("Succesfully saved into the database!", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else if (Import_list.Items.IsEmpty)
                 {
                     MessageBox.Show("Please choose the file you want to save.");
                 }
+
+                //closing else
                 else
                 {
                     MessageBox.Show("Please make sure all the fields are filled.");
                 }
-
-                DataGridCell GetCell(int row, int column)
-                {
-                    DataGridRow rowData = GetRow(row);
-                    if (rowData != null)
-                    {
-                        DataGridCellsPresenter cellPresenter = GetVisualChild<DataGridCellsPresenter>(rowData);
-                        DataGridCell cell = (DataGridCell)cellPresenter.ItemContainerGenerator.ContainerFromIndex(column);
-                        if (cell == null)
-                        {
-                            Import_list.ScrollIntoView(rowData, Import_list.Columns[column]);
-                            cell = (DataGridCell)cellPresenter.ItemContainerGenerator.ContainerFromIndex(column);
-                        }
-                        return cell;
-                    }
-                    return null;
-                }
-
-                DataGridRow GetRow(int index)
-                {
-                    DataGridRow row = (DataGridRow)Import_list.ItemContainerGenerator.ContainerFromIndex(index);
-                    if (row == null)
-                    {
-                        Import_list.UpdateLayout();
-                        Import_list.ScrollIntoView(Import_list.Items[index]);
-                        row = (DataGridRow)Import_list.ItemContainerGenerator.ContainerFromIndex(index);
-                    }
-                    return row;
-                }
-
-                static T GetVisualChild<T>(Visual parent) where T : Visual
-                {
-                    T child = default(T);
-                    int numVisuals = VisualTreeHelper.GetChildrenCount(parent);
-                    for (int i = 0; i < numVisuals; i++)
-                    {
-                        Visual v = (Visual)VisualTreeHelper.GetChild(parent, i);
-                        child = v as T;
-                        if (child == null)
-                        {
-                            child = GetVisualChild<T>(v);
-                        }
-                        if (child != null)
-                        {
-                            break;
-                        }
-                    }
-                    return child;
-                }
             }
-            catch (Exception)
-            {
-                MessageBox.Show("The file was either corrupted or data are incorrect format.");
-            }    
-        }
 
+        //MessageBox.Show(ex.ToString(), "", MessageBoxButton.OK, MessageBoxImage.Error);
+        //MessageBox.Show("The file was either corrupted or data are incorrect format.");
+        public static object ToDBNull(object value)
+        {
+            if (null != value)
+                return value;
+            return DBNull.Value;
+        }
         //refresah the curriculum list
         public void refresh_List(object sender, RoutedEventArgs e)
         {
@@ -429,22 +420,18 @@ namespace Student_Subject_Evaluation.MVVM.View
         //This is the method for filtering the curriculum list
         public void FilterResult()
         {
-            int department;
             int year;
-            string semester1;
-            string semester2;
+            string semester1 = "First Sem"; string semester3 = "Second Sem";
+            string semester2 = "First Semester"; string semester4 = "Second Semester";
+            string dep1 = "Civil Engineering"; 
+            string dep3 = "Information Technology";
+            string dep2 = "Electrical Engineering";
 
             //If the filter for all department, all semester and first year was selected 
             if (check_alldep.IsChecked == true && check_allsem.IsChecked == true && check_year1.IsChecked == true 
                 && check_year2.IsChecked ==false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 1;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
-                string semester3 = "First Sem";
-                string semester4 = "First Semester";
-                int dep1 = 1; int dep3 = 3;
-                int dep2 = 2;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "' OR `curr_Semester` = '"
@@ -492,12 +479,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 2;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
-                string semester3 = "First Sem";
-                string semester4 = "First Semester";
-                int dep1 = 1; int dep3 = 3;
-                int dep2 = 2;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "' OR `curr_Semester` = '"
@@ -545,12 +526,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_year2.IsChecked == false && check_year1.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 3;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
-                string semester3 = "First Sem";
-                string semester4 = "First Semester";
-                int dep1 = 1; int dep3 = 3;
-                int dep2 = 2;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "' OR `curr_Semester` = '"
@@ -598,12 +573,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year1.IsChecked == false)
             {
                 year = 4;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
-                string semester3 = "First Sem";
-                string semester4 = "First Semester";
-                int dep1 = 1; int dep3 = 3;
-                int dep2 = 2;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "' OR `curr_Semester` = '"
@@ -651,10 +620,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_secsem.IsChecked==false && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 1;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
-                int dep1 = 1; int dep3 = 3;
-                int dep2 = 2;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "') AND `curr_Yearlevel` ='"
@@ -700,13 +665,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_firstsem.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 1;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
-                int dep1 = 1; int dep3 = 3;
-                int dep2 = 2;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') AND `curr_Yearlevel` ='"
+                    + semester3 + "' OR `curr_Semester` = '"
+                    + semester4 + "') AND `curr_Yearlevel` ='"
                     + year + "' AND (`curr_Department` = '"
                     + dep1 + "' OR `curr_Department` = '"
                     + dep2 + "' OR `curr_Department` = '"
@@ -749,10 +710,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_secsem.IsChecked == false && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 2;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
-                int dep1 = 1; int dep3 = 3;
-                int dep2 = 2;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "') AND `curr_Yearlevel` ='"
@@ -798,13 +755,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_firstsem.IsChecked == false && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 2;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
-                int dep1 = 1; int dep3 = 3;
-                int dep2 = 2;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') AND `curr_Yearlevel` ='"
+                    + semester3 + "' OR `curr_Semester` = '"
+                    + semester4 + "') AND `curr_Yearlevel` ='"
                     + year + "' AND (`curr_Department` = '"
                     + dep1 + "' OR `curr_Department` = '"
                     + dep2 + "' OR `curr_Department` = '"
@@ -847,10 +800,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_secsem.IsChecked == false && check_year2.IsChecked == false && check_year1.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 3;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
-                int dep1 = 1; int dep3 = 3;
-                int dep2 = 2;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "') AND `curr_Yearlevel` ='"
@@ -896,13 +845,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_firstsem.IsChecked == false && check_year2.IsChecked == false && check_year1.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 3;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
-                int dep1 = 1; int dep3 = 3;
-                int dep2 = 2;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "')) AND `curr_Yearlevel` ='"
+                    + semester3 + "' OR `curr_Semester` = '"
+                    + semester4 + "')) AND `curr_Yearlevel` ='"
                     + year + "' AND (`curr_Department` = '"
                     + dep1 + "' OR `curr_Department` = '"
                     + dep2 + "' OR `curr_Department` = '"
@@ -945,10 +890,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_secsem.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year1.IsChecked == false)
             {
                 year = 4;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
-                int dep1 = 1; int dep3 = 3;
-                int dep2 = 2;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "') AND `curr_Yearlevel` ='"
@@ -994,13 +935,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_firstsem.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year1.IsChecked == false)
             {
                 year = 4;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
-                int dep1 = 1; int dep3 = 3;
-                int dep2 = 2;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') AND `curr_Yearlevel` ='"
+                    + semester3 + "' OR `curr_Semester` = '"
+                    + semester4 + "') AND `curr_Yearlevel` ='"
                     + year + "' AND (`curr_Department` = '"
                     + dep1 + "' OR `curr_Department` = '"
                     + dep2 + "' OR `curr_Department` = '"
@@ -1043,9 +980,6 @@ namespace Student_Subject_Evaluation.MVVM.View
             {
                 int year1 = 1; int year3 = 3;
                 int year2 = 2; int year4 = 4;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
-                department = 3;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "')  AND  (`curr_Yearlevel` ='"
@@ -1053,7 +987,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                     + year2 + "' OR `curr_Yearlevel` = '"
                     + year3 + "' OR `curr_Yearlevel` = '"
                     + year4 + "') AND `curr_Department` = '"
-                    + department + "'";
+                    + dep3 + "'";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -1092,17 +1026,14 @@ namespace Student_Subject_Evaluation.MVVM.View
             {
                 int year1 = 1; int year3 = 3;
                 int year2 = 2; int year4 = 4;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
-                department = 3;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "')  AND  (`curr_Yearlevel` ='"
+                    + semester3 + "' OR `curr_Semester` = '"
+                    + semester4 + "')  AND  (`curr_Yearlevel` ='"
                     + year1 + "' OR `curr_Yearlevel` = '"
                     + year2 + "' OR `curr_Yearlevel` = '"
                     + year3 + "' OR `curr_Yearlevel` = '"
                     + year4 + "') AND `curr_Department` = '"
-                    + department + "'";
+                    + dep3 + "'";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -1141,9 +1072,6 @@ namespace Student_Subject_Evaluation.MVVM.View
             {
                 int year1 = 1; int year3 = 3;
                 int year2 = 2; int year4 = 4;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
-                department = 1;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "')  AND  (`curr_Yearlevel` ='"
@@ -1151,7 +1079,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                     + year2 + "' OR `curr_Yearlevel` = '"
                     + year3 + "' OR `curr_Yearlevel` = '"
                     + year4 + "') AND `curr_Department` = '"
-                    + department + "'";
+                    + dep1 + "'";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -1190,17 +1118,14 @@ namespace Student_Subject_Evaluation.MVVM.View
             {
                 int year1 = 1; int year3 = 3;
                 int year2 = 2; int year4 = 4;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
-                department = 1;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "')  AND  (`curr_Yearlevel` ='"
+                    + semester3 + "' OR `curr_Semester` = '"
+                    + semester4 + "')  AND  (`curr_Yearlevel` ='"
                     + year1 + "' OR `curr_Yearlevel` = '"
                     + year2 + "' OR `curr_Yearlevel` = '"
                     + year3 + "' OR `curr_Yearlevel` = '"
                     + year4 + "') AND `curr_Department` = '"
-                    + department + "'";
+                    + dep1 + "'";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -1239,9 +1164,6 @@ namespace Student_Subject_Evaluation.MVVM.View
             {
                 int year1 = 1; int year3 = 3;
                 int year2 = 2; int year4 = 4;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
-                department = 2;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "')  AND  (`curr_Yearlevel` ='"
@@ -1249,7 +1171,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                     + year2 + "' OR `curr_Yearlevel` = '"
                     + year3 + "' OR `curr_Yearlevel` = '"
                     + year4 + "') AND `curr_Department` = '"
-                    + department + "'";
+                    + dep2 + "'";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -1288,17 +1210,14 @@ namespace Student_Subject_Evaluation.MVVM.View
             {
                 int year1 = 1; int year3 = 3;
                 int year2 = 2; int year4 = 4;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
-                department = 2;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "')  AND  (`curr_Yearlevel` ='"
+                    + semester3 + "' OR `curr_Semester` = '"
+                    + semester4 + "')  AND  (`curr_Yearlevel` ='"
                     + year1 + "' OR `curr_Yearlevel` = '"
                     + year2 + "' OR `curr_Yearlevel` = '"
                     + year3 + "' OR `curr_Yearlevel` = '"
                     + year4 + "') AND `curr_Department` = '"
-                    + department + "'";
+                    + dep2 + "'";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -1337,8 +1256,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSIT.IsChecked == false && check_secsem.IsChecked == false && check_year1.IsChecked == false
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "') ";
@@ -1375,49 +1292,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                 databaseConnection.Close();
             }
 
-            //If the filter for semester was selected (First Semester)
-            else if (check_firstsem.IsChecked == true && check_BSCE.IsChecked == false && check_BSEE.IsChecked == false
-                && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false && check_year1.IsChecked == false
-                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
-            {
-                semester1 = "First Sem";
-                semester2 = "First Semester";
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') ";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
+            //If the filter for semester was selected (Second Semester)
             else if (check_secsem.IsChecked == true && check_BSCE.IsChecked == false && check_BSEE.IsChecked == false
                 && check_BSIT.IsChecked == false && check_secsem.IsChecked == false && check_year1.IsChecked == false
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
@@ -1465,9 +1340,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false && check_year1.IsChecked == false
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
-                department = 1;
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` ='"
-                    + department + "' ";
+                    + dep1 + "' ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -1506,9 +1380,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false && check_year1.IsChecked == false
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
-                department = 2;
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` ='"
-                    + department + "' ";
+                    + dep2 + "' ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -1547,9 +1420,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSCE.IsChecked == false && check_firstsem.IsChecked == false && check_year1.IsChecked == false
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
-                department = 3;
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` ='"
-                    + department + "' ";
+                    + dep3 + "' ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -1754,10 +1626,8 @@ namespace Student_Subject_Evaluation.MVVM.View
             {
                 department = 1;
                 year = 1;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
+                    + dep1 + "' AND (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
@@ -1799,12 +1669,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSCE.IsChecked == false && check_BSIT.IsChecked == false && check_secsem.IsChecked == false
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
-                department = 2;
                 year = 1;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                     + department + "' AND (`curr_Semester` ='"
+                     + dep2 + "' AND (`curr_Semester` ='"
                      + semester2 + "' OR `curr_Semester` = '"
                      + semester1 + "') AND `curr_Yearlevel` ='"
                      + year + "' ";
@@ -1846,12 +1713,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSEE.IsChecked == false && check_BSCE.IsChecked == false && check_secsem.IsChecked == false
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
-                department = 3;
                 year = 1;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                     + department + "' AND (`curr_Semester` ='"
+                     + dep3 + "' AND (`curr_Semester` ='"
                      + semester2 + "' OR `curr_Semester` = '"
                      + semester1 + "') AND `curr_Yearlevel` ='"
                      + year + "' ";
@@ -1893,14 +1757,11 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSEE.IsChecked == false && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
-                department = 1;
                 year = 1;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') AND `curr_Yearlevel` ='"
+                    + dep1 + "' AND (`curr_Semester` ='"
+                    + semester3 + "' OR `curr_Semester` = '"
+                    + semester4 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
@@ -1940,14 +1801,11 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSCE.IsChecked == false && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
-                department = 2;
                 year = 1;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') AND `curr_Yearlevel` ='"
+                    + dep2 + "' AND (`curr_Semester` ='"
+                    + semester3 + "' OR `curr_Semester` = '"
+                    + semester4 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
@@ -1987,14 +1845,11 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSEE.IsChecked == false && check_BSCE.IsChecked == false && check_firstsem.IsChecked == false
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
-                department = 3;
                 year = 1;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') AND `curr_Yearlevel` ='"
+                    + dep3 + "' AND (`curr_Semester` ='"
+                    + semester3 + "' OR `curr_Semester` = '"
+                    + semester4 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
@@ -2034,12 +1889,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSEE.IsChecked == false && check_BSIT.IsChecked == false && check_secsem.IsChecked == false
                 && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
-                department = 1;
                 year = 2;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
+                    + dep1 + "' AND (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
@@ -2081,12 +1933,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSCE.IsChecked == false && check_BSIT.IsChecked == false && check_secsem.IsChecked == false
                 && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
-                department = 2;
                 year = 2;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
+                    + dep2 + "' AND (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
@@ -2130,12 +1979,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
                 
             {
-                department = 3;
                 year = 2;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
+                    + dep3 + "' AND (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
@@ -2176,16 +2022,12 @@ namespace Student_Subject_Evaluation.MVVM.View
             else if (check_BSCE.IsChecked == true && check_secsem.IsChecked == true && check_year2.IsChecked == true
                 && check_BSEE.IsChecked == false && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false
                 && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
-                
             {
-                department = 1;
                 year = 2;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') AND `curr_Yearlevel` ='"
+                    + dep1 + "' AND (`curr_Semester` ='"
+                    + semester3 + "' OR `curr_Semester` = '"
+                    + semester4 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
@@ -2224,16 +2066,12 @@ namespace Student_Subject_Evaluation.MVVM.View
             else if (check_BSEE.IsChecked == true && check_secsem.IsChecked == true && check_year2.IsChecked == true
                 && check_BSCE.IsChecked == false && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false
                 && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
-
             {
-                department = 2;
                 year = 2;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                     + department + "' AND (`curr_Semester` ='"
-                     + semester2 + "' OR `curr_Semester` = '"
-                     + semester1 + "') AND `curr_Yearlevel` ='"
+                     + dep2 + "' AND (`curr_Semester` ='"
+                     + semester3 + "' OR `curr_Semester` = '"
+                     + semester4 + "') AND `curr_Yearlevel` ='"
                      + year + "' ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
@@ -2272,16 +2110,12 @@ namespace Student_Subject_Evaluation.MVVM.View
             else if (check_BSIT.IsChecked == true && check_secsem.IsChecked == true && check_year2.IsChecked == true
                 && check_BSCE.IsChecked == false && check_BSEE.IsChecked == false && check_firstsem.IsChecked == false
                 && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
-
             {
-                department = 3;
                 year = 2;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') AND `curr_Yearlevel` ='"
+                    + dep3 + "' AND (`curr_Semester` ='"
+                    + semester3 + "' OR `curr_Semester` = '"
+                    + semester4 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
@@ -2320,14 +2154,10 @@ namespace Student_Subject_Evaluation.MVVM.View
             else if (check_BSCE.IsChecked == true && check_firstsem.IsChecked == true && check_year3.IsChecked == true
                 && check_BSEE.IsChecked == false && check_BSIT.IsChecked == false && check_secsem.IsChecked == false
                 && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year4.IsChecked == false)
-
             {
-                department = 1;
                 year = 3;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
+                    + dep1 + "' AND (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
@@ -2369,12 +2199,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSCE.IsChecked == false && check_BSIT.IsChecked == false && check_secsem.IsChecked == false
                 && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year4.IsChecked == false)
             {
-                department = 2;
                 year = 3;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
+                    + dep2 + "' AND (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
@@ -2416,12 +2243,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSEE.IsChecked == false && check_BSCE.IsChecked == false && check_secsem.IsChecked == false
                 && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year4.IsChecked == false)
             {
-                department = 3;
                 year = 3;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
+                    + dep3 + "' AND (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
@@ -2463,14 +2287,11 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSEE.IsChecked == false && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false
                 && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year4.IsChecked == false)
             {
-                department = 1;
                 year = 3;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') AND `curr_Yearlevel` ='"
+                    + dep1 + "' AND (`curr_Semester` ='"
+                    + semester3 + "' OR `curr_Semester` = '"
+                    + semester4 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
@@ -2510,14 +2331,11 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSCE.IsChecked == false && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false
                 && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year4.IsChecked == false)
             {
-                department = 2;
                 year = 3;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                     + department + "' AND (`curr_Semester` ='"
-                     + semester2 + "' OR `curr_Semester` = '"
-                     + semester1 + "') AND `curr_Yearlevel` ='"
+                     + dep2 + "' AND (`curr_Semester` ='"
+                     + semester3 + "' OR `curr_Semester` = '"
+                     + semester4 + "') AND `curr_Yearlevel` ='"
                      + year + "' ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
@@ -2557,14 +2375,11 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSEE.IsChecked == false && check_BSCE.IsChecked == false && check_firstsem.IsChecked == false
                 && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year4.IsChecked == false)
             {
-                department = 3;
                 year = 3;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') AND `curr_Yearlevel` ='"
+                    + dep3 + "' AND (`curr_Semester` ='"
+                    + semester3 + "' OR `curr_Semester` = '"
+                    + semester4 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
@@ -2604,12 +2419,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSEE.IsChecked == false && check_BSIT.IsChecked == false && check_secsem.IsChecked == false
                 && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false)
             {
-                department = 1;
                 year = 4;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
+                    + dep1 + "' AND (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
@@ -2651,12 +2463,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSCE.IsChecked == false && check_BSIT.IsChecked == false && check_secsem.IsChecked == false
                 && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false)
             {
-                department = 2;
                 year = 4;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                     + department + "' AND (`curr_Semester` ='"
+                     + dep2 + "' AND (`curr_Semester` ='"
                      + semester2 + "' OR `curr_Semester` = '"
                      + semester1 + "') AND `curr_Yearlevel` ='"
                      + year + "' ";
@@ -2698,12 +2507,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSEE.IsChecked == false && check_BSCE.IsChecked == false && check_secsem.IsChecked == false
                 && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false)
             {
-                department = 3;
                 year = 4;
-                semester1 = "First Sem";
-                semester2 = "First Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
+                    + dep3 + "' AND (`curr_Semester` ='"
                     + semester2 + "' OR `curr_Semester` = '"
                     + semester1 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
@@ -2745,14 +2551,11 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSEE.IsChecked == false && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false
                 && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false)
             {
-                department = 1;
                 year = 4;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') AND `curr_Yearlevel` ='"
+                    + dep1 + "' AND (`curr_Semester` ='"
+                    + semester3 + "' OR `curr_Semester` = '"
+                    + semester4 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
@@ -2792,14 +2595,11 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSCE.IsChecked == false && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false
                 && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false)
             {
-                department = 2;
                 year = 4;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') AND `curr_Yearlevel` ='"
+                    + dep2 + "' AND (`curr_Semester` ='"
+                    + semester3 + "' OR `curr_Semester` = '"
+                    + semester4 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
@@ -2839,14 +2639,11 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSEE.IsChecked == false && check_BSCE.IsChecked == false && check_firstsem.IsChecked == false
                 && check_year1.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false)
             {
-                department = 3;
                 year = 4;
-                semester1 = "Second Sem";
-                semester2 = "Second Semester";
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
-                    + department + "' AND (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') AND `curr_Yearlevel` ='"
+                    + dep3 + "' AND (`curr_Semester` ='"
+                    + semester3 + "' OR `curr_Semester` = '"
+                    + semester4 + "') AND `curr_Yearlevel` ='"
                     + year + "' ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
@@ -2884,8 +2681,6 @@ namespace Student_Subject_Evaluation.MVVM.View
             else
             {
                 Course_list.Items.Clear();
-                if (MessageBox.Show("No result found. Refresh the table?", "Info!",
-                MessageBoxButton.OK, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
                     check_BSCE.IsChecked = false;
                     check_BSEE.IsChecked = false;
