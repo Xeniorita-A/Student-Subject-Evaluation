@@ -1624,7 +1624,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSEE.IsChecked == false && check_BSIT.IsChecked == false && check_secsem.IsChecked == false
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
-                department = 1;
                 year = 1;
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
                     + dep1 + "' AND (`curr_Semester` ='"
