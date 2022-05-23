@@ -25,6 +25,7 @@ namespace Student_Subject_Evaluation.MVVM.View
         public Student()
         {
             InitializeComponent();
+            showStudents();
         }
 
         public class GradeRecord
@@ -39,6 +40,28 @@ namespace Student_Subject_Evaluation.MVVM.View
 
             public List<GradeRecord> Employee { get; set; }
         }
+
+        public class StudentList
+        {
+            public string? StudentID { get; set; }
+            public string? StudentName { get; set; }
+            public string? StudentDep { get; set; }
+            public int StudentBatch { get; set; }
+        }
+
+        public class studentReport
+        {
+            public int Rep_SubjectID { get; set; }
+            public string? Rep_SubjectCode { get; set; }
+            public string? Rep_SubjectTitle { get; set; }
+            public int Rep_Units { get; set; }
+            public string? Rep_Prereq { get; set; }
+            public double Rep_Grade { get; set; }
+            public string? Rep_Remarks { get; set; }
+        }
+        //Open a connection
+        const string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=db_commission;";
+
         //try
         private void ImportGrade_Click(object sender, RoutedEventArgs e)
         {
@@ -101,7 +124,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                     }
 
                 }
-                
+
                 return tbl;
             }
         }
@@ -113,13 +136,29 @@ namespace Student_Subject_Evaluation.MVVM.View
         //Ths is the method for the search field in the report tab
         private void TxtSearchStudReport_Changed(object sender, TextChangedEventArgs e)
         {
+            //it means that if the search field is empty it will just show the data
+            if (txt_searchStudReport.Text == "")
+            {
 
+            }
+            else
+            {
+                StudentsReportSearch();
+            }
         }
 
         //Ths is the method for the search field in the Student List tab
         private void TextSearchStuds_Changed(object sender, TextChangedEventArgs e)
         {
-
+            //it means that if the search field is empty it will just show the data
+            if (txt_searchStudents.Text == "")
+            {
+                showStudents();
+            }
+            else
+            {
+                searchStudents();
+            }
         }
 
         private void btn_help_Click(object sender, RoutedEventArgs e)
@@ -174,6 +213,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             }
         }
 
+        //try lang ayaw parin lumabas data sa datagrid :(
         private async Task<List<GradeRecord>> LoadExcelFile(string fName)
         {
             List<GradeRecord> output = new();
@@ -199,12 +239,12 @@ namespace Student_Subject_Evaluation.MVVM.View
                 output.Add(g);
                 row += 1;
                 MessageBox.Show(g.Subject_ID.ToString() + " " + g.Subject_Code.ToString() + " " +
-                    g.Subject_Title.ToString() + " " + g.Units.ToString() + " " + g.Pre_Req.ToString()+
+                    g.Subject_Title.ToString() + " " + g.Units.ToString() + " " + g.Pre_Req.ToString() +
                     " " + g.Final_Grade.ToString() + " " + g.Remarks.ToString());
             }
             this.Import_StudentGrade.ItemsSource = output;
             return output;
-    }
+        }
 
         private void txt_GradeFilepath_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
@@ -216,21 +256,173 @@ namespace Student_Subject_Evaluation.MVVM.View
                 }
                 else if (txt_GradeFilepath.Text != "")
                 {
-                   LoadExcelFile(txt_GradeFilepath.Text);
+                    LoadExcelFile(txt_GradeFilepath.Text);
                 }
             }
         }
         //end of import grade 
 
-
-        private void btn_saveStudGrade_click(object sender, RoutedEventArgs e)
+        public void showStudents()
         {
+            Students_list.Items.Clear();
+            //Query so we can load the data into our datagrid
+            String query = "Select * From `tbl_student`";
+            MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase = new(query, databaseConnection);
+            commandDatabase.CommandTimeout = 60;
+            MySqlDataReader reader;
 
+            databaseConnection.Open();
+            reader = commandDatabase.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    StudentList studs = new StudentList
+                    {
+                        StudentID = reader.GetString(1),
+                        StudentName = reader.GetString(2),
+                        StudentDep = reader.GetString(3),
+                        StudentBatch = reader.GetInt16(4)
+                    };
+
+                    Students_list.Items.Add(studs);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No rows found.");
+            }
+            //close the connection
+            databaseConnection.Close();
+        }
+
+        public void searchStudents()
+        {
+            Students_list.Items.Clear();
+            string query = "Select * From `tbl_student` where `student_StudentNo` LIKE '"
+                + txt_searchStudents.Text + "%'";
+            MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
+            commandDatabase.CommandTimeout = 60;
+            MySqlDataReader reader;
+            databaseConnection.Open();
+            reader = commandDatabase.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    StudentList studs = new StudentList
+                    {
+                        StudentID = reader.GetString(1),
+                        StudentName = reader.GetString(2),
+                        StudentDep = reader.GetString(3),
+                        StudentBatch = reader.GetInt16(4)
+                    };
+
+                    Students_list.Items.Add(studs);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No rows found.");
+            }
+
+            databaseConnection.Close();
+        }
+
+        //Search student in report module
+        public void StudentsReportSearch()
+        {
+            Report_list.Items.Clear();
+            string query = "SELECT `tbl_grade_record`.`record_StudentID`, " +
+            "`tbl_student`.`student_StudentNo`,  " +
+            "`tbl_grade_record`.`record_CourseID`, " +
+            "`tbl_curriculum`.`curr_Code`, " +
+            "`tbl_curriculum`.`curr_Title`, " +
+            "`tbl_curriculum`.`curr_Units`, " +
+            "`tbl_curriculum`.`curr_Pre_Req`, " +
+            "`tbl_grade_record`.`record_FinalGrade`, " +
+            "`tbl_grade_record`.`record_Remarks`" +
+            " FROM `tbl_grade_record` LEFT JOIN `tbl_student`" +
+            " ON `tbl_grade_record`.`record_StudentID` = `tbl_student`.`student_ID` " +
+            "LEFT JOIN `tbl_curriculum` " +
+            "ON `tbl_grade_record`.`record_CourseID` = `tbl_curriculum`.`curr_ID` " +
+            "WHERE `tbl_student`.`student_StudentNo` LIKE '"
+                    + txt_searchStudReport.Text + "%'";
+            MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
+            commandDatabase.CommandTimeout = 60;
+            MySqlDataReader reader;
+            databaseConnection.Open();
+            reader = commandDatabase.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    studentReport reps = new studentReport
+                    {
+                        Rep_SubjectID = reader.GetInt16(2),
+                        Rep_SubjectCode = reader.GetString(3),
+                        Rep_SubjectTitle = reader.GetString(4),
+                        Rep_Units = reader.GetInt16(5),
+                        Rep_Prereq = reader.GetString(6),
+                        Rep_Grade = reader.GetDouble(7),
+                        Rep_Remarks = reader.GetString(8),
+                    };
+                    StudentID.Text = reader.GetString(0);
+                    Report_list.Items.Add(reps);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No rows found.");
+            }
+            databaseConnection.Close();
+            fillStudentInfo();
+        }
+            public void fillStudentInfo()
+            {
+            string q = "SELECT * FROM `tbl_student` WHERE`student_ID`= " + StudentID.Text + "";
+            MySqlConnection dbc = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase1 = new MySqlCommand(q, dbc);
+            commandDatabase1.CommandTimeout = 60;
+            MySqlDataReader reader1;
+            dbc.Open();
+            reader1 = commandDatabase1.ExecuteReader();
+            if (reader1.HasRows)
+            {
+                while (reader1.Read())
+                {
+                    int d = reader1.GetInt16(0);
+                    string id = reader1.GetString(1);
+                    string name = reader1.GetString(2);
+                    string dep = reader1.GetString(3);
+                    int batch = reader1.GetInt16(4);
+
+                    txt_ReportStudID.Text = id;
+                    txt_ReportStudName.Text = name;
+                    txt_ReposrtStudDep.Text = dep;
+                    txt_ReportStudBatch.Text = batch.ToString();
+                }
+            }
+            else
+            {
+                Console.WriteLine("No rows found.");
+            }
+
+            dbc.Close();
+        }
+
+    private void btn_saveStudGrade_click(object sender, RoutedEventArgs e)
+        {
+        
         }
 
         private void refresh_StudentList(object sender, RoutedEventArgs e)
         {
-
+            txt_searchStudents.Text = "";
+            showStudents();
         }
     }
 }

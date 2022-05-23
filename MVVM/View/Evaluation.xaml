@@ -172,7 +172,7 @@
                                             ScrollViewer.HorizontalScrollBarVisibility="Auto" 
                                             HorizontalContentAlignment="Stretch" 
                                             VerticalContentAlignment="Stretch"
-                                            ToolTip="Course Curriculum"
+                                            ToolTip="Data to be exported"
                                             HorizontalAlignment="Left"
                                             IsReadOnly="True" 
                                             IsTextSearchEnabled="True" 

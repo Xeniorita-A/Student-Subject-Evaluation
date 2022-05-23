@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2022 at 12:25 PM
+-- Generation Time: May 23, 2022 at 09:13 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -245,18 +245,15 @@ INSERT INTO `tbl_curriculum` (`curr_ID`, `curr_Code`, `curr_Title`, `curr_Units`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_report`
+-- Table structure for table `tbl_grade_record`
 --
 
-CREATE TABLE `tbl_report` (
-  `report_ID` int(11) NOT NULL,
-  `report_StudentID` int(11) DEFAULT NULL,
-  `report_StudentName` varchar(100) DEFAULT NULL,
-  `report_Department` varchar(50) DEFAULT NULL,
-  `report_YearLevel` int(10) DEFAULT NULL,
-  `report_FinalGrade` double DEFAULT NULL,
-  `report_Remarks` varchar(50) DEFAULT NULL,
-  `report_CourseID` int(11) DEFAULT NULL
+CREATE TABLE `tbl_grade_record` (
+  `record_ID` int(11) NOT NULL,
+  `record_StudentID` int(11) DEFAULT NULL,
+  `record_FinalGrade` double DEFAULT NULL,
+  `record_Remarks` varchar(50) DEFAULT NULL,
+  `record_CourseID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -267,19 +264,18 @@ CREATE TABLE `tbl_report` (
 
 CREATE TABLE `tbl_student` (
   `student_ID` int(11) NOT NULL,
+  `student_StudentNo` varchar(50) NOT NULL DEFAULT 'NULL',
   `student_Name` varchar(50) DEFAULT NULL,
-  `student_StudentNo` varchar(50) DEFAULT NULL,
-  `student_YearLevel` int(10) DEFAULT NULL,
   `student_Department` varchar(50) DEFAULT NULL,
-  `student_Batch` varchar(20) DEFAULT NULL
+  `student_Batch` int(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_student`
 --
 
-INSERT INTO `tbl_student` (`student_ID`, `student_Name`, `student_StudentNo`, `student_YearLevel`, `student_Department`, `student_Batch`) VALUES
-(1, 'Student1', '18-0159', 4, 'Information Technology', '2018');
+INSERT INTO `tbl_student` (`student_ID`, `student_StudentNo`, `student_Name`, `student_Department`, `student_Batch`) VALUES
+(1, '18-0159', 'Student1', 'Information Technology', 2018);
 
 --
 -- Indexes for dumped tables
@@ -298,12 +294,12 @@ ALTER TABLE `tbl_curriculum`
   ADD PRIMARY KEY (`curr_ID`);
 
 --
--- Indexes for table `tbl_report`
+-- Indexes for table `tbl_grade_record`
 --
-ALTER TABLE `tbl_report`
-  ADD PRIMARY KEY (`report_ID`),
-  ADD KEY `report_CourseID` (`report_CourseID`),
-  ADD KEY `report_StudentID` (`report_StudentID`);
+ALTER TABLE `tbl_grade_record`
+  ADD PRIMARY KEY (`record_ID`),
+  ADD KEY `report_CourseID` (`record_CourseID`),
+  ADD KEY `report_StudentID` (`record_StudentID`);
 
 --
 -- Indexes for table `tbl_student`
@@ -332,11 +328,11 @@ ALTER TABLE `tbl_student`
 --
 
 --
--- Constraints for table `tbl_report`
+-- Constraints for table `tbl_grade_record`
 --
-ALTER TABLE `tbl_report`
-  ADD CONSTRAINT `tbl_report_ibfk_1` FOREIGN KEY (`report_CourseID`) REFERENCES `tbl_curriculum` (`curr_ID`),
-  ADD CONSTRAINT `tbl_report_ibfk_2` FOREIGN KEY (`report_StudentID`) REFERENCES `tbl_student` (`student_ID`);
+ALTER TABLE `tbl_grade_record`
+  ADD CONSTRAINT `tbl_grade_record_ibfk_1` FOREIGN KEY (`record_CourseID`) REFERENCES `tbl_curriculum` (`curr_ID`),
+  ADD CONSTRAINT `tbl_grade_record_ibfk_2` FOREIGN KEY (`record_StudentID`) REFERENCES `tbl_student` (`student_ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

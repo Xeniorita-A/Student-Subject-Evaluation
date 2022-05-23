@@ -241,7 +241,7 @@
                                            VerticalAlignment="Center"
                                            materialDesign:TextFieldAssist.TextFieldCornerRadius="4"
                                            Style="{StaticResource MaterialDesignFilledTextBox}" 
-                                           Grid.Row="1" Width="696" KeyDown="txt_GradeFilepath_KeyDown" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Height="30"/>
+                                           Grid.Row="1" Width="696" KeyDown="txt_GradeFilepath_KeyDown" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Height="30" ToolTip="File path"/>
 
                                     <!--choose excel file to import-->
                                     <Button x:Name="btn_chooseFile"
@@ -348,9 +348,9 @@
                                             <!--<ColumnHeader>-->
                                             <DataGrid.Columns>
                                                 <DataGridTextColumn 
-                                                Header="Student ID" 
+                                                Header="Student ID Number" 
                                                 Binding="{Binding StudentID}"
-                                                Width="120" 
+                                                Width="150" 
                                                 FontFamily="Tienne" 
                                                 FontSize="16" 
                                                 IsReadOnly="True">
@@ -365,7 +365,7 @@
                                                 <DataGridTextColumn 
                                                 Header="Department" 
                                                 Binding="{Binding StudentDep}"
-                                                Width="200" 
+                                                Width="250" 
                                                 FontFamily="Tienne" 
                                                 FontSize="16" 
                                                 IsReadOnly="True"/>
@@ -413,7 +413,7 @@
                         Width="250">
                         <Grid Grid.ColumnSpan="2" Margin="30,20,30,200">
                             <!--Generate report, student information-->
-                            <Grid Height="383" Width="295" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,66,0,0">
+                            <Grid Height="383" Width="266" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,66,0,0">
                                 <Label Content="Student Information:" FontFamily="Roboto"
                                                FontWeight="Bold"
                                                FontSize="16" Margin="4,-2,0,352" 
@@ -424,6 +424,14 @@
                                                FontSize="16" Margin="5,32,0,315" 
                                                HorizontalAlignment="Left"
                                                Foreground="#e36934" Height="28"/>
+                                <TextBox x:Name="StudentID" Text="0" FontFamily="Roboto"
+                                               FontWeight="Bold"
+                                               FontSize="16" Margin="107,32,96,0"
+                                               Foreground="#e36934" Height="28" VerticalAlignment="Top" d:LayoutOverrides="Width" IsEnabled="False" Visibility="Hidden"/>
+                                <Label x:Name="RecordID" FontFamily="Roboto"
+                                               FontWeight="Bold"
+                                               FontSize="16" Margin="107,32,96,0"
+                                               Foreground="#e36934" Height="28" VerticalAlignment="Top" d:LayoutOverrides="Width" IsEnabled="False" Visibility="Hidden"/>
                                 <TextBlock x:Name="txt_ReportStudID"
                                                Height="40" Width="250"
                                                Margin="10,63,0,0"
@@ -478,7 +486,7 @@
                                                FontSize="16" Margin="5,244,0,101" 
                                                HorizontalAlignment="Left"
                                                Foreground="#e36934"/>
-                                <TextBlock x:Name="txt_REportStudYear"
+                                <TextBlock x:Name="txt_ReportStudBatch"
                                                Height="40" Width="250"
                                                Margin="10,275,0,0"
                                                Padding="10 0 0 0"
@@ -509,7 +517,7 @@
                             <Grid Width="Auto" Height="Auto" 
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Top" Margin="0,60,0,0">
-                                <WrapPanel Margin="307,0,0,0">
+                                <WrapPanel Margin="276,0,0,0">
                                     <DataGrid x:Name="Report_list"
                                     FontFamily="Roboto"
                                     FontSize="14"
@@ -520,9 +528,9 @@
                                     ScrollViewer.HorizontalScrollBarVisibility="Visible" 
                                     HorizontalContentAlignment="Stretch" 
                                     VerticalContentAlignment="Stretch"
-                                    ToolTip="Course Curriculum"
+                                    ToolTip="List of Course Taken "
                                     HorizontalAlignment="Center"
-                                    Width="464" Height="421"
+                                    Width="550" Height="421"
                                     IsReadOnly="True" 
                                     IsTextSearchEnabled="True" 
                                     CanUserResizeRows="False" 
@@ -531,41 +539,41 @@
                                     CanUserResizeColumns="False" 
                                     GridLinesVisibility="None"
                                     BorderThickness="0" 
-                                    Padding="5,5,5,5" FontWeight="Normal" VerticalAlignment="Top">
+                                    Padding="5,5,5,5" FontWeight="Normal" VerticalAlignment="Center">
 
                                         <!--<ColumnHeader>-->
                                         <DataGrid.Columns>
                                             <DataGridTextColumn 
                                             Header="ID" 
-                                            Binding="{Binding RepCourseNo}"
+                                            Binding="{Binding Rep_SubjectID}"
                                             Width="50" 
                                             FontFamily="Tienne" 
                                             FontSize="16" 
                                             IsReadOnly="True"/>
                                             <DataGridTextColumn 
                                             Header="Code" 
-                                            Binding="{Binding RepCourseCode}"
+                                            Binding="{Binding Rep_SubjectCode}"
                                             Width="100" 
                                             FontFamily="Tienne" 
                                             FontSize="16" 
                                             IsReadOnly="True"/>
                                             <DataGridTextColumn 
                                             Header="Subject Title" 
-                                            Binding="{Binding RepCourseTitle}"
+                                            Binding="{Binding Rep_SubjectTitle}"
                                             Width="400" 
                                             FontFamily="Tienne" 
                                             FontSize="16" 
                                             IsReadOnly="True"/>
                                             <DataGridTextColumn 
                                             Header="Units" 
-                                            Binding="{Binding RepCourseUnits}"
+                                            Binding="{Binding Rep_Units}"
                                             Width="60" 
                                             FontFamily="Tienne" 
                                             FontSize="16" 
                                             IsReadOnly="True"/>
                                             <DataGridTextColumn 
                                             Header="Pre Requisite(s)" 
-                                            Binding="{Binding RepCoursePrereq}"
+                                            Binding="{Binding Rep_Prereq}"
                                             Width="150" 
                                             FontFamily="Tienne" 
                                             FontSize="16" 
@@ -573,14 +581,14 @@
                                             />
                                             <DataGridTextColumn 
                                             Header="Final Grade" 
-                                            Binding="{Binding RepGrade}"
+                                            Binding="{Binding Rep_Grade}"
                                             Width="100" 
                                             FontFamily="Tienne" 
                                             FontSize="16" 
                                             IsReadOnly="True"/>
                                             <DataGridTextColumn 
                                             Header="Remarks" 
-                                            Binding="{Binding RepRemarks}"
+                                            Binding="{Binding Rep_Remarks}"
                                             Width="100" 
                                             FontFamily="Tienne" 
                                             FontSize="16" 
@@ -607,7 +615,7 @@
                                         materialDesign:HintAssist.Foreground="#e36934"
                                         materialDesign:HintAssist.Hint="SEARCH" 
                                         materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                                        TextChanged="TxtSearchStudReport_Changed" HorizontalAlignment="Right" Width="250"/>
+                                        TextChanged="TxtSearchStudReport_Changed" HorizontalAlignment="Right" Width="250" ToolTip="Search the Student Number"/>
                             </WrapPanel>
                         </Grid>
                     </TabItem>

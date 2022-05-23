@@ -1,0 +1,61 @@
+LOGIN DETAILS
+Department of IT
+username: admin 
+password: admin
+
+Department of CE
+username: admin1 
+password: admin1
+
+Department of EE
+username: admin2 
+password: admin2
+
+Updates:
+* UI for student Module
+* Student list
+
+NEEDED:
+1. Import the evaluation form (with grades and student information)
+2. Generate Report
+
+Step by Step process for importing grades:
+1. Login
+2. Go to Student Module
+3. (At the first tab) Choose excel file
+4. The data should be displayed in the fields and at the datagrid (if possible).
+5. Click "SAVE" to save it in the database
+6. Click refresh in the second tab. (The student should be visible)
+
+CONDITIONS
+1. If there is no existing record of the student, Insert student info in the tbl_student 
+2. If existing, insert the grade in the tbl_grade_record
+3. If in any case the student has already a grade record in specific subject, the system should be able to notify the user that the student has already a record of grade in that subject.
+
+Step by step process in generating reports:
+1. Login
+2. Go to Student Module
+3. At the third tab, the user can search the student in the search field
+4. The data should be displayed in the fields.
+5. Once generate report is click the user should be able to get the pdf file of the report.
+
+with the following contents:
+Name
+Student ID
+Department
+Curriculum year (Batch number, example 2018)
+*a Table with the taken subjects*
+with columns namely:
+Subject code
+Subject Title
+Subject Units
+Pre Prequisite/s
+Final Grade
+Remarks
+****
+Total Units :
+Remaining Units: 
+
+**note
+Remaining unit is from the whole curriculum in a specific batch.
+get the total units for all the subjects in a specific curriculum year (batch) and subtract the units taken by the student.
