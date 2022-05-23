@@ -193,6 +193,13 @@
                             <!--<ColumnHeader>-->
                             <DataGrid.Columns>
                                 <DataGridTextColumn 
+                                                    Header="ID" 
+                                                    Binding="{Binding Subject_ID}"
+                                                    Width="50" 
+                                                    FontFamily="Tienne" 
+                                                    FontSize="12" 
+                                                    IsReadOnly="True"/>
+                                <DataGridTextColumn 
                                                     Header="Code" 
                                                     Binding="{Binding Subject_Code}"
                                                     Width="70" 

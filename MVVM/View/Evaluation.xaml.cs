@@ -28,6 +28,7 @@ namespace Student_Subject_Evaluation.MVVM.View
         }
         public class EvalForms
         {
+            public int Subject_ID { get; set; }
             public string? Subject_Code { get; set; }
             public string? Subject_Title { get; set; }
             public int Units { get; set; }
@@ -55,10 +56,8 @@ namespace Student_Subject_Evaluation.MVVM.View
         private async Task ExportEval()
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            //This where we will save the template
             var file = new FileInfo(fileName: @"C:\Users\XenioritaAlondra\source\repos\Student Subject Evaluation\Evaluation Forms\EvaluationForm.xlsx");
-
-            //var eval = GetSetUpData();
-
             await saveExcelFile( file);
         }
 
@@ -70,8 +69,8 @@ namespace Student_Subject_Evaluation.MVVM.View
 
             using (var package = new ExcelPackage(file))
             {
-                //data table
-                string query1 = "SELECT `curr_Code`, `curr_Title`, `curr_Units`, `curr_Pre_Req` FROM `tbl_curriculum` where `curr_Batch` LIKE '"
+                //data table from the filter
+                string query1 = "SELECT `curr_ID`, `curr_Code`, `curr_Title`, `curr_Units`, `curr_Pre_Req` FROM `tbl_curriculum` where `curr_Batch` LIKE '"
                + txt_currYear.Text + "%' AND `curr_Yearlevel` LIKE '"
                + cbx_evalYearlevel.Text + "%'  AND `curr_Semester`  LIKE '"
                + cbx_evalSemester.Text + "%'  AND `curr_Department`  LIKE '"
@@ -85,7 +84,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                     MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                     commandDatabase.ExecuteNonQuery();
                     MySqlDataAdapter returnVal = new MySqlDataAdapter(query1, databaseConnection);
-
+                    //I passed the data from mySql to Data table
+                    //this is so we can put the data from data table to excel
                     returnVal = new MySqlDataAdapter(commandDatabase);
                     returnVal.Fill(dt);
 
@@ -100,47 +100,56 @@ namespace Student_Subject_Evaluation.MVVM.View
                 //WS is the worksheet
                 var ws = package.Workbook.Worksheets.Add(Name: "Evaluation_Form");
                 //add the data
+
                 var range = ws.Cells[Address: "A6"].LoadFromDataTable(dt, PrintHeaders: true);
                 range.AutoFitColumns();
 
                 //formats the header
                 ws.Cells[Address: "A1"].Value = "EVALUATION FORM";
-                ws.Cells[Address: "A1:F1"].Merge = true;
+                ws.Cells[Address: "B2:C2"].Merge = true;
+                ws.Cells[Address: "B3:C3"].Merge = true;
+                ws.Cells[Address: "E2:F2"].Merge = true;
+                ws.Cells[Address: "E3:F3"].Merge = true;
+                ws.Cells[Address: "A1:G1"].Merge = true;
                 ws.Column(col: 1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 ws.Row(row: 1).Style.Font.Size = 20;
                 ws.Row(row: 1).Style.Font.Bold = true;
                 ws.Row(row: 2).Style.Font.Bold = true;
                 ws.Row(row: 3).Style.Font.Bold = true;
                 ws.Row(row: 5).Style.Font.Bold = true;
-                ws.Row(row: 1).Style.Font.Color.SetColor(Color.Orange);
+                ws.Row(row: 1).Style.Font.Color.SetColor(Color.DarkOrange);
 
                 //Name, student number, and the Course year and section
                 ws.Cells[Address: "A2"].Value = "Name:";
                 ws.Cells[Address: "A3"].Value = "Student Number:";
-                ws.Cells[Address: "C2"].Value = "Curriculum Year:";
-                ws.Cells[Address: "C3"].Value = "Department:";
-                ws.Cells[Address: "A5"].Value = "Subject Code";
-                ws.Cells[Address: "B5"].Value = "Subject Title";
-                ws.Cells[Address: "C5"].Value = "Units";
-                ws.Cells[Address: "D5"].Value = "Pre Requisite/s";
-                ws.Cells[Address: "E5"].Value = "Final Grade";
-                ws.Cells[Address: "F5"].Value = "Remarks";
+                ws.Cells[Address: "D2"].Value = "Curriculum Year:";
+                ws.Cells[Address: "D3"].Value = "Department:";
+                ws.Cells[Address: "A5"].Value = "Subject ID";
+                ws.Cells[Address: "B5"].Value = "Subject Code";
+                ws.Cells[Address: "C5"].Value = "Subject Title";
+                ws.Cells[Address: "D5"].Value = "Units";
+                ws.Cells[Address: "E5"].Value = "Pre Requisite/s";
+                ws.Cells[Address: "F5"].Value = "Final Grade";
+                ws.Cells[Address: "G5"].Value = "Remarks";
                 ws.Row(row: 2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
                 ws.Row(row: 3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
 
                 //format other thing
                 ws.Column(col: 1).Width = 15;
-                ws.Column(col: 2).Width = 50;
-                ws.Column(col: 3).Width = 15;
-                ws.Column(col: 4).Width = 30;
-                ws.Column(col: 5).Width = 13;
+                ws.Column(col: 2).Width = 13;
+                ws.Column(col: 3).Width = 50;
+                ws.Column(col: 4).Width = 15;
+                ws.Column(col: 5).Width = 15;
                 ws.Column(col: 6).Width = 13;
-                ws.Column(col: 3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                ws.Column(col: 7).Width = 13;
+                ws.Column(col: 2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                ws.Column(col: 3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
                 ws.Column(col: 4).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 ws.Column(col: 5).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 ws.Column(col: 6).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                ws.Cells[Address: "C2"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-                ws.Cells[Address: "C3"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                ws.Column(col: 7).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                ws.Cells[Address: "D2"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                ws.Cells[Address: "D3"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
                 ws.DeleteRow(6);
                 await package.SaveAsync();
                 package.SaveAs(new FileInfo("Evaluation Form.xlsx"));
@@ -173,7 +182,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             }
         }
         
-
+        //We well delete the file every time we call the package
         private static void deleteIfExists(FileInfo file)
         {
             if (file.Exists)
@@ -182,6 +191,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             }
         }
 
+        //To display the filtered data to the datagrid
         public void PreviewExport()
         {
             Export_list.Items.Clear();
@@ -207,6 +217,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                         {
                             EvalForms output = new EvalForms
                             {
+                                Subject_ID = reader.GetInt16(0),
                                 Subject_Code = reader.GetString(1),
                                 Subject_Title = reader.GetString(2),
                                 Units = reader.GetInt16(3),
@@ -218,6 +229,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                         {
                             EvalForms output = new EvalForms
                             {
+                                Subject_ID = reader.GetInt16(0),
                                 Subject_Code = reader.GetString(1),
                                 Subject_Title = reader.GetString(2),
                                 Units = reader.GetInt16(3),
@@ -239,10 +251,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                 
             }
         }
-
-        //i need to convert the data on datagrid to datatable
-
-               
+      
         private void btn_exportEval_Click(object sender, RoutedEventArgs e)
         {
             //Task.Run(async () => await ExportEval());

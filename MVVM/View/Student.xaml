@@ -80,6 +80,200 @@
                      TabStripPlacement="Top" materialDesign:ShadowAssist.ShadowDepth="Depth2"
                      >
 
+                    <!--Importing Grades of students-->
+                    <TabItem
+                        Header="Import Grade"
+                        FontFamily="Tienne" FontSize="20" 
+                        FontWeight="Bold" Height="50" 
+                        Width="250">
+                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0">
+                            <materialDesign:Card Margin="30,20,30,100"
+                             UniformCornerRadius="20"
+                             Background="White" VerticalAlignment="Top"
+                             HorizontalAlignment="Center"
+                             materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" Height="520">
+
+                                <!--Grid for the textbox where we load the excel file path-->
+                                <Grid Width="990" 
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Top" Height="495">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="43*"/>
+                                        <RowDefinition Height="51*"/>
+                                        <RowDefinition Height="401*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Content="Import New Grade Record:" FontFamily="Tienne" 
+                                   FontWeight="Bold"
+                                   FontSize="14" 
+                                   Foreground="#e36934"
+                                   HorizontalAlignment="Left" Padding="4,4,4,4" Margin="30,15,0,2" Width="237" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+
+                                    <!--This is the data from excel-->
+                                    <Grid Grid.Row="2" Margin="30,5,30,-38">
+                                        <DataGrid x:Name="Import_StudentGrade"
+                                        FontFamily="Roboto"
+                                        FontSize="14"
+                                        CanUserSortColumns="True"
+                                        CanUserAddRows="False"
+                                        materialDesign:DataGridAssist.CellPadding="4 2 2 2"
+                                        materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
+                                        ScrollViewer.HorizontalScrollBarVisibility="Visible" 
+                                        HorizontalContentAlignment="Stretch" 
+                                        VerticalContentAlignment="Stretch"
+                                        ToolTip="Student Grades from Excel File"
+                                        HorizontalAlignment="Left" Height="393"
+                                        IsReadOnly="True" 
+                                        IsTextSearchEnabled="True" 
+                                        CanUserResizeRows="False" 
+                                        RowDetailsVisibilityMode="Visible"
+                                        CanUserReorderColumns="False" 
+                                        CanUserResizeColumns="False" 
+                                        GridLinesVisibility="None"
+                                        BorderThickness="0" 
+                                        Padding="5,5,5,5" FontWeight="Normal" VerticalAlignment="Top" Width="675" Margin="255,0,0,0"/>
+
+                                        <!--Import Grade student information-->
+                                        <Grid Height="383" Width="295" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0">
+                                            <Label Content="Student Information:" FontFamily="Roboto"
+                                               FontWeight="Bold"
+                                               FontSize="16" Margin="4,-10,0,352" 
+                                               HorizontalAlignment="Left"
+                                               Foreground="#e36934"/>
+                                            <Label Content="Student ID" FontFamily="Roboto"
+                                               FontWeight="Bold"
+                                               FontSize="16" Margin="5,32,0,315" 
+                                               HorizontalAlignment="Left"
+                                               Foreground="#e36934" Height="28"/>
+                                            <TextBlock x:Name="txt_StudentID"
+                                               Height="40" Width="250"
+                                               Margin="10,63,0,0"
+                                               Padding="10 0 0 0"
+                                               HorizontalAlignment="Left"
+                                               Foreground="Black"
+                                               FontSize="14"
+                                               FontFamily="Roboto"
+                                               materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                               materialDesign:TextFieldAssist.HasClearButton="True"
+                                               materialDesign:HintAssist.Foreground="#f1ac6a"
+                                               VerticalAlignment="Top"
+                                               TextWrapping="Wrap"/>
+                                            <Label Content="Student Name" FontFamily="Roboto"
+                                               FontWeight="Bold"
+                                               FontSize="16" Margin="5,100,0,252" 
+                                               HorizontalAlignment="Left"
+                                               Foreground="#e36934" Height="23"/>
+                                            <TextBlock x:Name="txt_StudentName"
+                                               Height="40" Width="250"
+                                               Margin="10,131,0,0"
+                                               Padding="10 0 0 0"
+                                               HorizontalAlignment="Left"
+                                               Foreground="Black"
+                                               FontSize="14"
+                                               FontFamily="Roboto"
+                                               materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                               materialDesign:TextFieldAssist.HasClearButton="True"
+                                               materialDesign:HintAssist.Foreground="#f1ac6a" 
+                                               VerticalAlignment="Top"
+                                               TextWrapping="Wrap"/>
+                                            <Label Content="Department" FontFamily="Roboto"
+                                               FontWeight="Bold"
+                                               FontSize="16" Margin="5,172,0,171" 
+                                               HorizontalAlignment="Left"
+                                               Foreground="#e36934"/>
+                                            <TextBlock x:Name="txt_StudentDep"
+                                               Height="40" Width="250"
+                                               Margin="10,200,0,0"
+                                               Padding="10 0 0 0"
+                                               HorizontalAlignment="Left"
+                                               Foreground="Black"
+                                               FontSize="14"
+                                               FontFamily="Roboto"
+                                               materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                               materialDesign:TextFieldAssist.HasClearButton="True"
+                                               materialDesign:HintAssist.Foreground="#f1ac6a" 
+                                               VerticalAlignment="Top"
+                                               TextWrapping="Wrap"/>
+                                            <Label Content="Curriculum Year" FontFamily="Roboto"
+                                               FontWeight="Bold"
+                                               FontSize="16" Margin="5,244,0,101" 
+                                               HorizontalAlignment="Left"
+                                               Foreground="#e36934"/>
+                                            <TextBlock x:Name="txt_BatchNo"
+                                               Height="40" Width="250"
+                                               Margin="10,275,0,0"
+                                               Padding="10 0 0 0"
+                                               HorizontalAlignment="Left"
+                                               Foreground="Black"
+                                               FontSize="14"
+                                               FontFamily="Roboto"
+                                               materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                               materialDesign:TextFieldAssist.HasClearButton="True"
+                                               materialDesign:HintAssist.Foreground="#f1ac6a" 
+                                               VerticalAlignment="Top"
+                                               TextWrapping="Wrap"/>
+                                        </Grid>
+                                    </Grid>
+
+                                    <!--File Name-->
+                                    <Label Content="File Path:" FontFamily="Tienne" 
+                                           FontWeight="Bold"
+                                           FontSize="14" 
+                                           Foreground="#e36934"
+                                           HorizontalAlignment="Left" 
+                                           Padding="4,4,4,4" 
+                                           Margin="35,12,0,10" VerticalAlignment="Top" Grid.Row="1" d:LayoutOverrides="HorizontalAlignment" Width="77" Height="25"/>
+                                    <TextBox x:Name="txt_GradeFilepath"
+                                           Margin="117,0,0,0"
+                                           Padding="10 0 0 0"
+                                           BorderThickness="0"
+                                           VerticalContentAlignment="Stretch"
+                                           HorizontalAlignment="Left"
+                                           Foreground="Black"
+                                           FontSize="12"
+                                           FontFamily="Roboto"
+                                           FontWeight="Regular"
+                                           materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                           materialDesign:TextFieldAssist.HasClearButton="True"
+                                           materialDesign:HintAssist.Foreground="#f1ac6a" 
+                                           CaretBrush="#FFE36934" 
+                                           SelectionBrush="#FFF1AC6A"
+                                           VerticalAlignment="Center"
+                                           materialDesign:TextFieldAssist.TextFieldCornerRadius="4"
+                                           Style="{StaticResource MaterialDesignFilledTextBox}" 
+                                           Grid.Row="1" Width="696" KeyDown="txt_GradeFilepath_KeyDown" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Height="30"/>
+
+                                    <!--choose excel file to import-->
+                                    <Button x:Name="btn_chooseFile"
+                                            Content="CHOOSE"
+                                            Margin="0,7,30,0"
+                                            BorderThickness="0,0,0,0"
+                                            FontFamily="Tienne" FontWeight="Bold"
+                                            Style="{StaticResource MaterialDesignRaisedButton}"
+                                            Background="#f1ac6a" Foreground="White"
+                                            materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                            materialDesign:RippleAssist.Feedback="#DD000000" 
+                                            Click="btnChooseFile" 
+                                            materialDesign:HintAssist.Hint="Choose and Load file"
+                                            Grid.Row="1" 
+                                            HorizontalAlignment="Right" 
+                                            Width="120" VerticalAlignment="Top"/>
+
+                                    <Button x:Name="btn_saveStudGrade"
+                                            Content="SAVE"
+                                            Margin="81,353,30,10"
+                                            BorderThickness="0,0,0,0"
+                                            FontFamily="Tienne" FontWeight="Bold"
+                                            Style="{StaticResource MaterialDesignRaisedButton}"
+                                            Background="#f1ac6a" Foreground="White"
+                                            materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                            materialDesign:RippleAssist.Feedback="#DD000000" 
+                                            Grid.Row="2" RenderTransformOrigin="0.567,-0.45" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" Click="btn_saveStudGrade_click"/>
+                                </Grid>
+                            </materialDesign:Card>
+                        </WrapPanel>
+                    </TabItem>
+
                     <!--Course Student List Table-->
                     <TabItem
                     Header="Student List" 
@@ -156,7 +350,7 @@
                                                 <DataGridTextColumn 
                                                 Header="Student ID" 
                                                 Binding="{Binding StudentID}"
-                                                Width="100" 
+                                                Width="120" 
                                                 FontFamily="Tienne" 
                                                 FontSize="16" 
                                                 IsReadOnly="True">
@@ -164,21 +358,14 @@
                                                 <DataGridTextColumn 
                                                 Header="Student Name" 
                                                 Binding="{Binding StudentName}"
-                                                Width="250" 
-                                                FontFamily="Tienne" 
-                                                FontSize="16" 
-                                                IsReadOnly="True"/>
-                                                <DataGridTextColumn 
-                                                Header="Year Level" 
-                                                Binding="{Binding StudentLvl}"
-                                                Width="150" 
+                                                Width="300" 
                                                 FontFamily="Tienne" 
                                                 FontSize="16" 
                                                 IsReadOnly="True"/>
                                                 <DataGridTextColumn 
                                                 Header="Department" 
                                                 Binding="{Binding StudentDep}"
-                                                Width="100" 
+                                                Width="200" 
                                                 FontFamily="Tienne" 
                                                 FontSize="16" 
                                                 IsReadOnly="True"/>
@@ -192,128 +379,118 @@
                                                 />
                                             </DataGrid.Columns>
                                         </DataGrid>
-                                        <Button x:Name="btn_importEval"
-                                                Content="Import Grade"
-                                                BorderThickness="0"
-                                                Height="40" Width="150"
-                                                VerticalAlignment="Bottom"
-                                                HorizontalAlignment="Right"
-                                                FontFamily="Tienne" FontWeight="Bold"
-                                                Style="{StaticResource MaterialDesignRaisedButton}"
-                                                Background="#F6F1AC6A" Foreground="White"
+                                        <WrapPanel VerticalAlignment="Bottom" Margin="0,10,20,20" HorizontalAlignment="Right">
+                                            <Button x:Name="btn_refreshStudents"
+                                                Height="30"
+                                                Width="120"
                                                 materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                                materialDesign:RippleAssist.Feedback="#DD000000" Click="ImportGrade_Click" Margin="0,5,0,0"/>
+                                                materialDesign:RippleAssist.Feedback="#DD000000" 
+                                                Click="refresh_StudentList" ToolTip="Refresh the table and clear filters">
 
+                                                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                                                    <Image Source="/Images/refresh.png" Stretch="Uniform" HorizontalAlignment="Left" Margin="0,0,7,0" Width="22" Height="22" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="REFRESH" 
+                                                   Padding="10" 
+                                                   Foreground="#DDFCFCFC"
+                                                   FontFamily="Tienne" 
+                                                   FontSize="16" 
+                                                   FontWeight="Bold" Margin="25,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                   />
+                                                </Grid>
+                                            </Button>
+                                        </WrapPanel>
                                     </StackPanel>
                                 </StackPanel>
                             </materialDesign:Card>
                         </WrapPanel>
                     </TabItem>
-
+                    <!--Semester-->
                     <!--View Specific Student Record-->
                     <TabItem
-                        Header="View Student Record"
+                        Header="Generate Report"
                         FontFamily="Tienne" FontSize="20" 
                         FontWeight="Bold" Height="50" 
                         Width="250">
                         <Grid Grid.ColumnSpan="2" Margin="30,20,30,200">
-                            <WrapPanel HorizontalAlignment="Left"
-                             Background="White" Grid.Column="0" 
-                             materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" Width="267" Margin="30,20,20,0">
+                            <!--Generate report, student information-->
+                            <Grid Height="383" Width="295" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,66,0,0">
                                 <Label Content="Student Information:" FontFamily="Roboto"
-                                   FontWeight="Bold"
-                                   FontSize="16" Margin="10,0,0,10" 
-                                   HorizontalAlignment="Left"
-                                   Foreground="#e36934"/>
-                                <Label Content="Student Name" FontFamily="Roboto"
-                                   FontWeight="Bold"
-                                   FontSize="16" Margin="5,0,0,0" 
-                                   HorizontalAlignment="Left"
-                                   Foreground="#e36934"/>
-                                <TextBox x:Name="txt_studentname"
-                                   Height="40" Width="250"
-                                   Margin="10 0 0 0"
-                                   Padding="10 0 0 0"
-                                   VerticalContentAlignment="Stretch"
-                                   HorizontalAlignment="Left"
-                                   Foreground="Black"
-                                   FontSize="14"
-                                   FontFamily="Roboto"
-                                   materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                   materialDesign:TextFieldAssist.HasClearButton="True"
-                                   materialDesign:HintAssist.Foreground="#f1ac6a" 
-                                   CaretBrush="#FFE36934" 
-                                   SelectionBrush="#FFF1AC6A"
-                                   VerticalAlignment="Top"
-                                   TextWrapping="Wrap"
-                                   Style="{StaticResource MaterialDesignFilledTextBox}"/>
+                                               FontWeight="Bold"
+                                               FontSize="16" Margin="4,-2,0,352" 
+                                               HorizontalAlignment="Left"
+                                               Foreground="#e36934"/>
                                 <Label Content="Student ID" FontFamily="Roboto"
-                                   FontWeight="Bold"
-                                   FontSize="16" Margin="5,10,0,0" 
-                                   HorizontalAlignment="Left"
-                                   Foreground="#e36934"/>
-                                <TextBox x:Name="txt_studentID"
-                                   Height="40" Width="250"
-                                   Margin="10 0 0 0"
-                                   Padding="10 0 0 0"
-                                   VerticalContentAlignment="Stretch"
-                                   HorizontalAlignment="Left"
-                                   Foreground="Black"
-                                   FontSize="14"
-                                   FontFamily="Roboto"
-                                   materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                   materialDesign:TextFieldAssist.HasClearButton="True"
-                                   materialDesign:HintAssist.Foreground="#f1ac6a" 
-                                   CaretBrush="#FFE36934" 
-                                   SelectionBrush="#FFF1AC6A"
-                                   VerticalAlignment="Top"
-                                   TextWrapping="Wrap"
-                                   Style="{StaticResource MaterialDesignFilledTextBox}"/>
-                                <Label Content="Course" FontFamily="Roboto"
-                                   FontWeight="Bold"
-                                   FontSize="16" Margin="5,10,0,0" 
-                                   HorizontalAlignment="Left"
-                                   Foreground="#e36934"/>
-                                <TextBox x:Name="txt_studentcourse"
-                                   Height="40" Width="250"
-                                   Margin="10 0 0 0"
-                                   Padding="10 0 0 0"
-                                   VerticalContentAlignment="Stretch"
-                                   HorizontalAlignment="Left"
-                                   Foreground="Black"
-                                   FontSize="14"
-                                   FontFamily="Roboto"
-                                   materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                   materialDesign:TextFieldAssist.HasClearButton="True"
-                                   materialDesign:HintAssist.Foreground="#f1ac6a" 
-                                   CaretBrush="#FFE36934" 
-                                   SelectionBrush="#FFF1AC6A"
-                                   VerticalAlignment="Top"
-                                   TextWrapping="Wrap"
-                                   Style="{StaticResource MaterialDesignFilledTextBox}"/>
-                                <Label Content="Year Level" FontFamily="Roboto"
-                                   FontWeight="Bold"
-                                   FontSize="16" Margin="5,10,0,0" 
-                                   HorizontalAlignment="Left"
-                                   Foreground="#e36934"/>
-                                <TextBox x:Name="txt_studentyear"
-                                   Height="40" Width="250"
-                                   Margin="10 0 0 0"
-                                   Padding="10 0 0 0"
-                                   VerticalContentAlignment="Stretch"
-                                   HorizontalAlignment="Left"
-                                   Foreground="Black"
-                                   FontSize="14"
-                                   FontFamily="Roboto"
-                                   materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                   materialDesign:TextFieldAssist.HasClearButton="True"
-                                   materialDesign:HintAssist.Foreground="#f1ac6a" 
-                                   CaretBrush="#FFE36934" 
-                                   SelectionBrush="#FFF1AC6A"
-                                   VerticalAlignment="Top"
-                                   TextWrapping="Wrap"
-                                   Style="{StaticResource MaterialDesignFilledTextBox}"/>
+                                               FontWeight="Bold"
+                                               FontSize="16" Margin="5,32,0,315" 
+                                               HorizontalAlignment="Left"
+                                               Foreground="#e36934" Height="28"/>
+                                <TextBlock x:Name="txt_ReportStudID"
+                                               Height="40" Width="250"
+                                               Margin="10,63,0,0"
+                                               Padding="10 0 0 0"
+                                               HorizontalAlignment="Left"
+                                               Foreground="Black"
+                                               FontSize="14"
+                                               FontFamily="Roboto"
+                                               materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                               materialDesign:TextFieldAssist.HasClearButton="True"
+                                               materialDesign:HintAssist.Foreground="#f1ac6a"
+                                               VerticalAlignment="Top"
+                                               TextWrapping="Wrap"/>
+                                <Label Content="Student Name" FontFamily="Roboto"
+                                               FontWeight="Bold"
+                                               FontSize="16" Margin="5,100,0,252" 
+                                               HorizontalAlignment="Left"
+                                               Foreground="#e36934" Height="23"/>
+                                <TextBlock x:Name="txt_ReportStudName"
+                                               Height="40" Width="250"
+                                               Margin="10,131,0,0"
+                                               Padding="10 0 0 0"
+                                               HorizontalAlignment="Left"
+                                               Foreground="Black"
+                                               FontSize="14"
+                                               FontFamily="Roboto"
+                                               materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                               materialDesign:TextFieldAssist.HasClearButton="True"
+                                               materialDesign:HintAssist.Foreground="#f1ac6a" 
+                                               VerticalAlignment="Top"
+                                               TextWrapping="Wrap"/>
+                                <Label Content="Department" FontFamily="Roboto"
+                                               FontWeight="Bold"
+                                               FontSize="16" Margin="5,172,0,171" 
+                                               HorizontalAlignment="Left"
+                                               Foreground="#e36934"/>
+                                <TextBlock x:Name="txt_ReposrtStudDep"
+                                               Height="40" Width="250"
+                                               Margin="10,200,0,0"
+                                               Padding="10 0 0 0"
+                                               HorizontalAlignment="Left"
+                                               Foreground="Black"
+                                               FontSize="14"
+                                               FontFamily="Roboto"
+                                               materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                               materialDesign:TextFieldAssist.HasClearButton="True"
+                                               materialDesign:HintAssist.Foreground="#f1ac6a" 
+                                               VerticalAlignment="Top"
+                                               TextWrapping="Wrap"/>
+                                <Label Content="Curriculum Year" FontFamily="Roboto"
+                                               FontWeight="Bold"
+                                               FontSize="16" Margin="5,244,0,101" 
+                                               HorizontalAlignment="Left"
+                                               Foreground="#e36934"/>
+                                <TextBlock x:Name="txt_REportStudYear"
+                                               Height="40" Width="250"
+                                               Margin="10,275,0,0"
+                                               Padding="10 0 0 0"
+                                               HorizontalAlignment="Left"
+                                               Foreground="Black"
+                                               FontSize="14"
+                                               FontFamily="Roboto"
+                                               materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                               materialDesign:TextFieldAssist.HasClearButton="True"
+                                               materialDesign:HintAssist.Foreground="#f1ac6a" 
+                                               VerticalAlignment="Top"
+                                               TextWrapping="Wrap"/>
                                 <!--Generate Report-->
                                 <Button x:Name="btn_generateReport"
                                         Content="Generate Report"
@@ -325,9 +502,9 @@
                                         materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                         materialDesign:RippleAssist.Feedback="#DD000000" 
                                         HorizontalAlignment="center"
-                                        VerticalAlignment="Bottom" Click="GenerateReport_click" Margin="60,30,0,0"
+                                        VerticalAlignment="Bottom" Click="GenerateReport_click" Margin="0,30,0,0"
                                     />
-                            </WrapPanel>
+                            </Grid>
 
                             <Grid Width="Auto" Height="Auto" 
                                         HorizontalAlignment="Stretch"
@@ -344,8 +521,8 @@
                                     HorizontalContentAlignment="Stretch" 
                                     VerticalContentAlignment="Stretch"
                                     ToolTip="Course Curriculum"
-                                    HorizontalAlignment="Left"
-                                    Width="400" Height="400"
+                                    HorizontalAlignment="Center"
+                                    Width="464" Height="421"
                                     IsReadOnly="True" 
                                     IsTextSearchEnabled="True" 
                                     CanUserResizeRows="False" 
@@ -354,12 +531,12 @@
                                     CanUserResizeColumns="False" 
                                     GridLinesVisibility="None"
                                     BorderThickness="0" 
-                                    Padding="5,5,5,5" FontWeight="Normal" Margin="0,0,0,50" VerticalAlignment="Top">
+                                    Padding="5,5,5,5" FontWeight="Normal" VerticalAlignment="Top">
 
                                         <!--<ColumnHeader>-->
                                         <DataGrid.Columns>
                                             <DataGridTextColumn 
-                                            Header="No." 
+                                            Header="ID" 
                                             Binding="{Binding RepCourseNo}"
                                             Width="50" 
                                             FontFamily="Tienne" 
