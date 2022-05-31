@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Windows.Media;
 using System.Windows.Controls.Primitives;
+using System.Text;
 
 namespace Student_Subject_Evaluation.MVVM.View
 {
@@ -19,7 +20,8 @@ namespace Student_Subject_Evaluation.MVVM.View
     /// </summary>
     public partial class Curriculum : UserControl
     {
-
+        //string remover 
+        
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             //your tracing or logging code here (I put a message box as an example)
@@ -107,8 +109,8 @@ namespace Student_Subject_Evaluation.MVVM.View
         {
             InitializeComponent();
             Curriculumlist();
+            btn_saveCurriculum.IsEnabled = false;
         }
-
 
         public void searchedResult()
         {
@@ -230,7 +232,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                     {
                         dt.Columns.Add(new DataColumn(headerWord));
                     }
-
                     //for the data
                     for (int r = 1; r < lines.Length; r++)
                     {
@@ -243,16 +244,29 @@ namespace Student_Subject_Evaluation.MVVM.View
                         }
                         dt.Rows.Add(dr);
                     }
-                    if (dt.Rows.Count > 0)
+                    
+                    DataTable clone = dt.Clone();
+                    string t;
+                    var qry = from DataRow row in dt.Rows
+                              let arr = row.ItemArray
+                              select Array.ConvertAll(arr, s =>
+                                  (t = s as string) != null
+                                  && t.StartsWith("\"")
+                                  && t.EndsWith("\"") ? t.Trim('\"') : s);
+                    foreach (object[] arr in qry)
+                    {
+                        clone.Rows.Add(arr);
+                    }
+                    if (clone.Rows.Count > 0)
                     {
                         //We will make the datatable the source for the datagrid
-                        Import_list.ItemsSource = dt.DefaultView;
+                        Import_list.ItemsSource = clone.DefaultView;
                     }
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show("There's something wrong with the file choosen. File not found or file was corrupted.");
+                MessageBox.Show("File not found or file was corrupted. Please make sure the file is not open in another program.");
             }
         }
 
@@ -263,6 +277,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             txt_Filepath.Text = "";
             try
             {
+                btn_saveCurriculum.IsEnabled = true;
                 //this will open the windows dialog so we can shoose the file
                 Microsoft.Win32.OpenFileDialog lObjFileDlge = new Microsoft.Win32.OpenFileDialog();
                 lObjFileDlge.Filter = "CSV Files|*.csv";
@@ -311,6 +326,8 @@ namespace Student_Subject_Evaluation.MVVM.View
 
         private void btn_saveCurriculum_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
                 if (txt_Filepath.Text != "" && Import_list.Items.IsEmpty == false)
                 {
                     MySqlConnection dbc = new MySqlConnection(connectionString);
@@ -343,28 +360,28 @@ namespace Student_Subject_Evaluation.MVVM.View
                             //Let's insert the data into the database
                             Console.Write((dt.Rows[i][j]).ToString());
                             cmd.Parameters["@curr_ID"].Value = 0;
-                            cmd.Parameters["@curr_Code"].Value = dt.Rows[i][0].ToString();
-                            cmd.Parameters["@curr_Title"].Value = dt.Rows[i][1].ToString();
+                            cmd.Parameters["@curr_Code"].Value = dt.Rows[i][0];
+                            cmd.Parameters["@curr_Title"].Value = dt.Rows[i][1];
                             cmd.Parameters["@curr_Units"].Value = dt.Rows[i][2];
-                        //check if the cell was blank
+                            //check if the cell was blank
                             if (!String.IsNullOrEmpty((dt.Rows[i][3].ToString())) == true)
-                        {
-                            cmd.Parameters["@curr_Pre_Req"].Value = dt.Rows[i][3].ToString();
-                        }
-                        else
-                        {
-                            cmd.Parameters["@curr_Pre_Req"].Value = " ";
-                        }
-                            cmd.Parameters["@curr_Semester"].Value = dt.Rows[i][4].ToString();
-                        if (!String.IsNullOrEmpty((dt.Rows[i][5].ToString())) == true)
-                        {
-                            cmd.Parameters["@curr_Yearlevel"].Value = dt.Rows[i][5];
-                        }
-                        else
-                        {
-                            cmd.Parameters["@curr_Yearlevel"].Value = 0;
-                        }
-                            cmd.Parameters["@curr_Department"].Value = dt.Rows[i][6].ToString();
+                            {
+                                cmd.Parameters["@curr_Pre_Req"].Value = dt.Rows[i][3];
+                            }
+                            else
+                            {
+                                cmd.Parameters["@curr_Pre_Req"].Value = " ";
+                            }
+                            cmd.Parameters["@curr_Semester"].Value = dt.Rows[i][4];
+                            if (!String.IsNullOrEmpty((dt.Rows[i][5].ToString())) == true)
+                            {
+                                cmd.Parameters["@curr_Yearlevel"].Value = dt.Rows[i][5];
+                            }
+                            else
+                            {
+                                cmd.Parameters["@curr_Yearlevel"].Value = 0;
+                            }
+                            cmd.Parameters["@curr_Department"].Value = dt.Rows[i][6];
                             cmd.Parameters["@curr_Batch"].Value = dt.Rows[i][7];
                             cmd.CommandTimeout = 60;
                         }
@@ -375,8 +392,12 @@ namespace Student_Subject_Evaluation.MVVM.View
 
                     //close the connection
                     dbc.Close();
-                    
+
                     MessageBox.Show("Succesfully saved into the database!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    btn_saveCurriculum.IsEnabled = false;
+                    txt_Filepath.Text = "";
+                    this.Import_list.ItemsSource = null;
+                    Import_list.Items.Clear();
                 }
                 else if (Import_list.Items.IsEmpty)
                 {
@@ -388,6 +409,13 @@ namespace Student_Subject_Evaluation.MVVM.View
                 {
                     MessageBox.Show("Please make sure all the fields are filled.");
                 }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("There is something wrong with your file. " +
+                    "Check if the data are in the correct format or if the file is used by another application, close it and try again."
+                    , "", MessageBoxButton.OK, MessageBoxImage.Information);
+            }   
             }
 
         //MessageBox.Show(ex.ToString(), "", MessageBoxButton.OK, MessageBoxImage.Error);

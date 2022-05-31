@@ -112,6 +112,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                 ws.Cells[Address: "E3:F3"].Merge = true;
                 ws.Cells[Address: "A1:G1"].Merge = true;
                 ws.Column(col: 1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
                 ws.Row(row: 1).Style.Font.Size = 20;
                 ws.Row(row: 1).Style.Font.Bold = true;
                 ws.Row(row: 2).Style.Font.Bold = true;
@@ -124,18 +125,20 @@ namespace Student_Subject_Evaluation.MVVM.View
                 ws.Cells[Address: "A3"].Value = "Student Number:";
                 ws.Cells[Address: "D2"].Value = "Curriculum Year:";
                 ws.Cells[Address: "D3"].Value = "Department:";
+                ws.Cells[Address: "E2"].Value = cbx_evalDepartment.Text;
+                ws.Cells[Address: "E3"].Value =  int.Parse(txt_currYear.Text);
                 ws.Cells[Address: "A5"].Value = "Subject ID";
                 ws.Cells[Address: "B5"].Value = "Subject Code";
                 ws.Cells[Address: "C5"].Value = "Subject Title";
                 ws.Cells[Address: "D5"].Value = "Units";
-                ws.Cells[Address: "E5"].Value = "Pre Requisite/s";
+                ws.Cells[Address: "E5"].Value = "Pre Requisites";
                 ws.Cells[Address: "F5"].Value = "Final Grade";
                 ws.Cells[Address: "G5"].Value = "Remarks";
                 ws.Row(row: 2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
                 ws.Row(row: 3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
 
                 //format other thing
-                ws.Column(col: 1).Width = 15;
+                ws.Column(col: 1).Width = 16;
                 ws.Column(col: 2).Width = 13;
                 ws.Column(col: 3).Width = 50;
                 ws.Column(col: 4).Width = 15;
@@ -150,11 +153,11 @@ namespace Student_Subject_Evaluation.MVVM.View
                 ws.Column(col: 7).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 ws.Cells[Address: "D2"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
                 ws.Cells[Address: "D3"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                ws.Column(col: 6).Style.Numberformat.Format = "0.00";
                 ws.DeleteRow(6);
                 await package.SaveAsync();
                 package.SaveAs(new FileInfo("Evaluation Form.xlsx"));
                 btn_exportEval.IsEnabled = false;
-
                 //TRYYY
                 //convert the excel package to a byte array
                 byte[] bin = package.GetAsByteArray();
@@ -173,11 +176,12 @@ namespace Student_Subject_Evaluation.MVVM.View
                 {
                     //write the file to the disk
                     File.WriteAllBytes(saveFileDialog1.FileName, bin);
-                    Export_list.Items.Clear();
                     cbx_evalDepartment.SelectedIndex = -1;
                     cbx_evalSemester.SelectedIndex = -1;
                     cbx_evalYearlevel.SelectedIndex = -1;
                     txt_currYear.Text = "";
+                    this.Export_list.ItemsSource = null;
+                    Export_list.Items.Clear();
                 }
             }
         }
@@ -195,60 +199,63 @@ namespace Student_Subject_Evaluation.MVVM.View
         public void PreviewExport()
         {
             Export_list.Items.Clear();
-            if (cbx_evalDepartment.SelectedIndex != -1 && cbx_evalSemester.SelectedIndex != -1 && cbx_evalYearlevel.SelectedIndex != -1 && txt_currYear.Text != "")
+            if (cbx_evalDepartment.SelectedIndex != -1 && cbx_evalSemester.SelectedIndex != -1 
+                && cbx_evalYearlevel.SelectedIndex != -1 && txt_currYear.Text != "")
             {
-                string query1 = "Select * From `tbl_curriculum` where `curr_Batch` LIKE '"
-               + txt_currYear.Text + "%' AND `curr_Yearlevel` LIKE '"
-               + cbx_evalYearlevel.Text + "%'  AND `curr_Semester`  LIKE '"
-               + cbx_evalSemester.Text + "%'  AND `curr_Department`  LIKE '"
-               + cbx_evalDepartment.Text + "%' ";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
+                try
+                {
+                     string query1 = "Select * From `tbl_curriculum` where `curr_Batch` LIKE '"
+                     + txt_currYear.Text + "%' AND `curr_Yearlevel` LIKE '"
+                     + cbx_evalYearlevel.Text + "%'  AND `curr_Semester`  LIKE '"
+                     + cbx_evalSemester.Text + "%'  AND `curr_Department`  LIKE '"
+                     + cbx_evalDepartment.Text + "%' ";
+                            MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+                            MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
+                            commandDatabase.CommandTimeout = 60;
+                            MySqlDataReader reader;
+                            databaseConnection.Open();
+                            reader = commandDatabase.ExecuteReader();
 
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
+                    if (reader.HasRows)
                     {
-                        if (reader.GetString(4) == "" || reader.GetString(4) == null)
+                        while (reader.Read())
                         {
-                            EvalForms output = new EvalForms
+                            if (reader.GetString(4) == "" || reader.GetString(4) == null)
                             {
-                                Subject_ID = reader.GetInt16(0),
-                                Subject_Code = reader.GetString(1),
-                                Subject_Title = reader.GetString(2),
-                                Units = reader.GetInt16(3),
-                                Pre_Req = "None"
-                            };
-                            Export_list.Items.Add(output);
-                        }
-                        else
-                        {
-                            EvalForms output = new EvalForms
+                                EvalForms output = new EvalForms
+                                {
+                                    Subject_ID = reader.GetInt16(0),
+                                    Subject_Code = reader.GetString(1),
+                                    Subject_Title = reader.GetString(2),
+                                    Units = reader.GetInt16(3),
+                                    Pre_Req = "None"
+                                };
+                                Export_list.Items.Add(output);
+                            }
+                            else
                             {
-                                Subject_ID = reader.GetInt16(0),
-                                Subject_Code = reader.GetString(1),
-                                Subject_Title = reader.GetString(2),
-                                Units = reader.GetInt16(3),
-                                Pre_Req = reader.GetString(4)
-                            };
-                            Export_list.Items.Add(output);
+                                EvalForms output = new EvalForms
+                                {
+                                    Subject_ID = reader.GetInt16(0),
+                                    Subject_Code = reader.GetString(1),
+                                    Subject_Title = reader.GetString(2),
+                                    Units = reader.GetInt16(3),
+                                    Pre_Req = reader.GetString(4)
+                                };
+                                Export_list.Items.Add(output);
+                            }
+
                         }
-                        
                     }
+                    else
+                    {
+                        Console.WriteLine("No rows found.");
+                        Export_list.Items.Clear();
+                        MessageBox.Show("No record found.");
+                    }
+                    databaseConnection.Close();
                 }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                    Export_list.Items.Clear();
-                    MessageBox.Show("No record found.");
-                }
-                
-                databaseConnection.Close();
-                
+                catch (Exception) { }
             }
         }
       

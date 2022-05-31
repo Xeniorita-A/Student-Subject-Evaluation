@@ -123,7 +123,7 @@
                                             materialDesign:HintAssist.Foreground="#e36934"
                                             materialDesign:HintAssist.Hint="SEARCH" 
                                             materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                                            TextChanged="TextSearchCurr_Changed"/>
+                                            TextChanged="TextSearchCurr_Changed" ToolTip="You can search the Subject Code, Subject Title, and Batch number"/>
                                         </Grid>
                                     </WrapPanel>
 
