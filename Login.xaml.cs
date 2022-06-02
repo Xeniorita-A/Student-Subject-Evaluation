@@ -200,10 +200,12 @@ namespace Student_Subject_Evaluation
                 }
             }
         }
-        
+
         private void btn_help_Click(object sender, RoutedEventArgs e)
         {
-
+            HelpModule w = new HelpModule();
+            w.Content = new HelpPage();
+            w.Show();
         }
     }
 }

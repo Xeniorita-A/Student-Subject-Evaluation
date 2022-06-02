@@ -1,0 +1,20 @@
+﻿<Window x:Class="Student_Subject_Evaluation.HelpModule"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Student_Subject_Evaluation"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        HorizontalAlignment="Center"
+        AllowsTransparency="True"
+        Background="Transparent"
+        VerticalAlignment="Center"
+        WindowState="Normal"
+        WindowStyle="None"
+        Height="770" Width="550">
+     <Border CornerRadius="15" Background="White">
+        
+     </Border>
+</Window>

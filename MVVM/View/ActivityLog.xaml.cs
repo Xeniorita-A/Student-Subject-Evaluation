@@ -33,7 +33,7 @@ namespace Student_Subject_Evaluation.MVVM.View
         {
             InitializeComponent();
             showActivityLog();
-            System.Globalization.CultureInfo culInfo = new System.Globalization.CultureInfo("en-us");
+            _ = new System.Globalization.CultureInfo("en-us");
             System.Globalization.DateTimeFormatInfo dtinfo = new System.Globalization.DateTimeFormatInfo();
             dtinfo.ShortDatePattern = "yyyy-MM-dd";
         }
@@ -123,9 +123,9 @@ namespace Student_Subject_Evaluation.MVVM.View
             _ = commandDatabase2.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
             _ = commandDatabase2.Parameters.AddWithValue("@user", MainWindow.MWinstance.AccountID);
             _ = commandDatabase2.Parameters.AddWithValue("@activity", "Exported Activity Log");
-            _ = commandDatabase2.Parameters.AddWithValue("@details", MainWindow.MWinstance.AccountName + 
-                " exported a copy of activity log from "+ DateTime.Parse((string)DateFrom.Text).ToString("yyyy-MM-dd") + 
-                " to " + DateTime.Parse((string)DateTo.Text).ToString("yyyy-MM-dd") + ".");
+            _ = commandDatabase2.Parameters.AddWithValue("@details", MainWindow.MWinstance.AccountName +
+                " exported a copy of activity log from " + DateTime.Parse(DateFrom.Text).ToString("yyyy-MM-dd") +
+                " to " + DateTime.Parse(DateTo.Text).ToString("yyyy-MM-dd") + ".");
             commandDatabase2.CommandTimeout = 60;
             MySqlDataReader reader2;
             try
@@ -192,13 +192,14 @@ namespace Student_Subject_Evaluation.MVVM.View
             }
             else if ((DateTo.Text == "" && DateFrom.Text != "") || (DateTo.Text != "" && DateFrom.Text == ""))
             {
-                MessageBox.Show("If you wish to export activity log in custom date range, please make sure to pick dates.", "Info");
+                _ = MessageBox.Show("If you wish to export activity log in custom date range, please make sure to pick dates.", "Info");
                 showActivityLog();
             }
             else if (DateTo.Text == "" && DateFrom.Text == "")
             {
                 await exportAllLog(rep);
-            }else if (Activity_log.Items.IsEmpty == true)
+            }
+            else if (Activity_log.Items.IsEmpty == true)
             {
                 showActivityLog();
             }
@@ -210,9 +211,9 @@ namespace Student_Subject_Evaluation.MVVM.View
             try
             {
                 Activity_log.Items.Clear();
-                string q2 = "SELECT * FROM tbl_activitylog WHERE `log_Date` BETWEEN '" + 
-                    DateTime.Parse((string)DateFrom.Text).ToString("yyyy-MM-dd") + "' AND '" + 
-                    DateTime.Parse((string)DateTo.Text).ToString("yyyy-MM-dd") + "'";
+                string q2 = "SELECT * FROM tbl_activitylog WHERE `log_Date` BETWEEN '" +
+                    DateTime.Parse(DateFrom.Text).ToString("yyyy-MM-dd") + "' AND '" +
+                    DateTime.Parse(DateTo.Text).ToString("yyyy-MM-dd") + "'";
                 MySqlConnection dbc = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase1 = new MySqlCommand(q2, dbc);
                 commandDatabase1.CommandTimeout = 60;
@@ -230,7 +231,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             Activity = reader.GetString(4),
                             ActivityDetail = reader.GetString(5)
                         };
-                        Activity_log.Items.Add(_activity);
+                        _ = Activity_log.Items.Add(_activity);
                     }
                 }
                 else
@@ -259,9 +260,9 @@ namespace Student_Subject_Evaluation.MVVM.View
             {
                 string q2 = "SELECT `log_ID`, `log_Time`, `log_Date`, `log_Activity`, `log_Detail` FROM `tbl_activitylog`" +
                     "WHERE `log_Date` BETWEEN '" +
-                    DateTime.Parse((string)DateFrom.Text).ToString("yyyy-MM-dd") + "' AND '" +
-                    DateTime.Parse((string)DateTo.Text).ToString("yyyy-MM-dd") + "'";
-                MySqlConnection dbc = new MySqlConnection(connectionString); 
+                    DateTime.Parse(DateFrom.Text).ToString("yyyy-MM-dd") + "' AND '" +
+                    DateTime.Parse(DateTo.Text).ToString("yyyy-MM-dd") + "'";
+                MySqlConnection dbc = new MySqlConnection(connectionString);
                 DataTable dt = new DataTable("EvalForms");
                 try
                 {
@@ -278,7 +279,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                     MySqlCommandBuilder _cb = new MySqlCommandBuilder(returnVal);
                     databaseConnection.Close();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                 }
                 //WS is the worksheet
@@ -331,8 +332,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                 saveFileDialog1.Title = "Save Excel sheet";
                 saveFileDialog1.Filter = "Excel files|*.xlsx|All files|*.*";
                 saveFileDialog1.FileName = "Activity Log_From "
-                    + DateTime.Parse((string)DateFrom.Text).ToString("yyyy-MM-dd") + " To "
-                    + DateTime.Parse((string)DateTo.Text).ToString("yyyy-MM-dd") + ".xlsx";
+                    + DateTime.Parse(DateFrom.Text).ToString("yyyy-MM-dd") + " To "
+                    + DateTime.Parse(DateTo.Text).ToString("yyyy-MM-dd") + ".xlsx";
 
                 //check if user clicked the save button
                 if (saveFileDialog1.ShowDialog() == true)
@@ -444,6 +445,23 @@ namespace Student_Subject_Evaluation.MVVM.View
             showActivityLog();
             DateFrom.Text = "";
             DateTo.Text = "";
+        }
+
+        private void btn_help_Click(object sender, RoutedEventArgs e)
+        {
+            HelpModule w = new HelpModule();
+            w.Content = new HelpPage();
+            w.Show();
+        }
+
+        private void exitApp(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to log out and exit application?", "EXIT",
+                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                addActivityLogout();
+                Application.Current.Shutdown();
+            }
         }
     }
 }

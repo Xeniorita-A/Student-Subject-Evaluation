@@ -1,5 +1,9 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.Win32;
+using MySql.Data.MySqlClient;
 using OfficeOpenXml;
+using Syncfusion.Pdf;
+using Syncfusion.XlsIO;
+using Syncfusion.XlsIORenderer;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,10 +13,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Color = System.Drawing.Color;
-using Syncfusion.XlsIO;
-using Syncfusion.XlsIORenderer;
-using Syncfusion.Pdf;
-using Microsoft.Win32;
 
 namespace Student_Subject_Evaluation.MVVM.View
 {
@@ -116,7 +116,7 @@ namespace Student_Subject_Evaluation.MVVM.View
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             //This where we will save the template
-            FileInfo? rep = new FileInfo (fileName: (@"C:\Users\XenioritaAlondra\source\repos\Student Subject Evaluation\Reports\Generated_Report.xlsx"));
+            FileInfo? rep = new FileInfo(fileName: @"C:\Users\XenioritaAlondra\source\repos\Student Subject Evaluation\Reports\Generated_Report.xlsx");
             await saveExcelReport(rep);
         }
 
@@ -293,7 +293,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                 excelPackage.SaveAs(new FileInfo("Generated Report.xlsx"));
                 using (ExcelEngine excelEngine = new ExcelEngine())
                 {
-                    
+
                     IApplication application = excelEngine.Excel;
                     application.DefaultVersion = ExcelVersion.Xlsx;
                     FileStream inputStream = new FileStream("../../../Reports/Generated_Report.xlsx", FileMode.Open, FileAccess.Read);
@@ -325,16 +325,16 @@ namespace Student_Subject_Evaluation.MVVM.View
                         FileStream outputStream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write);
                         pdfDocument.Save(outputStream);
 
-                        if (MessageBox.Show("Do you want to view the PDF file?","PDF File Created", MessageBoxButton.YesNo,
+                        if (MessageBox.Show("Do you want to view the PDF file?", "PDF File Created", MessageBoxButton.YesNo,
                             MessageBoxImage.Question) == MessageBoxResult.Yes)
-                            //Message box confirmation to view the created PDF document.
+                        //Message box confirmation to view the created PDF document.
                         {
                             System.Diagnostics.Process process = new System.Diagnostics.Process();
                             process.StartInfo = new System.Diagnostics.ProcessStartInfo(saveFileDialog.FileName)
                             {
                                 UseShellExecute = true
                             };
-                            process.Start();
+                            _ = process.Start();
                             //process.Start();
                         }
                         outputStream.Dispose();
@@ -348,7 +348,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                         unitsLacking.Text = "";
                         unitsTaken.Text = "";
                         totalUnits.Text = "";
-                        this.Report_list.ItemsSource = null;
+                        Report_list.ItemsSource = null;
                         Report_list.Items.Clear();
                     }
                     #endregion
@@ -358,7 +358,9 @@ namespace Student_Subject_Evaluation.MVVM.View
 
         private void btn_help_Click(object sender, RoutedEventArgs e)
         {
-
+            HelpModule w = new HelpModule();
+            w.Content = new HelpPage();
+            w.Show();
         }
 
         //Code for exiting the app
@@ -541,7 +543,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             string query = "Select * From `tbl_student` where `student_StudentNo` LIKE '"
                  + txt_searchStudents.Text + "%' OR `student_Name` LIKE '"
                  + txt_searchStudents.Text + "%'  OR `student_Batch` LIKE '"
-                 + txt_searchStudents.Text + "%'"; 
+                 + txt_searchStudents.Text + "%'";
             MySqlConnection databaseConnection = new MySqlConnection(connectionString);
             MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
             commandDatabase.CommandTimeout = 60;

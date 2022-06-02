@@ -36,7 +36,31 @@
             </StackPanel>
 
         </Border>
-        
+        <!--Code for the popupbox-->
+        <StackPanel>
+            <materialDesign:PopupBox 
+                HorizontalAlignment="Right"
+                Margin="0 20 20 0"
+                PlacementMode="BottomAndAlignRightEdges"
+                StaysOpen="False"
+                Height="50">
+                <StackPanel Margin="10"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center">
+                    <StackPanel>
+                        <Button ToolTip="Are you Having trouble using the system?"
+                            Margin="10 0 10 0"
+                            Content="Help" Click="btn_help_Click"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <Button x:Name="btn_exit" Content="Exit"
+                            ToolTip="Exit Application"
+                            Click="exitApp" Margin="10 0 10 0"/>
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:PopupBox>
+        </StackPanel>
+
         <!--Orange line-->
         <StackPanel Grid.Row="1" Grid.RowSpan="2" >
             <StackPanel Grid.Row="1" Margin="0">

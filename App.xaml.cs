@@ -1,7 +1,4 @@
 ﻿using System.Windows;
-using Syncfusion.XlsIO;
-using Syncfusion.XlsIORenderer;
-using Syncfusion.Pdf;
 
 namespace Student_Subject_Evaluation
 {

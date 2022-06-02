@@ -186,7 +186,9 @@ namespace Student_Subject_Evaluation.MVVM.View
 
         private void Help_Click(object sender, RoutedEventArgs e)
         {
-
+            HelpModule w = new HelpModule();
+            w.Content = new HelpPage();
+            w.Show();
         }
 
         //Code to exit the Application

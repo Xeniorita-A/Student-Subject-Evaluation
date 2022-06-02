@@ -20,9 +20,11 @@ namespace Student_Subject_Evaluation.MVVM.View
         {
             if (MessageBox.Show("Are you sure you want to log out and exit application?", "EXIT", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
+                Application.Current.Windows[0].Hide();
                 //addActivityLogout();
                 Login load = new Login();
                 load.Show();
+
             }
         }
 

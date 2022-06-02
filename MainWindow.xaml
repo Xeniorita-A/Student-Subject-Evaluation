@@ -13,6 +13,9 @@
         Height="770" Width="1366"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
+        WindowStyle="SingleBorderWindow"
+        BorderThickness="1"
+        BorderBrush="OrangeRed"
         WindowState="Normal">
 
     <Window.DataContext>
