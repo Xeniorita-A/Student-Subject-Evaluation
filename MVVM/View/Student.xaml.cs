@@ -116,7 +116,7 @@ namespace Student_Subject_Evaluation.MVVM.View
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             //This where we will save the template
-            FileInfo? rep = new FileInfo(fileName: @"C:\Users\XenioritaAlondra\source\repos\Student Subject Evaluation\Reports\Generated_Report.xlsx");
+            FileInfo? rep = new FileInfo(fileName: @"C:\Student Subject Evaluation System\Reports\Generated_Report.xlsx");
             await saveExcelReport(rep);
         }
 

@@ -228,50 +228,41 @@
                                                     <TreeViewItem FontSize="12"
                                                       Header="Department"
                                                       materialDesign:TreeViewAssist.AdditionalTemplate="{x:Static materialDesign:TreeViewAssist.SuppressAdditionalTemplate}" Padding="5,5,5,5">
-                                                        <CheckBox Name="check_alldep"
-                                                        Content="All"
-                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Checked="check_alldep_Checked" Unchecked="check_alldep_Checked" />
                                                         <CheckBox Name="check_BSCE"
                                                         Content="BSCE" 
-                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Checked="check_singleDep" Unchecked="check_singleDep" />
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" />
                                                         <CheckBox Name="check_BSEE"
                                                         Content="BSEE"
-                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Unchecked="check_singleDep" Checked="check_singleDep" />
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" />
                                                         <CheckBox Name="check_BSIT"
                                                         Content="BSIT"
-                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Checked="check_singleDep" Unchecked="check_singleDep" />
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20"  />
                                                     </TreeViewItem>
                                                     <TreeViewItem FontSize="12"
                                                       Header="Subject Semester"
                                                       materialDesign:TreeViewAssist.AdditionalTemplate="{x:Static materialDesign:TreeViewAssist.SuppressAdditionalTemplate}" Padding="5,5,5,5">
-                                                        <CheckBox Name="check_allsem"
-                                                        Content="All"
-                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Checked="check_allSem" Unloaded="check_allSem" />
                                                         <CheckBox Name="check_firstsem"
                                                         Content="First Semester"
-                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Checked="check_singleSem" Unchecked="check_singleSem" />
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" />
                                                         <CheckBox Name="check_secsem"
                                                         Content="Second Semester"
-                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Unchecked="check_singleSem" Checked="check_singleSem" />
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20"  />
                                                     </TreeViewItem>
                                                     <TreeViewItem FontSize="12"
                                                       Header="Subject Year"
                                                       materialDesign:TreeViewAssist.AdditionalTemplate="{x:Static materialDesign:TreeViewAssist.SuppressAdditionalTemplate}" Padding="5,5,5,5">
-                                                        <CheckBox Name="check_allyear"
-                                                        Content="All"
-                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Checked="check_allYearlevel" Unchecked="check_allYearlevel" />
                                                         <CheckBox Name="check_year1"
                                                         Content="1st Year"
-                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Checked="check_singleYear" Unchecked="check_singleYear" />
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20"  />
                                                         <CheckBox Name="check_year2"
                                                         Content="2nd Year"
-                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Unchecked="check_singleYear" Checked="check_singleYear" />
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20"  />
                                                         <CheckBox Name="check_year3"
                                                         Content="3rd Year"
-                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Unchecked="check_singleYear" Checked="check_singleYear" />
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20"  />
                                                         <CheckBox Name="check_year4"
                                                         Content="4th Year"
-                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Unchecked="check_singleYear" Checked="check_singleYear" />
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20"  />
                                                     </TreeViewItem>
                                                 </TreeViewItem>
                                             </StackPanel>
@@ -284,10 +275,10 @@
                                         </Button>
                                     </Grid>
 
-                                    <WrapPanel VerticalAlignment="Bottom" Margin="0,10,20,20" HorizontalAlignment="Right">
+                                    <WrapPanel VerticalAlignment="Bottom" Margin="0,10,50,20" HorizontalAlignment="Right">
                                         <Button x:Name="btn_refresh"
                                         Height="30"
-                                        Width="120"
+                                        Width="130"
                                         materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                         materialDesign:RippleAssist.Feedback="#DD000000" 
                                         Click="refresh_List" ToolTip="Refresh the table and clear filters">

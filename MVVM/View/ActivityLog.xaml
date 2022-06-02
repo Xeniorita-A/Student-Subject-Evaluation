@@ -130,7 +130,7 @@
                             <Button x:Name="btn_ApplyFilter"
                             Content="APPLY FILTER"
                             Margin="0,194,0,10"
-                            BorderThickness="0" FontSize="16"
+                            BorderThickness="0" FontSize="14"
                             Height="40" Width="150"
                             FontFamily="Tienne" FontWeight="Bold"
                             Style="{StaticResource MaterialDesignRaisedButton}"

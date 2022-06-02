@@ -65,19 +65,18 @@
 
             <!--Label-->
             <WrapPanel>
-                <StackPanel Margin="30,232,30,0" VerticalAlignment="Top" Height="74">
+                <StackPanel Margin="59,254,48,0" VerticalAlignment="Bottom" Height="61">
                     <TextBlock Text="PAMANTASAN NG LUNGSOD NG" 
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Center" 
-                Foreground="White" 
-                FontSize="16"
+                Foreground="White"
                 FontFamily="Tienne"
                 Margin="0,0,0,-5"/>
                     <TextBlock Text="VALENZUELA" 
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Center" 
                 Foreground="White" 
-                FontSize="40"
+                FontSize="30"
                 Margin="0,0,0,10" FontWeight="Normal" 
                 FontStretch="Normal"
                 FontFamily="Tienne"/>

@@ -596,9 +596,6 @@ namespace Student_Subject_Evaluation.MVVM.View
             check_year2.IsChecked = false;
             check_year3.IsChecked = false;
             check_year4.IsChecked = false;
-            check_alldep.IsChecked = false;
-            check_allsem.IsChecked = false;
-            check_allyear.IsChecked = false;
             txt_searchCurr.Text = "";
             Curriculumlist();
         }
@@ -613,838 +610,14 @@ namespace Student_Subject_Evaluation.MVVM.View
             string dep3 = "Information Technology";
             string dep2 = "Electrical Engineering";
 
-            //If the filter for all department, all semester and first year was selected 
-            if (check_alldep.IsChecked == true && check_allsem.IsChecked == true && check_year1.IsChecked == true
-                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
-            {
-                year = 1;
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "' OR `curr_Semester` = '"
-                    + semester3 + "' OR `curr_Semester` = '"
-                    + semester4 + "')  AND  `curr_Yearlevel` ='"
-                    + year + "' AND (`curr_Department` = '"
-                    + dep1 + "' OR `curr_Department` = '"
-                    + dep2 + "' OR `curr_Department` = '"
-                    + dep3 + "')";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        _ = Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
-            //If the filter for all department,all semester and second year was selected 
-            if (check_alldep.IsChecked == true && check_allsem.IsChecked == true && check_year2.IsChecked == true
-                && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
-            {
-                year = 2;
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "' OR `curr_Semester` = '"
-                    + semester3 + "' OR `curr_Semester` = '"
-                    + semester4 + "')  AND  `curr_Yearlevel` ='"
-                    + year + "' AND (`curr_Department` = '"
-                    + dep1 + "' OR `curr_Department` = '"
-                    + dep2 + "' OR `curr_Department` = '"
-                    + dep3 + "')";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        _ = Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
-            //If the filter for all department, all semester and third year was selected 
-            if (check_alldep.IsChecked == true && check_allsem.IsChecked == true && check_year3.IsChecked == true
-                && check_year2.IsChecked == false && check_year1.IsChecked == false && check_year4.IsChecked == false)
-            {
-                year = 3;
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "' OR `curr_Semester` = '"
-                    + semester3 + "' OR `curr_Semester` = '"
-                    + semester4 + "')  AND  `curr_Yearlevel` ='"
-                    + year + "' AND (`curr_Department` = '"
-                    + dep1 + "' OR `curr_Department` = '"
-                    + dep2 + "' OR `curr_Department` = '"
-                    + dep3 + "')";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        _ = Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
-            //If the filter for all department, all semester and fourth year was selected 
-            if (check_alldep.IsChecked == true && check_allsem.IsChecked == true && check_year4.IsChecked == true
-                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year1.IsChecked == false)
-            {
-                year = 4;
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "' OR `curr_Semester` = '"
-                    + semester3 + "' OR `curr_Semester` = '"
-                    + semester4 + "')  AND  `curr_Yearlevel` ='"
-                    + year + "' AND (`curr_Department` = '"
-                    + dep1 + "' OR `curr_Department` = '"
-                    + dep2 + "' OR `curr_Department` = '"
-                    + dep3 + "')";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        _ = Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
-            //If the filter for all department, first semester and first year
-            if (check_alldep.IsChecked == true && check_firstsem.IsChecked == true && check_year1.IsChecked == true
-                && check_secsem.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
-            {
-                year = 1;
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') AND `curr_Yearlevel` ='"
-                    + year + "' AND (`curr_Department` = '"
-                    + dep1 + "' OR `curr_Department` = '"
-                    + dep2 + "' OR `curr_Department` = '"
-                    + dep3 + "')";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        _ = Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
-            //If the filter for all department, second semester and first year
-            if (check_alldep.IsChecked == true && check_secsem.IsChecked == true && check_year1.IsChecked == true
-                && check_firstsem.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
-            {
-                year = 1;
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester3 + "' OR `curr_Semester` = '"
-                    + semester4 + "') AND `curr_Yearlevel` ='"
-                    + year + "' AND (`curr_Department` = '"
-                    + dep1 + "' OR `curr_Department` = '"
-                    + dep2 + "' OR `curr_Department` = '"
-                    + dep3 + "' )";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        _ = Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
-            //If the filter for all department, first semester and second year
-            if (check_alldep.IsChecked == true && check_firstsem.IsChecked == true && check_year2.IsChecked == true
-                && check_secsem.IsChecked == false && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
-            {
-                year = 2;
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') AND `curr_Yearlevel` ='"
-                    + year + "' AND (`curr_Department` = '"
-                    + dep1 + "' OR `curr_Department` = '"
-                    + dep2 + "' OR `curr_Department` = '"
-                    + dep3 + "' )";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        _ = Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
-            //If the filter for all department, second semester and second year
-            if (check_alldep.IsChecked == true && check_secsem.IsChecked == true && check_year2.IsChecked == true
-                && check_firstsem.IsChecked == false && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
-            {
-                year = 2;
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester3 + "' OR `curr_Semester` = '"
-                    + semester4 + "') AND `curr_Yearlevel` ='"
-                    + year + "' AND (`curr_Department` = '"
-                    + dep1 + "' OR `curr_Department` = '"
-                    + dep2 + "' OR `curr_Department` = '"
-                    + dep3 + "' )";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        _ = Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
-            //If the filter for all department, first semester and third year
-            if (check_alldep.IsChecked == true && check_firstsem.IsChecked == true && check_year3.IsChecked == true
-                && check_secsem.IsChecked == false && check_year2.IsChecked == false && check_year1.IsChecked == false && check_year4.IsChecked == false)
-            {
-                year = 3;
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') AND `curr_Yearlevel` ='"
-                    + year + "' AND (`curr_Department` = '"
-                    + dep1 + "' OR `curr_Department` = '"
-                    + dep2 + "' OR `curr_Department` = '"
-                    + dep3 + "' )";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        _ = Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
-            //If the filter for all department, second semester and third year
-            if (check_alldep.IsChecked == true && check_secsem.IsChecked == true && check_year3.IsChecked == true
-                && check_firstsem.IsChecked == false && check_year2.IsChecked == false && check_year1.IsChecked == false && check_year4.IsChecked == false)
-            {
-                year = 3;
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester3 + "' OR `curr_Semester` = '"
-                    + semester4 + "')) AND `curr_Yearlevel` ='"
-                    + year + "' AND (`curr_Department` = '"
-                    + dep1 + "' OR `curr_Department` = '"
-                    + dep2 + "' OR `curr_Department` = '"
-                    + dep3 + "' )";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        _ = Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
-            //If the filter for all department, first semester and fourth year
-            if (check_alldep.IsChecked == true && check_firstsem.IsChecked == true && check_year4.IsChecked == true
-                && check_secsem.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year1.IsChecked == false)
-            {
-                year = 4;
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') AND `curr_Yearlevel` ='"
-                    + year + "' AND (`curr_Department` = '"
-                    + dep1 + "' OR `curr_Department` = '"
-                    + dep2 + "' OR `curr_Department` = '"
-                    + dep3 + "' )";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        _ = Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
-            //If the filter for all department, second semester and fourth year
-            if (check_alldep.IsChecked == true && check_secsem.IsChecked == true && check_year4.IsChecked == true
-                && check_firstsem.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year1.IsChecked == false)
-            {
-                year = 4;
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester3 + "' OR `curr_Semester` = '"
-                    + semester4 + "') AND `curr_Yearlevel` ='"
-                    + year + "' AND (`curr_Department` = '"
-                    + dep1 + "' OR `curr_Department` = '"
-                    + dep2 + "' OR `curr_Department` = '"
-                    + dep3 + "' )";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        _ = Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
-            //If the filter for BSIT department, first semester and all year level was selected 
-            if (check_BSIT.IsChecked == true && check_firstsem.IsChecked == true && check_allyear.IsChecked == true && check_secsem.IsChecked == false)
-            {
-                int year1 = 1; int year3 = 3;
-                int year2 = 2; int year4 = 4;
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "')  AND  (`curr_Yearlevel` ='"
-                    + year1 + "' OR `curr_Yearlevel` = '"
-                    + year2 + "' OR `curr_Yearlevel` = '"
-                    + year3 + "' OR `curr_Yearlevel` = '"
-                    + year4 + "') AND `curr_Department` = '"
-                    + dep3 + "'";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        _ = Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
-            //If the filter for BSIT department, second semester semester and all year level was selected 
-            if (check_BSIT.IsChecked == true && check_secsem.IsChecked == true && check_allyear.IsChecked == true && check_firstsem.IsChecked == false)
-            {
-                int year1 = 1; int year3 = 3;
-                int year2 = 2; int year4 = 4;
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester3 + "' OR `curr_Semester` = '"
-                    + semester4 + "')  AND  (`curr_Yearlevel` ='"
-                    + year1 + "' OR `curr_Yearlevel` = '"
-                    + year2 + "' OR `curr_Yearlevel` = '"
-                    + year3 + "' OR `curr_Yearlevel` = '"
-                    + year4 + "') AND `curr_Department` = '"
-                    + dep3 + "'";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        _ = Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
-            //If the filter for BSCE department, first semester and all year level was selected 
-            if (check_BSCE.IsChecked == true && check_firstsem.IsChecked == true && check_allyear.IsChecked == true && check_secsem.IsChecked == false)
-            {
-                int year1 = 1; int year3 = 3;
-                int year2 = 2; int year4 = 4;
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "')  AND  (`curr_Yearlevel` ='"
-                    + year1 + "' OR `curr_Yearlevel` = '"
-                    + year2 + "' OR `curr_Yearlevel` = '"
-                    + year3 + "' OR `curr_Yearlevel` = '"
-                    + year4 + "') AND `curr_Department` = '"
-                    + dep1 + "'";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        _ = Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
-            //If the filter for BSCE department, second semester semester and all year level was selected 
-            if (check_BSCE.IsChecked == true && check_secsem.IsChecked == true && check_allyear.IsChecked == true && check_firstsem.IsChecked == false)
-            {
-                int year1 = 1; int year3 = 3;
-                int year2 = 2; int year4 = 4;
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester3 + "' OR `curr_Semester` = '"
-                    + semester4 + "')  AND  (`curr_Yearlevel` ='"
-                    + year1 + "' OR `curr_Yearlevel` = '"
-                    + year2 + "' OR `curr_Yearlevel` = '"
-                    + year3 + "' OR `curr_Yearlevel` = '"
-                    + year4 + "') AND `curr_Department` = '"
-                    + dep1 + "'";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        _ = Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
-            //If the filter for BSEE department, first semester and all year level was selected 
-            if (check_BSEE.IsChecked == true && check_firstsem.IsChecked == true && check_allyear.IsChecked == true && check_secsem.IsChecked == false)
-            {
-                int year1 = 1; int year3 = 3;
-                int year2 = 2; int year4 = 4;
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "')  AND  (`curr_Yearlevel` ='"
-                    + year1 + "' OR `curr_Yearlevel` = '"
-                    + year2 + "' OR `curr_Yearlevel` = '"
-                    + year3 + "' OR `curr_Yearlevel` = '"
-                    + year4 + "') AND `curr_Department` = '"
-                    + dep2 + "'";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        _ = Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
-            //If the filter for BSEE department, second semester semester and all year level was selected 
-            if (check_BSEE.IsChecked == true && check_secsem.IsChecked == true && check_allyear.IsChecked == true && check_firstsem.IsChecked == false)
-            {
-                int year1 = 1; int year3 = 3;
-                int year2 = 2; int year4 = 4;
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester3 + "' OR `curr_Semester` = '"
-                    + semester4 + "')  AND  (`curr_Yearlevel` ='"
-                    + year1 + "' OR `curr_Yearlevel` = '"
-                    + year2 + "' OR `curr_Yearlevel` = '"
-                    + year3 + "' OR `curr_Yearlevel` = '"
-                    + year4 + "') AND `curr_Department` = '"
-                    + dep2 + "'";
-                MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                commandDatabase.CommandTimeout = 60;
-                MySqlDataReader reader;
-                databaseConnection.Open();
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CourseCurriculum _subjects = new CourseCurriculum
-                        {
-                            CourseCode = reader.GetString(1),
-                            CourseTitle = reader.GetString(2),
-                            CourseUnits = reader.GetInt16(3),
-                            CoursePrereq = reader.GetString(4),
-                            CourseSem = reader.GetString(5),
-                            CourseYearlvl = reader.GetString(6),
-                            CourseBatch = reader.GetString(7),
-                        };
-
-                        _ = Course_list.Items.Add(_subjects);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                databaseConnection.Close();
-            }
-
             //If the filter for semester was selected (First Semester only)
-            else if (check_secsem.IsChecked == true && check_BSCE.IsChecked == false && check_BSEE.IsChecked == false
+            if (check_secsem.IsChecked == true && check_BSCE.IsChecked == false && check_BSEE.IsChecked == false
                 && check_BSIT.IsChecked == false && check_secsem.IsChecked == false && check_year1.IsChecked == false
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') ";
+                string query1 = "Select * From `tbl_curriculum` where `curr_Semester` LIKE '"
+                    + semester2 + "%' OR `curr_Semester` LIKE '"
+                    + semester1 + "%'";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -1485,9 +658,9 @@ namespace Student_Subject_Evaluation.MVVM.View
             {
                 semester1 = "Second Sem";
                 semester2 = "Second Semester";
-                string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
-                    + semester2 + "' OR `curr_Semester` = '"
-                    + semester1 + "') ";
+                string query1 = "Select * From `tbl_curriculum` where `curr_Semester` LIKE '"
+                    + semester2 + "%' OR `curr_Semester` LIKE '"
+                    + semester1 + "%'";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -1526,8 +699,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false && check_year1.IsChecked == false
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
-                string query1 = "Select * From `tbl_curriculum` where `curr_Department` ='"
-                    + dep1 + "' ";
+                string query1 = "Select * From `tbl_curriculum` where `curr_Department` LIKE '"
+                    + dep1 + "%' ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -1566,8 +739,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSIT.IsChecked == false && check_firstsem.IsChecked == false && check_year1.IsChecked == false
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
-                string query1 = "Select * From `tbl_curriculum` where `curr_Department` ='"
-                    + dep2 + "' ";
+                string query1 = "Select * From `tbl_curriculum` where `curr_Department` LIKE '"
+                    + dep2 + "%'";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -1606,8 +779,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_BSCE.IsChecked == false && check_firstsem.IsChecked == false && check_year1.IsChecked == false
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
-                string query1 = "Select * From `tbl_curriculum` where `curr_Department` ='"
-                    + dep3 + "' ";
+                string query1 = "Select * From `tbl_curriculum` where `curr_Department` LIKE '"
+                    + dep3 + "%'";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -1647,8 +820,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 1;
-                string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` ='"
-                    + year + "' ";
+                string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` LIKE '"
+                    + year + "%' ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -1688,8 +861,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 2;
-                string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` ='"
-                    + year + "' ";
+                string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` LIKE "
+                    + year + "% ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -1729,8 +902,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_year2.IsChecked == false && check_year1.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 3;
-                string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` ='"
-                    + year + "' ";
+                string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` LIKE '"
+                    + year + "%' ";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -1770,8 +943,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year1.IsChecked == false)
             {
                 year = 4;
-                string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` ='"
-                    + year + "' ";
+                string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` LIKE '"
+                    + year + "%'";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -2876,9 +2049,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                     check_year2.IsChecked = false;
                     check_year3.IsChecked = false;
                     check_year4.IsChecked = false;
-                    check_alldep.IsChecked = false;
-                    check_allsem.IsChecked = false;
-                    check_allyear.IsChecked = false;
                     txt_searchCurr.Text = "";
                     Curriculumlist();
                 }
@@ -2892,72 +2062,6 @@ namespace Student_Subject_Evaluation.MVVM.View
         {
             Course_list.Items.Clear();
             FilterResult();
-        }
-
-        private void check_alldep_Checked(object sender, RoutedEventArgs e)
-        {
-            bool selectAll_Dep = check_alldep.IsChecked == true;
-            check_BSCE.IsChecked = selectAll_Dep;
-            check_BSEE.IsChecked = selectAll_Dep;
-            check_BSIT.IsChecked = selectAll_Dep;
-
-        }
-        private void check_singleDep(object sender, RoutedEventArgs e)
-        {
-            check_alldep.IsChecked = null;
-            if ((check_BSCE.IsChecked == true) && (check_BSEE.IsChecked == true) && (check_BSIT.IsChecked == true))
-            {
-                check_alldep.IsChecked = true;
-            }
-
-            if ((check_BSCE.IsChecked == false) && (check_BSEE.IsChecked == false) && (check_BSIT.IsChecked == false))
-            {
-                check_alldep.IsChecked = false;
-            }
-        }
-
-        private void check_allSem(object sender, RoutedEventArgs e)
-        {
-            bool selectAll_Sem = check_allsem.IsChecked == true;
-            check_firstsem.IsChecked = selectAll_Sem;
-            check_secsem.IsChecked = selectAll_Sem;
-        }
-
-        private void check_singleSem(object sender, RoutedEventArgs e)
-        {
-            check_allsem.IsChecked = null;
-            if ((check_firstsem.IsChecked == true) && (check_secsem.IsChecked == true))
-            {
-                check_allsem.IsChecked = true;
-            }
-
-            if ((check_firstsem.IsChecked == false) && (check_secsem.IsChecked == false))
-            {
-                check_allsem.IsChecked = false;
-            }
-        }
-
-        private void check_allYearlevel(object sender, RoutedEventArgs e)
-        {
-            bool selectAll_Year = check_allyear.IsChecked == true;
-            check_year1.IsChecked = selectAll_Year;
-            check_year2.IsChecked = selectAll_Year;
-            check_year3.IsChecked = selectAll_Year;
-            check_year4.IsChecked = selectAll_Year;
-        }
-
-        private void check_singleYear(object sender, RoutedEventArgs e)
-        {
-            check_allyear.IsChecked = null;
-            if ((check_year1.IsChecked == true) && (check_year2.IsChecked == true) && (check_year3.IsChecked == true) && (check_year4.IsChecked == true))
-            {
-                check_allyear.IsChecked = true;
-            }
-
-            if ((check_year1.IsChecked == false) && (check_year2.IsChecked == false) && (check_year3.IsChecked == false) && (check_year4.IsChecked == false))
-            {
-                check_allyear.IsChecked = false;
-            }
         }
 
         //add activity logs
