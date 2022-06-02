@@ -290,7 +290,13 @@ namespace Student_Subject_Evaluation.MVVM.View
                 excelPackage.Workbook.Properties.Title = "Grade Report for Student '" + txt_ReportStudNum.Text + "'.";
                 excelPackage.Workbook.Properties.Author = txtUserName.Text;
                 await excelPackage.SaveAsync();
-                excelPackage.SaveAs(new FileInfo("Generated Report.xlsx"));
+
+                ////convert the excel package to a byte array
+                //byte[] bin = excelPackage.GetAsByteArray();
+                //File.WriteAllBytes("C:/Student Subject Evaluation System/Reports/Reports/Generated_Report.xlsx", bin);
+
+                //excelPackage.SaveAs(new FileInfo("Generated Report.xlsx"));
+                MessageBox.Show("Generated Report as Excel. Converting to PDF file, please wait..");
                 using (ExcelEngine excelEngine = new ExcelEngine())
                 {
 

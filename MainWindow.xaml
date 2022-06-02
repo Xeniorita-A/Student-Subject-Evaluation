@@ -64,24 +64,21 @@
             </WrapPanel>
 
             <!--Label-->
-            <WrapPanel>
-                <StackPanel Margin="59,254,48,0" VerticalAlignment="Bottom" Height="61">
+            <StackPanel>
+                <StackPanel Margin="0,254,0,0" VerticalAlignment="Bottom" Height="61" Width="291" HorizontalAlignment="Center">
                     <TextBlock Text="PAMANTASAN NG LUNGSOD NG" 
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Center" 
-                Foreground="White"
-                FontFamily="Tienne"
-                Margin="0,0,0,-5"/>
-                    <TextBlock Text="VALENZUELA" 
-                VerticalAlignment="Bottom"
-                HorizontalAlignment="Center" 
                 Foreground="White" 
-                FontSize="30"
-                Margin="0,0,0,10" FontWeight="Normal" 
+                FontFamily="Tienne" FontSize="14" Width="207" Height="17"/>
+                    <TextBlock Text="VALENZUELA" 
+                Foreground="White" 
+                FontSize="35" Padding="0"
+                FontWeight="Normal" 
                 FontStretch="Normal"
-                FontFamily="Tienne"/>
+                FontFamily="Tienne" Width="207" HorizontalAlignment="Center"/>
                 </StackPanel>
-            </WrapPanel>
+            </StackPanel>
 
             <!--Employee Menu Buttons-->
             <WrapPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">

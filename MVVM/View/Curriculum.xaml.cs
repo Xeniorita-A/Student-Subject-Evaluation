@@ -820,8 +820,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 1;
-                string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` LIKE '"
-                    + year + "%' ";
+                string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` = "
+                    + year + "";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -861,8 +861,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 2;
-                string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` LIKE "
-                    + year + "% ";
+                string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` = "
+                    + year + "";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -902,8 +902,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_year2.IsChecked == false && check_year1.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 3;
-                string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` LIKE '"
-                    + year + "%' ";
+                string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` = "
+                    + year + "";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
@@ -943,8 +943,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                 && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year1.IsChecked == false)
             {
                 year = 4;
-                string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` LIKE '"
-                    + year + "%'";
+                string query1 = "Select * From `tbl_curriculum` where `curr_Yearlevel` = "
+                    + year + "";
                 MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                 MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
                 commandDatabase.CommandTimeout = 60;
