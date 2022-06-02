@@ -34,9 +34,23 @@
             <TextBox x:Name="UserPass" 
                        Text="Welcome Back!" 
                        Foreground="White"
-                       FontSize="16" Margin="105,72,0,0"
+                       FontSize="16" Margin="138,16,0,0"
                        Padding="0"
-                       Height="30" d:LayoutOverrides="Height, LeftMargin, RightMargin, TopMargin, BottomMargin"
+                       Height="30" d:LayoutOverrides="Height"
+                       HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden"/>
+            <TextBox x:Name="_ID" 
+                       Text="0" 
+                       Foreground="White"
+                       FontSize="16" Margin="105,18,0,0"
+                       Padding="0"
+                       Height="30" d:LayoutOverrides="Height"
+                       HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden"/>
+            <TextBox x:Name="_Name" 
+                       Text="Name" 
+                       Foreground="White"
+                       FontSize="16" Margin="105,41,0,0"
+                       Padding="0"
+                       Height="30" d:LayoutOverrides="Height"
                        HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden"/>
 
             <!--LOGO-->
@@ -69,9 +83,9 @@
 
             <!--Employee Menu Buttons-->
             <WrapPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <StackPanel Grid.Row="1" Margin="0,-9,0,-10">
-                <RadioButton x:Name="btn_Home" Content="Home"
-                             Height="50" Width="250"
+                <StackPanel Grid.Row="1" Margin="0,0,0,-10">
+                    <RadioButton x:Name="btn_Home" Content="Home"
+                             Height="40" Width="250"
                              FontSize="22" Foreground="White"
                              Margin="0,30,0,5"
                              IsChecked="True"
@@ -80,53 +94,58 @@
                              materialDesign:ButtonAssist.CornerRadius="10" VerticalAlignment="Top"
                              />
 
-                <RadioButton x:Name="btn_Account" Content="Account"
-                             Height="50" Width="250"
+                    <RadioButton x:Name="btn_Account" Content="Account"
+                             Height="40" Width="250"
                              FontSize="22" Foreground="White"
                              Margin="0,0,0,5"
                              Style="{StaticResource MenuButton}"
                              Command="{Binding AccountViewCommand}" VerticalAlignment="Top"/>
 
-                <RadioButton x:Name="btn_Curriculum" Content="Curriculum"
-                             Height="50" Width="250"
+                    <RadioButton x:Name="btn_Curriculum" Content="Curriculum"
+                             Height="40" Width="250"
                              FontSize="22" Foreground="White"
                              Margin="0,0,0,5"
                              Style="{StaticResource MenuButton}"
                              Command="{Binding CurriculumViewCommand}" VerticalAlignment="Top"/>
 
-                <RadioButton x:Name="btn_Evaluation" Content="Evaluation"
-                             Height="50" Width="250"
+                    <RadioButton x:Name="btn_Evaluation" Content="Evaluation"
+                             Height="40" Width="250"
                              FontSize="22" Foreground="White"
                              Margin="0,0,0,5"
                              Style="{StaticResource MenuButton}"
                              Command="{Binding EvaluationViewCommand}" VerticalAlignment="Top"/>
 
-                <RadioButton x:Name="btn_Student" Content="Students"
-                             Height="50" Width="250"
+                    <RadioButton x:Name="btn_Student" Content="Students"
+                             Height="40" Width="250"
                              FontSize="22" Foreground="White"
                              Margin="0,0,0,5"
                              Style="{StaticResource MenuButton}"
                              Command="{Binding StudentViewCommand}" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="btn_ActivityLog" Content="Activity Log"
+                             Height="40" Width="250"
+                             FontSize="22" Foreground="White"
+                             Margin="0,0,0,5"
+                             Style="{StaticResource MenuButton}"
+                             Command="{Binding ActivityLogViewCommand}" VerticalAlignment="Top"/>
 
-                <RadioButton x:Name="btn_logout" Content="Logout"
-                             Height="50" Width="250"
+                    <RadioButton x:Name="btn_logout" Content="Logout"
+                             Height="40" Width="250"
                              FontSize="22" Foreground="White"
                              Margin="0,0,0,5"
                              Style="{StaticResource MenuButton}" Checked="btn_logout_Checked" VerticalAlignment="Top"/>
-            </StackPanel>
+                </StackPanel>
             </WrapPanel>
 
             <!--Date-->
             <WrapPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-            <TextBlock x:Name="date"  
-                       Foreground="White" 
-                       FontSize="14" Height="30" 
+                <TextBlock x:Name="date"  
+                       Foreground="White" Height="30" 
                        FontWeight="Bold" 
                        VerticalAlignment="Top" 
                        Grid.Row="1" Margin="44,387,44,0" >
                 <Run Text="            "/>
                 <Run Text="03/19/2022 8:35:36 PM"/>
-            </TextBlock>
+                </TextBlock>
             </WrapPanel>
 
             <!--This is where we will put the user controls (pages)-->

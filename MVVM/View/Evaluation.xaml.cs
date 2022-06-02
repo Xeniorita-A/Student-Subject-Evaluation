@@ -1,18 +1,14 @@
 ﻿using Microsoft.Win32;
 using MySql.Data.MySqlClient;
-using Nito.AsyncEx;
-using Nito.AsyncEx.Synchronous;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Student_Subject_Evaluation.MVVM.View
 {
@@ -25,6 +21,8 @@ namespace Student_Subject_Evaluation.MVVM.View
         {
             InitializeComponent();
             btn_exportEval.IsEnabled = false;
+            txtUserID.Text = MainWindow.MWinstance.AccountID.Text;
+            txtUserName.Text = MainWindow.MWinstance.AccountName.Text;
         }
         public class EvalForms
         {
@@ -35,6 +33,8 @@ namespace Student_Subject_Evaluation.MVVM.View
             public string? Pre_Req { get; set; }
             public string? Final_Grade { get; set; }
             public string? Remarks { get; set; }
+            public int Yearlevel { get; set; }
+            public string? Semester { get; set; }
         }
         //Open a connection
         const string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=db_commission;";
@@ -49,6 +49,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             if (MessageBox.Show("Are you sure you want to log out and exit application?", "EXIT",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
+                addActivityLogout();
                 Application.Current.Shutdown();
             }
         }
@@ -57,51 +58,51 @@ namespace Student_Subject_Evaluation.MVVM.View
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             //This where we will save the template
-            var file = new FileInfo(fileName: @"C:\Users\XenioritaAlondra\source\repos\Student Subject Evaluation\Evaluation Forms\EvaluationForm.xlsx");
-            await saveExcelFile( file);
+            FileInfo? file = new FileInfo(fileName: @"C:\Users\XenioritaAlondra\source\repos\Student Subject Evaluation\Evaluation Forms\EvaluationForm.xlsx");
+            await saveExcelFile(file);
         }
 
         //method for the save excel file
         //the problem is how we can put the data on the excel from datagrid :((
-        private async Task saveExcelFile( FileInfo file)
+        private async Task saveExcelFile(FileInfo file)
         {
             deleteIfExists(file);
 
-            using (var package = new ExcelPackage(file))
+            using (ExcelPackage? package = new ExcelPackage(file))
             {
                 //data table from the filter
-                string query1 = "SELECT `curr_ID`, `curr_Code`, `curr_Title`, `curr_Units`, `curr_Pre_Req` FROM `tbl_curriculum` where `curr_Batch` LIKE '"
-               + txt_currYear.Text + "%' AND `curr_Yearlevel` LIKE '"
-               + cbx_evalYearlevel.Text + "%'  AND `curr_Semester`  LIKE '"
-               + cbx_evalSemester.Text + "%'  AND `curr_Department`  LIKE '"
-               + cbx_evalDepartment.Text + "%' ";
-                
+                string query1 = "SELECT `curr_ID`, `curr_Code`, `curr_Title`, `curr_Units`, `curr_Pre_Req` FROM `tbl_curriculum` where `curr_Batch` = "
+               + int.Parse(txt_currYear.Text) + " AND `curr_Yearlevel` = "
+               + int.Parse(cbx_evalYearlevel.Text) + "  AND `curr_Semester` = '"
+               + cbx_evalSemester.Text + "'  AND `curr_Department` = '"
+               + cbx_evalDepartment.Text + "'";
+
                 DataTable dt = new DataTable("EvalForms");
                 try
                 {
                     MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                     databaseConnection.Open();
                     MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                    commandDatabase.ExecuteNonQuery();
+                    _ = commandDatabase.ExecuteNonQuery();
                     MySqlDataAdapter returnVal = new MySqlDataAdapter(query1, databaseConnection);
                     //I passed the data from mySql to Data table
                     //this is so we can put the data from data table to excel
                     returnVal = new MySqlDataAdapter(commandDatabase);
-                    returnVal.Fill(dt);
+                    _ = returnVal.Fill(dt);
 
                     MySqlCommandBuilder _cb = new MySqlCommandBuilder(returnVal);
                     databaseConnection.Close();
                 }
                 catch
                 {
-                    MessageBox.Show("No record found in the database");
+                    _ = MessageBox.Show("No record found in the database");
                 }
-                
+
                 //WS is the worksheet
-                var ws = package.Workbook.Worksheets.Add(Name: "Evaluation_Form");
+                ExcelWorksheet? ws = package.Workbook.Worksheets.Add(Name: "Evaluation_Form");
                 //add the data
 
-                var range = ws.Cells[Address: "A6"].LoadFromDataTable(dt, PrintHeaders: true);
+                ExcelRangeBase? range = ws.Cells[Address: "A6"].LoadFromDataTable(dt, PrintHeaders: true);
                 range.AutoFitColumns();
 
                 //formats the header
@@ -126,7 +127,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                 ws.Cells[Address: "D2"].Value = "Curriculum Year:";
                 ws.Cells[Address: "D3"].Value = "Department:";
                 ws.Cells[Address: "E2"].Value = cbx_evalDepartment.Text;
-                ws.Cells[Address: "E3"].Value =  int.Parse(txt_currYear.Text);
+                ws.Cells[Address: "E3"].Value = int.Parse(txt_currYear.Text);
                 ws.Cells[Address: "A5"].Value = "Subject ID";
                 ws.Cells[Address: "B5"].Value = "Subject Code";
                 ws.Cells[Address: "C5"].Value = "Subject Title";
@@ -166,26 +167,27 @@ namespace Student_Subject_Evaluation.MVVM.View
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.Title = "Save Excel sheet";
                 saveFileDialog1.Filter = "Excel files|*.xlsx|All files|*.*";
-                saveFileDialog1.FileName = "Evaluation Form_" + cbx_evalDepartment.Text +"_"
+                saveFileDialog1.FileName = "Evaluation Form_" + cbx_evalDepartment.Text + "_"
                     + txt_currYear.Text + "_" + cbx_evalYearlevel.Text + "_"
-                    + cbx_evalSemester.Text +"_"
+                    + cbx_evalSemester.Text + "_"
                     + DateTime.Now.ToString("dd-MM-yyyy") + ".xlsx";
 
                 //check if user clicked the save button
                 if (saveFileDialog1.ShowDialog() == true)
                 {
                     //write the file to the disk
+                    addActivityExportEval();
                     File.WriteAllBytes(saveFileDialog1.FileName, bin);
                     cbx_evalDepartment.SelectedIndex = -1;
                     cbx_evalSemester.SelectedIndex = -1;
                     cbx_evalYearlevel.SelectedIndex = -1;
                     txt_currYear.Text = "";
-                    this.Export_list.ItemsSource = null;
+                    Export_list.ItemsSource = null;
                     Export_list.Items.Clear();
                 }
             }
         }
-        
+
         //We well delete the file every time we call the package
         private static void deleteIfExists(FileInfo file)
         {
@@ -199,78 +201,113 @@ namespace Student_Subject_Evaluation.MVVM.View
         public void PreviewExport()
         {
             Export_list.Items.Clear();
-            if (cbx_evalDepartment.SelectedIndex != -1 && cbx_evalSemester.SelectedIndex != -1 
-                && cbx_evalYearlevel.SelectedIndex != -1 && txt_currYear.Text != "")
+            if (cbx_evalDepartment.SelectedIndex > -1 && cbx_evalSemester.SelectedIndex > -1
+                && cbx_evalYearlevel.SelectedIndex > -1 && txt_currYear.Text != "")
             {
                 try
                 {
-                     string query1 = "Select * From `tbl_curriculum` where `curr_Batch` LIKE '"
-                     + txt_currYear.Text + "%' AND `curr_Yearlevel` LIKE '"
-                     + cbx_evalYearlevel.Text + "%'  AND `curr_Semester`  LIKE '"
-                     + cbx_evalSemester.Text + "%'  AND `curr_Department`  LIKE '"
-                     + cbx_evalDepartment.Text + "%' ";
-                            MySqlConnection databaseConnection = new MySqlConnection(connectionString);
-                            MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
-                            commandDatabase.CommandTimeout = 60;
-                            MySqlDataReader reader;
-                            databaseConnection.Open();
-                            reader = commandDatabase.ExecuteReader();
-
+                    string query1 = "SELECT `curr_ID`, `curr_Code`, `curr_Title`, `curr_Units`, `curr_Pre_Req`, `curr_Semester`, `curr_Yearlevel` FROM `tbl_curriculum` where `curr_Batch` = "
+                   + int.Parse(txt_currYear.Text) + " AND `curr_Yearlevel` = "
+                   + int.Parse(cbx_evalYearlevel.Text) + "  AND `curr_Semester` = '"
+                   + cbx_evalSemester.Text + "'  AND `curr_Department` = '"
+                   + cbx_evalDepartment.Text + "'";
+                    MySqlConnection databaseConnection = new MySqlConnection(connectionString);
+                    MySqlCommand commandDatabase = new MySqlCommand(query1, databaseConnection);
+                    commandDatabase.CommandTimeout = 60;
+                    MySqlDataReader reader;
+                    databaseConnection.Open();
+                    reader = commandDatabase.ExecuteReader();
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            if (reader.GetString(4) == "" || reader.GetString(4) == null)
+                            EvalForms output = new EvalForms
                             {
-                                EvalForms output = new EvalForms
-                                {
-                                    Subject_ID = reader.GetInt16(0),
-                                    Subject_Code = reader.GetString(1),
-                                    Subject_Title = reader.GetString(2),
-                                    Units = reader.GetInt16(3),
-                                    Pre_Req = "None"
-                                };
-                                Export_list.Items.Add(output);
-                            }
-                            else
-                            {
-                                EvalForms output = new EvalForms
-                                {
-                                    Subject_ID = reader.GetInt16(0),
-                                    Subject_Code = reader.GetString(1),
-                                    Subject_Title = reader.GetString(2),
-                                    Units = reader.GetInt16(3),
-                                    Pre_Req = reader.GetString(4)
-                                };
-                                Export_list.Items.Add(output);
-                            }
-
+                                Subject_ID = reader.GetInt16(0),
+                                Subject_Code = reader.GetString(1),
+                                Subject_Title = reader.GetString(2),
+                                Units = reader.GetInt16(3),
+                                Pre_Req = reader.GetString(4),
+                                Semester = reader.GetString(5),
+                                Yearlevel = reader.GetInt16(6)
+                            };
+                            _ = Export_list.Items.Add(output);
                         }
                     }
                     else
                     {
                         Console.WriteLine("No rows found.");
                         Export_list.Items.Clear();
-                        MessageBox.Show("No record found.");
+                        _ = MessageBox.Show("No record found.");
                     }
                     databaseConnection.Close();
                 }
                 catch (Exception) { }
             }
         }
-      
+
         private void btn_exportEval_Click(object sender, RoutedEventArgs e)
         {
             //Task.Run(async () => await ExportEval());
-            ExportEval();
+            _ = ExportEval();
         }
 
         private void btn_display_Click(object sender, RoutedEventArgs e)
         {
-            if (cbx_evalDepartment.SelectedIndex != -1 && cbx_evalSemester.SelectedIndex != -1 && cbx_evalYearlevel.SelectedIndex != 1 && txt_currYear.Text != "")
+            if (cbx_evalDepartment.SelectedIndex > -1 && cbx_evalSemester.SelectedIndex > -1 && cbx_evalYearlevel.SelectedIndex > -1 && txt_currYear.Text != "")
             {
                 PreviewExport();
                 btn_exportEval.IsEnabled = true;
+            }
+        }
+
+        //add activity logs
+        public void addActivityExportEval()
+        {
+            string query = "INSERT INTO  `tbl_activitylog` ( `log_ID`,`log_Time`, `log_Date`, `log_UserID`, `log_Activity`, `log_Detail`)  VALUES (@ID,  @time, @date, @user, @activity, @details)";
+            MySqlConnection databaseConnection2 = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase2 = new MySqlCommand(query, databaseConnection2);
+            _ = commandDatabase2.Parameters.AddWithValue("@ID", 0);
+            _ = commandDatabase2.Parameters.AddWithValue("@time", DateTime.Now.ToString("H:mm"));
+            _ = commandDatabase2.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+            _ = commandDatabase2.Parameters.AddWithValue("@user", int.Parse(txtUserID.Text));
+            _ = commandDatabase2.Parameters.AddWithValue("@activity", "Export Evaluation Form");
+            _ = commandDatabase2.Parameters.AddWithValue("@details", txtUserName.Text + " exported an evaluation form for batch "
+                + int.Parse(txt_currYear.Text) + ", Department of " + cbx_evalDepartment.Text + ", " + cbx_evalSemester.Text + " and year level" + int.Parse(cbx_evalYearlevel.Text) + ".");
+            commandDatabase2.CommandTimeout = 60;
+            MySqlDataReader reader2;
+            try
+            {
+                databaseConnection2.Open();
+                reader2 = commandDatabase2.ExecuteReader();
+                databaseConnection2.Close();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        public void addActivityLogout()
+        {
+            string query = "INSERT INTO  `tbl_activitylog` ( `log_ID`, `log_Time`, `log_Date`, `log_UserID`, `log_Activity`, `log_Detail`)  VALUES (@ID, @time, @date, @user, @activity, @details)";
+            MySqlConnection databaseConnection2 = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase2 = new MySqlCommand(query, databaseConnection2);
+            _ = commandDatabase2.Parameters.AddWithValue("@ID", 0);
+            _ = commandDatabase2.Parameters.AddWithValue("@time", DateTime.Now.ToString("H:mm"));
+            _ = commandDatabase2.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+            _ = commandDatabase2.Parameters.AddWithValue("@user", int.Parse(txtUserID.Text));
+            _ = commandDatabase2.Parameters.AddWithValue("@activity", "Logout");
+            _ = commandDatabase2.Parameters.AddWithValue("@details", txtUserName.Text + " logout of the system.");
+            commandDatabase2.CommandTimeout = 60;
+            MySqlDataReader reader2;
+            try
+            {
+                databaseConnection2.Open();
+                reader2 = commandDatabase2.ExecuteReader();
+                databaseConnection2.Close();
+            }
+            catch (Exception)
+            {
             }
         }
     }

@@ -10,8 +10,8 @@ namespace Student_Subject_Evaluation.Core
 
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
         }
 
         public RelayCommand(Action<Object> execute, Func<object, bool> canExecute = null)

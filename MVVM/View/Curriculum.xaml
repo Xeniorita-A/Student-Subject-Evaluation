@@ -338,6 +338,16 @@
                                    Foreground="#e36934"
                                    HorizontalAlignment="Left" Padding="4,4,4,4" Margin="30,15,0,2" Width="237" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
 
+                                    <TextBox Text="0" FontFamily="Tienne" 
+                                   FontWeight="Bold"
+                                   FontSize="14" x:Name="txtUserID"
+                                   Foreground="#e36934"
+                                   HorizontalAlignment="Left" Padding="4,4,4,4" Margin="30,15,0,2" Width="237" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Visibility="Hidden"/>
+                                    <TextBox Text="Name" FontFamily="Tienne" 
+                                   FontWeight="Bold"
+                                   FontSize="14" x:Name="txtUserName"
+                                   Foreground="#e36934"
+                                   HorizontalAlignment="Left" Padding="4,4,4,4" Margin="30,15,0,2" Width="237" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Visibility="Hidden"/>
                                     <!--This is the List-->
                                     <WrapPanel Grid.Row="2" Margin="30,5,30,-38">
                                         <!--Datagrid for the Course Curriculum-->

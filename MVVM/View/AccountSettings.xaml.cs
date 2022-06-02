@@ -19,6 +19,7 @@ namespace Student_Subject_Evaluation.MVVM.View
         {
             InitializeComponent();
             txtUserDetails.Text = MainWindow.MWinstance.User.Text;
+            getUserID.Text = MainWindow.MWinstance.AccountID.Text;
             accountView();
 
             //Hashing the data
@@ -27,7 +28,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             string hashedData = ComputeSha256Hash(plainData);
             Console.WriteLine("Hash {0}", hashedData);
             Console.WriteLine(ComputeSha256Hash("Mahesh"));
-            Console.ReadLine();
+            _ = Console.ReadLine();
         }
 
         //Hashing 
@@ -43,7 +44,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < bytes.Length; i++)
                 {
-                    builder.Append(bytes[i].ToString("x2"));
+                    _ = builder.Append(bytes[i].ToString("x2"));
                 }
                 return builder.ToString();
             }
@@ -85,18 +86,18 @@ namespace Student_Subject_Evaluation.MVVM.View
             if (count == 1)
             {
                 //Convert string to int to store the User ID
-                int ID = int.Parse(txtUserID.Text);
-                ID = reader.GetInt16(0);
-                txtUserID.Text = ID.ToString();
+                _ = int.Parse(getUserID.Text);
+                int ID = reader.GetInt16(0);
+                getUserID.Text = ID.ToString();
                 txt_acountUsername.Text = reader.GetString(1);
                 txt_accountEmail.Text = reader.GetString(2);
-                PasswordTemp.Text = reader.GetString(3); 
+                PasswordTemp.Text = reader.GetString(3);
                 txt_accountname.Text = reader.GetString(4);
                 cbx_accDepartment.Text = reader.GetString(5);
             }
             else if (count > 0)
             {
-                MessageBox.Show("Duplicate Account details");
+                _ = MessageBox.Show("Duplicate Account details");
             }
             else
             {
@@ -144,39 +145,40 @@ namespace Student_Subject_Evaluation.MVVM.View
                     MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                     MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
                     databaseConnection.Open();
-                    commandDatabase.Parameters.AddWithValue("@id", Convert.ToInt16(txtUserID.Text));
-                    commandDatabase.Parameters.AddWithValue("@username", txt_acountUsername.Text);
-                    commandDatabase.Parameters.AddWithValue("@email", txt_accountEmail.Text);
-                    commandDatabase.Parameters.AddWithValue("@name", txt_accountname.Text);
-                    commandDatabase.Parameters.AddWithValue("@department", cbx_accDepartment.Text);
+                    _ = commandDatabase.Parameters.AddWithValue("@id", Convert.ToInt16(getUserID.Text));
+                    _ = commandDatabase.Parameters.AddWithValue("@username", txt_acountUsername.Text);
+                    _ = commandDatabase.Parameters.AddWithValue("@email", txt_accountEmail.Text);
+                    _ = commandDatabase.Parameters.AddWithValue("@name", txt_accountname.Text);
+                    _ = commandDatabase.Parameters.AddWithValue("@department", cbx_accDepartment.Text);
                     //To set new Password
                     if (pbx_acountPassword.Password == "")
                     {
-                        commandDatabase.Parameters.AddWithValue("@password", PasswordTemp.Text);
+                        _ = commandDatabase.Parameters.AddWithValue("@password", PasswordTemp.Text);
                     }
                     else if (pbx_acountPassword.Password != "")
                     {
-                        commandDatabase.Parameters.AddWithValue("@password", hashedData);
+                        _ = commandDatabase.Parameters.AddWithValue("@password", hashedData);
                     }
                     MySqlDataReader myReader = commandDatabase.ExecuteReader();
                     commandDatabase.CommandTimeout = 60;
                     databaseConnection.Close();
                     accountView();
-                    MessageBox.Show("Updated successfully!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _ = MessageBox.Show("Updated successfully!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    addActivityUpdateAccount();
                 }
                 else
                 {
-                    MessageBox.Show("One of the fields is empty!");
+                    _ = MessageBox.Show("One of the fields is empty!");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "", MessageBoxButton.OK, MessageBoxImage.Error);
+                _ = MessageBox.Show(ex.ToString(), "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
-            
+
+
         }
-       
+
         //If the user changes his/her mind and decided to cancel 
         private void cancelChanges(object sender, RoutedEventArgs e)
         {
@@ -199,9 +201,57 @@ namespace Student_Subject_Evaluation.MVVM.View
             if (MessageBox.Show("Are you sure you want to log out and exit application?", "EXIT",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
+                addActivityLogout();
                 Application.Current.Shutdown();
             }
         }
-        
+        public void addActivityUpdateAccount()
+        {
+            string query = "INSERT INTO  `tbl_activitylog` ( `log_ID`, `log_Time`, `log_Date`, `log_UserID`, `log_Activity`, `log_Detail`)  VALUES (@ID, @time, @date, @user, @activity, @detail)";
+            MySqlConnection databaseConnection2 = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase2 = new MySqlCommand(query, databaseConnection2);
+            _ = commandDatabase2.Parameters.AddWithValue("@ID", 0);
+            _ = commandDatabase2.Parameters.AddWithValue("@time", DateTime.Now.ToString("H:mm"));
+            _ = commandDatabase2.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+            _ = commandDatabase2.Parameters.AddWithValue("@user", int.Parse(getUserID.Text));
+            _ = commandDatabase2.Parameters.AddWithValue("@activity", "Update Account");
+            _ = commandDatabase2.Parameters.AddWithValue("@detail", txt_accountname.Text + " updated their account information.");
+            commandDatabase2.CommandTimeout = 60;
+            MySqlDataReader reader2;
+            try
+            {
+                databaseConnection2.Open();
+                reader2 = commandDatabase2.ExecuteReader();
+                databaseConnection2.Close();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        public void addActivityLogout()
+        {
+            string query = "INSERT INTO  `tbl_activitylog` ( `log_ID`, `log_Time`, `log_Date`, `log_UserID`, `log_Activity`, `log_Detail`)  VALUES (@ID, @time, @date, @user, @activity, @details)";
+            MySqlConnection databaseConnection2 = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase2 = new MySqlCommand(query, databaseConnection2);
+            _ = commandDatabase2.Parameters.AddWithValue("@ID", 0);
+            _ = commandDatabase2.Parameters.AddWithValue("@time", DateTime.Now.ToString("H:mm"));
+            _ = commandDatabase2.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+            _ = commandDatabase2.Parameters.AddWithValue("@user", int.Parse(getUserID.Text));
+            _ = commandDatabase2.Parameters.AddWithValue("@activity", "Logout");
+            _ = commandDatabase2.Parameters.AddWithValue("@details", txt_accountname.Text + " logout of the system.");
+            commandDatabase2.CommandTimeout = 60;
+            MySqlDataReader reader2;
+            try
+            {
+                databaseConnection2.Open();
+                reader2 = commandDatabase2.ExecuteReader();
+                databaseConnection2.Close();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
     }
 }

@@ -24,6 +24,17 @@
 
         <!--Background-->
         <Border Background="White" Grid.RowSpan="2"/>
+        <!--Hidden textfields-->
+        <TextBox Text="0" FontFamily="Roboto" 
+                           FontWeight="Bold"
+                           FontSize="20" x:Name="txtUserID"
+                           Foreground="#e36934"
+                           HorizontalAlignment="Center" Margin="0,4,0,50" Height="27" VerticalAlignment="Top" Visibility="Hidden"/>
+        <TextBox Text="Name" FontFamily="Roboto" 
+                           FontWeight="Bold"
+                           FontSize="20" x:Name="txtUserName"
+                           Foreground="#e36934"
+                           HorizontalAlignment="Center" Margin="0,20,0,50" Height="27" VerticalAlignment="Top" Visibility="Hidden"/>
 
         <!--PLV picture-->
         <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
@@ -69,6 +80,7 @@
                        HorizontalAlignment="Left" 
                        FontWeight="Bold" FontFamily="Tienne"/>
                     </StackPanel>
+                    
                 </WrapPanel>
 
                 <WrapPanel HorizontalAlignment="Left" Width="886">

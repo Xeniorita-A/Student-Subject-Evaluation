@@ -27,7 +27,7 @@ namespace Student_Subject_Evaluation
             string hashedData = ComputeSha256Hash(plainData);
             Console.WriteLine("Hash {0}", hashedData);
             Console.WriteLine(ComputeSha256Hash("Mahesh"));
-            Console.ReadLine();
+            _ = Console.ReadLine();
         }
 
         //Hash the password
@@ -43,7 +43,7 @@ namespace Student_Subject_Evaluation
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < bytes.Length; i++)
                 {
-                    builder.Append(bytes[i].ToString("x2"));
+                    _ = builder.Append(bytes[i].ToString("x2"));
                 }
                 return builder.ToString();
             }
@@ -75,7 +75,7 @@ namespace Student_Subject_Evaluation
             databaseConnection.Open();
             if (txt_username.Text == "" && pbx_password.Password == "")
             {
-                MessageBox.Show("Please input your username/email and password to login.");
+                _ = MessageBox.Show("Please input your username/email and password to login.");
             }
             else
             {
@@ -84,7 +84,7 @@ namespace Student_Subject_Evaluation
                     ("SELECT * from `tbl_account` WHERE `account_Username` = '"
                     + txt_username.Text + "' OR `account_Email` = '"
                     + txt_username.Text + "' AND `account_Password`= '"
-                    + (hashedData) + "' ", databaseConnection);
+                    + hashedData + "' ", databaseConnection);
 
                 MySqlDataReader reader;
                 reader = commandDatabase.ExecuteReader();
@@ -94,26 +94,30 @@ namespace Student_Subject_Evaluation
                 while (reader.Read())
                 {
                     count++;
+                    GetAccountID.Text = reader.GetInt16(0).ToString();
+                    GetAccountName.Text = reader.GetString(4);
                 }
                 if (count == 1)
                 {
-
-                    MessageBox.Show("SUCCESSFULLY LOGIN!");
+                    addActivityLogin();
+                    _ = MessageBox.Show("SUCCESSFULLY LOGIN!");
                     MainWindow load = new MainWindow();
 
-                    //THis is where I store yung Username ng user
+                    //THis is where I store yung ID, Username at Name ng user
                     MainWindow.MWinstance.User.Text = txt_username.Text;
+                    MainWindow.MWinstance.AccountID.Text = GetAccountID.Text;
+                    MainWindow.MWinstance.AccountName.Text = GetAccountName.Text;
                     //This is to show the main window (Dashboard)
                     load.Show();
-                    this.Close();
+                    Close();
                 }
                 else if (count > 0)
                 {
-                    MessageBox.Show("Duplicate Username and Password");
+                    _ = MessageBox.Show("Duplicate Username and Password");
                 }
                 else
                 {
-                    MessageBox.Show("Username and password did not match.");
+                    _ = MessageBox.Show("Username and password did not match.");
                 }
                 //this is here to clear the fields
                 txt_username.Text = "";
@@ -127,14 +131,58 @@ namespace Student_Subject_Evaluation
             login();
         }
 
-        private void btn_help_Click(object sender, RoutedEventArgs e)
+        public void addActivityLogin()
         {
+            string query = "INSERT INTO  `tbl_activitylog` ( `log_ID`, `log_Time`, `log_Date`, `log_UserID`, `log_Activity`, `log_Detail`)  VALUES (@ID, @time, @date, @user, @activity, @detail)";
+            MySqlConnection databaseConnection2 = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase2 = new MySqlCommand(query, databaseConnection2);
+            _ = commandDatabase2.Parameters.AddWithValue("@ID", 0);
+            _ = commandDatabase2.Parameters.AddWithValue("@time", DateTime.Now.ToString("H:mm"));
+            _ = commandDatabase2.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+            _ = commandDatabase2.Parameters.AddWithValue("@user", int.Parse(GetAccountID.Text));
+            _ = commandDatabase2.Parameters.AddWithValue("@activity", "Login");
+            _ = commandDatabase2.Parameters.AddWithValue("@detail", GetAccountName.Text + " (" + txt_username.Text + ") login to the system.");
+            commandDatabase2.CommandTimeout = 60;
+            MySqlDataReader reader2;
+            try
+            {
+                databaseConnection2.Open();
+                reader2 = commandDatabase2.ExecuteReader();
+                databaseConnection2.Close();
+            }
+            catch (Exception)
+            {
+            }
+        }
 
+        public void addActivityLogout()
+        {
+            string query = "INSERT INTO  `tbl_activitylog` ( `log_ID`,`log_Time`, `log_Date`, `log_UserID`, `log_Activity`, `log_Detail`)  VALUES (@ID, @time, @date, @user, @activity, @details)";
+            MySqlConnection databaseConnection2 = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase2 = new MySqlCommand(query, databaseConnection2);
+            _ = commandDatabase2.Parameters.AddWithValue("@ID", 0);
+            _ = commandDatabase2.Parameters.AddWithValue("@time", DateTime.Now.ToString("H:mm"));
+            _ = commandDatabase2.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+            _ = commandDatabase2.Parameters.AddWithValue("@user", int.Parse(GetAccountID.Text));
+            _ = commandDatabase2.Parameters.AddWithValue("@activity", "Logout");
+            _ = commandDatabase2.Parameters.AddWithValue("@detail", GetAccountName.Text + " (" + txt_username.Text + ") Logout of the system.");
+            commandDatabase2.CommandTimeout = 60;
+            MySqlDataReader reader2;
+            try
+            {
+                databaseConnection2.Open();
+                reader2 = commandDatabase2.ExecuteReader();
+                databaseConnection2.Close();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         //Code for exiting the App
         private void exitApp(object sender, RoutedEventArgs e)
         {
+            addActivityLogout();
             Application.Current.Shutdown();
         }
 
@@ -144,13 +192,18 @@ namespace Student_Subject_Evaluation
             {
                 if (txt_username.Text == "" && pbx_password.Password == "")
                 {
-                    MessageBox.Show("Please input your username/email and password.");
+                    _ = MessageBox.Show("Please input your username/email and password.");
                 }
-                else 
+                else
                 {
                     login();
                 }
             }
+        }
+        
+        private void btn_help_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

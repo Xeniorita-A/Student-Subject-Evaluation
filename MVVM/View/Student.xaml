@@ -109,6 +109,18 @@
                                    FontSize="14" 
                                    Foreground="#e36934"
                                    HorizontalAlignment="Left" Padding="4,4,4,4" Margin="30,15,0,2" Width="237" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                                    <TextBox Text="0" FontFamily="Tienne" 
+                                   FontWeight="Bold"
+                                   x:Name="txtUserID"
+                                   FontSize="14" 
+                                   Foreground="#e36934"
+                                   HorizontalAlignment="Left" Padding="4,4,4,4" Margin="30,15,0,2" Width="237" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Visibility="Hidden"/>
+                                    <TextBox Text="name" FontFamily="Tienne" 
+                                   FontWeight="Bold"
+                                   FontSize="14" 
+                                   x:Name="txtUserName"
+                                   Foreground="#e36934"
+                                   HorizontalAlignment="Left" Padding="4,4,4,4" Margin="30,15,0,2" Width="237" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Visibility="Hidden"/>
 
                                     <!--This is the data from excel-->
                                     <Grid Grid.Row="2" Margin="30,5,30,-38">
@@ -359,8 +371,8 @@
                                             <!--<ColumnHeader>-->
                                             <DataGrid.Columns>
                                                 <DataGridTextColumn 
-                                                Header="Student ID Number" 
-                                                Binding="{Binding StudentID}"
+                                                Header="Student ID" 
+                                                Binding="{Binding StudentIDNum}"
                                                 Width="150" 
                                                 FontFamily="Tienne" 
                                                 FontSize="16" 
@@ -409,7 +421,7 @@
                                                    />
                                                 </Grid>
                                             </Button>
-                                            <Button x:Name="btn_ToGenerateReport"
+                                            <Button x:Name="btn_populateFields"
                                             Content="Generate Report"
                                             Margin="0,18,163,15"
                                             BorderThickness="0,0,0,0"
@@ -422,7 +434,7 @@
                                             Height="30"
                                             VerticalAlignment="Bottom" 
                                             HorizontalAlignment="Right" Width="150" 
-                                            Click="btn_ToGenerateReport_click"/>
+                                            Click="btn_populateFields_click"/>
                                         </Grid>
                                     </StackPanel>
                                 </StackPanel>
@@ -447,7 +459,25 @@
                                 <TextBox x:Name="txt_ReportStudID" FontFamily="Roboto"
                                                FontWeight="Bold"
                                                Text="0"
-                                               FontSize="16" Margin="175,-4,0,352" 
+                                               FontSize="16" Margin="175,40,0,352" 
+                                               HorizontalAlignment="Left"
+                                               Foreground="#e36934" Height="30" Visibility="Hidden"/>
+                                <TextBox x:Name="unitsTaken" FontFamily="Roboto"
+                                               FontWeight="Bold"
+                                               Text="0"
+                                               FontSize="16" Margin="145,40,0,352" 
+                                               HorizontalAlignment="Left"
+                                               Foreground="#e36934" Height="30" Visibility="Hidden"/>
+                                <TextBox x:Name="unitsLacking" FontFamily="Roboto"
+                                               FontWeight="Bold"
+                                               Text="0"
+                                               FontSize="16" Margin="206,40,0,352" 
+                                               HorizontalAlignment="Left"
+                                               Foreground="#e36934" Height="30" Visibility="Hidden"/>
+                                <TextBox x:Name="totalUnits" FontFamily="Roboto"
+                                               FontWeight="Bold"
+                                               Text="0"
+                                               FontSize="16" Margin="112,40,0,352" 
                                                HorizontalAlignment="Left"
                                                Foreground="#e36934" Height="30" Visibility="Hidden"/>
                                 <Label Content="Student ID" FontFamily="Roboto"
@@ -457,7 +487,7 @@
                                                Foreground="#e36934" Height="30"/>
                                 <TextBlock x:Name="txt_ReportStudNum"
                                                Height="40" Width="200"
-                                               Margin="10,46,0,0"
+                                               Margin="10,66,0,0"
                                                Padding="10 10"
                                                HorizontalAlignment="Left"
                                                Foreground="Black"
@@ -475,7 +505,7 @@
                                                Foreground="#e36934" Height="30"/>
                                 <TextBlock x:Name="txt_ReportStudName"
                                                Height="40" Width="200"
-                                               Margin="10,108,0,0"
+                                               Margin="10,126,0,0"
                                                Padding="10 10"
                                                HorizontalAlignment="Left"
                                                Foreground="Black"
@@ -493,7 +523,7 @@
                                                Foreground="#e36934" Height="30"/>
                                 <TextBlock x:Name="txt_ReportStudDep"
                                                Height="40" Width="200"
-                                               Margin="10,174,0,0"
+                                               Margin="10,189,0,0"
                                                Padding="10 10"
                                                HorizontalAlignment="Left"
                                                Foreground="Black"
@@ -511,7 +541,7 @@
                                                Foreground="#e36934" Height="30"/>
                                 <TextBlock x:Name="txt_ReportstudBatch"
                                                Height="40" Width="200"
-                                               Margin="10,237,0,0"
+                                               Margin="10,253,0,0"
                                                Padding="10 10"
                                                HorizontalAlignment="Left"
                                                Foreground="Black"
@@ -537,7 +567,7 @@
 
                             <Grid Width="Auto" Height="455"
                                         VerticalAlignment="Top" Margin="0,30,0,0">
-                                <WrapPanel Margin="234,33,0,0">
+                                <WrapPanel Margin="234,1,0,0" Width="690" Height="460">
                                     <DataGrid x:Name="Report_list"
                                     FontFamily="Roboto"
                                     FontSize="14"
@@ -550,7 +580,7 @@
                                     VerticalContentAlignment="Stretch"
                                     ToolTip="List of Course Taken "
                                     HorizontalAlignment="Center"
-                                    Width="680" Height="413"
+                                    Width="680" Height="450"
                                     IsReadOnly="True" 
                                     IsTextSearchEnabled="True" 
                                     CanUserResizeRows="False" 

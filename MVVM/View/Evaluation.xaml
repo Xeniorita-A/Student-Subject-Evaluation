@@ -82,6 +82,16 @@
                            Foreground="#e36934"
                            HorizontalAlignment="Center" Margin="0,20,0,50" Height="27" VerticalAlignment="Top"/>
 
+                        <TextBox Text="0" FontFamily="Roboto" 
+                           FontWeight="Bold"
+                           FontSize="20" x:Name="txtUserID"
+                           Foreground="#e36934"
+                           HorizontalAlignment="Center" Margin="0,20,0,50" Height="27" VerticalAlignment="Top" Visibility="Hidden"/>
+                        <TextBox Text="Name" FontFamily="Roboto" 
+                           FontWeight="Bold"
+                           FontSize="20" x:Name="txtUserName"
+                           Foreground="#e36934"
+                           HorizontalAlignment="Center" Margin="0,20,0,50" Height="27" VerticalAlignment="Top" Visibility="Hidden"/>
                         <!--Deparrtment-->
                         <ComboBox x:Name="cbx_evalDepartment" Margin="0,70,0,15"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
@@ -223,6 +233,21 @@
                                 <DataGridTextColumn 
                                                     Header="Pre Req" 
                                                     Binding="{Binding Pre_Req}"
+                                                    Width="60" 
+                                                    FontFamily="Tienne" 
+                                                    FontSize="12" 
+                                                    IsReadOnly="True"
+                                                />
+                                <DataGridTextColumn 
+                                                    Header="Semester" 
+                                                    Binding="{Binding Semester}"
+                                                    Width="100" 
+                                                    FontFamily="Tienne" 
+                                                    FontSize="12" 
+                                                    IsReadOnly="True"/>
+                                <DataGridTextColumn 
+                                                    Header="Year Level" 
+                                                    Binding="{Binding Yearlevel}"
                                                     Width="60" 
                                                     FontFamily="Tienne" 
                                                     FontSize="12" 

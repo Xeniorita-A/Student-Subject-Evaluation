@@ -1,17 +1,11 @@
-﻿using Microsoft.Win32;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System;
-using System.Data;
-using System.IO;
-using System.Windows;
-using System.Windows.Controls;
-using System.Collections;
-using System.Linq;
 using System.Collections.Generic;
 using System.Data;
-using System.Windows.Media;
-using System.Windows.Controls.Primitives;
-using System.Text;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Student_Subject_Evaluation.MVVM.View
 {
@@ -21,11 +15,11 @@ namespace Student_Subject_Evaluation.MVVM.View
     public partial class Curriculum : UserControl
     {
         //string remover 
-        
+
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             //your tracing or logging code here (I put a message box as an example)
-            MessageBox.Show(e.ExceptionObject.ToString());
+            _ = MessageBox.Show(e.ExceptionObject.ToString());
         }
 
         //This is where we bind the column headers of our datagrid
@@ -77,7 +71,7 @@ namespace Student_Subject_Evaluation.MVVM.View
 
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                     else
                     {
@@ -93,7 +87,7 @@ namespace Student_Subject_Evaluation.MVVM.View
 
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
             }
@@ -110,6 +104,8 @@ namespace Student_Subject_Evaluation.MVVM.View
             InitializeComponent();
             Curriculumlist();
             btn_saveCurriculum.IsEnabled = false;
+            txtUserID.Text = MainWindow.MWinstance.AccountID.Text;
+            txtUserName.Text = MainWindow.MWinstance.AccountName.Text;
         }
 
         public void searchedResult()
@@ -146,7 +142,7 @@ namespace Student_Subject_Evaluation.MVVM.View
 
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                     else
                     {
@@ -162,7 +158,7 @@ namespace Student_Subject_Evaluation.MVVM.View
 
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
             }
@@ -199,6 +195,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             if (MessageBox.Show("Are you sure you want to log out and exit application?", "EXIT",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
+                addActivityLogout();
                 System.Windows.Application.Current.Shutdown();
             }
         }
@@ -244,18 +241,18 @@ namespace Student_Subject_Evaluation.MVVM.View
                         }
                         dt.Rows.Add(dr);
                     }
-                    
+
                     DataTable clone = dt.Clone();
                     string t;
-                    var qry = from DataRow row in dt.Rows
-                              let arr = row.ItemArray
-                              select Array.ConvertAll(arr, s =>
-                                  (t = s as string) != null
-                                  && t.StartsWith("\"")
-                                  && t.EndsWith("\"") ? t.Trim('\"') : s);
+                    IEnumerable<object[]>? qry = from DataRow row in dt.Rows
+                                                 let arr = row.ItemArray
+                                                 select Array.ConvertAll(arr, s =>
+                                                     (t = s as string) != null
+                                                     && t.StartsWith("\"")
+                                                     && t.EndsWith("\"") ? t.Trim('\"') : s);
                     foreach (object[] arr in qry)
                     {
-                        clone.Rows.Add(arr);
+                        _ = clone.Rows.Add(arr);
                     }
                     if (clone.Rows.Count > 0)
                     {
@@ -266,7 +263,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             }
             catch (Exception)
             {
-                MessageBox.Show("File not found or file was corrupted. Please make sure the file is not open in another program.");
+                _ = MessageBox.Show("File not found or file was corrupted. Please make sure the file is not open in another program.");
             }
         }
 
@@ -292,14 +289,14 @@ namespace Student_Subject_Evaluation.MVVM.View
                 if (System.IO.File.Exists(fName) == true)
                 {
                     StreamReader lObjStreamReader = new StreamReader(fName);
-                    var lines = File.ReadAllLines(fName);
+                    string[]? lines = File.ReadAllLines(fName);
                     txt_Filepath.Text = fName.ToString();
                     bindDataCSV(txt_Filepath.Text);
                     lObjStreamReader.Close();
                 }
                 else
                 {
-                    MessageBox.Show("File not found!");
+                    _ = MessageBox.Show("File not found!");
                 }
             }
             catch (Exception)
@@ -315,7 +312,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             {
                 if (txt_Filepath.Text == "")
                 {
-                    MessageBox.Show("Please input the file path or click choose");
+                    _ = MessageBox.Show("Please input the file path or click choose");
                 }
                 else if (txt_Filepath.Text != "")
                 {
@@ -324,7 +321,49 @@ namespace Student_Subject_Evaluation.MVVM.View
             }
         }
 
-        private void btn_saveCurriculum_Click(object sender, RoutedEventArgs e)
+        public void checkCurriculum()
+        {
+            _ = new DataTable();
+            DataTable check = ((DataView)Import_list.ItemsSource).ToTable();
+            int count = 0;
+            for (int i = 0; i < check.Rows.Count; i++)
+            {
+                //this is for the columns
+                for (int j = 0; j < Import_list.Columns.Count; j++)
+                {
+                }
+                object? code = check.Rows[0][0];
+                int batch = int.Parse((string)check.Rows[0][7]);
+                //Let's try the query to check if it exist
+                string q2 = "SELECT * FROM `tbl_curriculum` WHERE `curr_Code` = '" + code + "' AND `curr_Batch`= " + batch + "";
+                MySqlConnection dbc1 = new MySqlConnection(connectionString);
+                MySqlCommand commandDatabase1 = new MySqlCommand(q2, dbc1);
+                commandDatabase1.CommandTimeout = 60;
+                dbc1.Open();
+                MySqlDataReader dr1 = commandDatabase1.ExecuteReader();
+                while (dr1.Read())
+                {
+                    count++;
+                }
+                dbc1.Close();
+            }
+            if (count >= 1)
+            {
+                if (MessageBox.Show("This curriculum already existed in the database. Do you want to update this curriculum?" +
+                    "?", "Info", MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    updateCurriculum();
+                }
+            }
+            else if (count == 0)
+            {
+                insertCurriculum();
+            }
+            //dbc.Close();
+        }
+
+        public void insertCurriculum()
         {
             try
             {
@@ -333,97 +372,214 @@ namespace Student_Subject_Evaluation.MVVM.View
                     MySqlConnection dbc = new MySqlConnection(connectionString);
                     dbc.Open();
                     String q = "Insert into `tbl_curriculum` (`curr_ID`,`curr_Code`,`curr_Title`,`curr_Units`, `curr_Pre_Req`, `curr_Department`, `curr_Semester`, `curr_Yearlevel`, `curr_Batch`)" +
-                      " Values(@curr_ID, @curr_Code,@curr_Title,@curr_Units, @curr_Pre_Req, @curr_Department,@curr_Semester, @curr_Yearlevel, @curr_Batch)";
+                      " Values (@curr_ID, @curr_Code,@curr_Title,@curr_Units, @curr_Pre_Req, @curr_Department,@curr_Semester, @curr_Yearlevel, @curr_Batch)";
                     MySqlCommand cmd = new MySqlCommand(q, dbc);
 
                     //dito magdagdag ng code para mabasa ang datagrid
                     //convert the datagrid data into datatable so we can access the "rows"
-                    DataTable dt = new DataTable();
-                    dt = ((DataView)Import_list.ItemsSource).ToTable();
+                    DataTable insert = new DataTable();
+                    insert = ((DataView)Import_list.ItemsSource).ToTable();
                     //Define the parameter bago magloop instead of clearing the parameters every loop
-                    cmd.Parameters.Add(new MySqlParameter("@curr_ID", MySqlDbType.Int16));
-                    cmd.Parameters.Add(new MySqlParameter("@curr_Code", MySqlDbType.VarChar));
-                    cmd.Parameters.Add(new MySqlParameter("@curr_Title", MySqlDbType.VarChar));
-                    cmd.Parameters.Add(new MySqlParameter("@curr_Units", MySqlDbType.Int16));
-                    cmd.Parameters.Add(new MySqlParameter("@curr_Pre_Req", MySqlDbType.VarChar));
-                    cmd.Parameters.Add(new MySqlParameter("@curr_Semester", MySqlDbType.VarChar));
-                    cmd.Parameters.Add(new MySqlParameter("@curr_Yearlevel", MySqlDbType.Int16));
-                    cmd.Parameters.Add(new MySqlParameter("@curr_Department", MySqlDbType.VarChar));
-                    cmd.Parameters.Add(new MySqlParameter("@curr_Batch", MySqlDbType.Int16));
+                    _ = cmd.Parameters.Add(new MySqlParameter("@curr_ID", MySqlDbType.Int16));
+                    _ = cmd.Parameters.Add(new MySqlParameter("@curr_Code", MySqlDbType.VarChar));
+                    _ = cmd.Parameters.Add(new MySqlParameter("@curr_Title", MySqlDbType.VarChar));
+                    _ = cmd.Parameters.Add(new MySqlParameter("@curr_Units", MySqlDbType.Int16));
+                    _ = cmd.Parameters.Add(new MySqlParameter("@curr_Pre_Req", MySqlDbType.VarChar));
+                    _ = cmd.Parameters.Add(new MySqlParameter("@curr_Semester", MySqlDbType.VarChar));
+                    _ = cmd.Parameters.Add(new MySqlParameter("@curr_Yearlevel", MySqlDbType.Int16));
+                    _ = cmd.Parameters.Add(new MySqlParameter("@curr_Department", MySqlDbType.VarChar));
+                    _ = cmd.Parameters.Add(new MySqlParameter("@curr_Batch", MySqlDbType.Int16));
 
                     //Nested for loop to access both the rows and column
-                    for (int i = 0; i < dt.Rows.Count; i++)
+                    for (int i = 0; i < insert.Rows.Count; i++)
                     {
                         //this is for the columns
                         for (int j = 0; j < Import_list.Columns.Count; j++)
                         {
                             //Let's insert the data into the database
-                            Console.Write((dt.Rows[i][j]).ToString());
+                            Console.Write(insert.Rows[i][j].ToString());
                             cmd.Parameters["@curr_ID"].Value = 0;
-                            cmd.Parameters["@curr_Code"].Value = dt.Rows[i][0];
-                            cmd.Parameters["@curr_Title"].Value = dt.Rows[i][1];
-                            cmd.Parameters["@curr_Units"].Value = dt.Rows[i][2];
+                            cmd.Parameters["@curr_Code"].Value = insert.Rows[i][0];
+                            cmd.Parameters["@curr_Title"].Value = insert.Rows[i][1];
+                            cmd.Parameters["@curr_Units"].Value = insert.Rows[i][2];
                             //check if the cell was blank
-                            if (!String.IsNullOrEmpty((dt.Rows[i][3].ToString())) == true)
+                            if (!String.IsNullOrEmpty(insert.Rows[i][3].ToString()) == true)
                             {
-                                cmd.Parameters["@curr_Pre_Req"].Value = dt.Rows[i][3];
+                                cmd.Parameters["@curr_Pre_Req"].Value = insert.Rows[i][3];
                             }
                             else
                             {
                                 cmd.Parameters["@curr_Pre_Req"].Value = " ";
                             }
-                            cmd.Parameters["@curr_Semester"].Value = dt.Rows[i][4];
-                            if (!String.IsNullOrEmpty((dt.Rows[i][5].ToString())) == true)
+                            cmd.Parameters["@curr_Semester"].Value = insert.Rows[i][4];
+                            if (!String.IsNullOrEmpty(insert.Rows[i][5].ToString()) == true)
                             {
-                                cmd.Parameters["@curr_Yearlevel"].Value = dt.Rows[i][5];
+                                cmd.Parameters["@curr_Yearlevel"].Value = insert.Rows[i][5];
                             }
                             else
                             {
                                 cmd.Parameters["@curr_Yearlevel"].Value = 0;
                             }
-                            cmd.Parameters["@curr_Department"].Value = dt.Rows[i][6];
-                            cmd.Parameters["@curr_Batch"].Value = dt.Rows[i][7];
+                            cmd.Parameters["@curr_Department"].Value = insert.Rows[i][6];
+                            cmd.Parameters["@curr_Batch"].Value = insert.Rows[i][7];
                             cmd.CommandTimeout = 60;
                         }
 
                         //Used for executing queries that does not return any data
-                        cmd.ExecuteNonQuery();
+                        _ = cmd.ExecuteNonQuery();
                     }
 
                     //close the connection
                     dbc.Close();
 
-                    MessageBox.Show("Succesfully saved into the database!", "", MessageBoxButton.OK, MessageBoxImage.Information);
-                    btn_saveCurriculum.IsEnabled = false;
-                    txt_Filepath.Text = "";
-                    this.Import_list.ItemsSource = null;
-                    Import_list.Items.Clear();
+                    _ = MessageBox.Show("Succesfully saved into the database!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    addActivityImportCurr();
+                    refresh();
                 }
                 else if (Import_list.Items.IsEmpty)
                 {
-                    MessageBox.Show("Please choose the file you want to save.");
+                    _ = MessageBox.Show("Please choose the file you want to save.");
                 }
 
                 //closing else
                 else
                 {
-                    MessageBox.Show("Please make sure all the fields are filled.");
+                    _ = MessageBox.Show("Please make sure all the fields are filled.");
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show("There is something wrong with your file. " +
+                _ = MessageBox.Show("There is something wrong with your file. " +
                     "Check if the data are in the correct format or if the file is used by another application, close it and try again."
                     , "", MessageBoxButton.OK, MessageBoxImage.Information);
-            }   
             }
+        }
+
+        public void updateCurriculum()
+        {
+            //try
+            //{
+            if (txt_Filepath.Text != "" && Import_list.Items.IsEmpty == false)
+            {
+                MySqlConnection dbc = new MySqlConnection(connectionString);
+                dbc.Open();
+                String q = "UPDATE `tbl_curriculum` SET `curr_Title`= @curr_Title,`curr_Units`= @curr_Units," +
+                "`curr_Pre_Req`= @curr_Pre_Req,`curr_Semester`= @curr_Semester,`curr_Yearlevel`= @curr_Yearlevel," +
+                "`curr_Batch`= @curr_Batch,`curr_Department`= @curr_Department WHERE `curr_Code`= @curr_Code AND " +
+                "`curr_Batch`= @curr_Batch AND `curr_Department`= @curr_Department";
+                MySqlCommand cmd = new MySqlCommand(q, dbc);
+
+                //dito magdagdag ng code para mabasa ang datagrid
+                //convert the datagrid data into datatable so we can access the "rows"
+                _ = new DataTable();
+                DataTable update = ((DataView)Import_list.ItemsSource).ToTable();
+                //Define the parameter bago magloop instead of clearing the parameters every loop
+                _ = cmd.Parameters.Add(new MySqlParameter("@curr_ID", MySqlDbType.Int16));
+                _ = cmd.Parameters.Add(new MySqlParameter("@curr_Code", MySqlDbType.VarChar));
+                _ = cmd.Parameters.Add(new MySqlParameter("@curr_Title", MySqlDbType.VarChar));
+                _ = cmd.Parameters.Add(new MySqlParameter("@curr_Units", MySqlDbType.Int16));
+                _ = cmd.Parameters.Add(new MySqlParameter("@curr_Pre_Req", MySqlDbType.VarChar));
+                _ = cmd.Parameters.Add(new MySqlParameter("@curr_Semester", MySqlDbType.VarChar));
+                _ = cmd.Parameters.Add(new MySqlParameter("@curr_Yearlevel", MySqlDbType.Int16));
+                _ = cmd.Parameters.Add(new MySqlParameter("@curr_Department", MySqlDbType.VarChar));
+                _ = cmd.Parameters.Add(new MySqlParameter("@curr_Batch", MySqlDbType.Int16));
+
+                //Nested for loop to access both the rows and column
+                for (int i = 0; i < update.Rows.Count; i++)
+                {
+                    //this is for the columns
+                    for (int j = 0; j < Import_list.Columns.Count; j++)
+                    {
+                        //Let's insert the data into the database
+                        Console.Write(update.Rows[i][j].ToString());
+                        cmd.Parameters["@curr_ID"].Value = 0;
+                        cmd.Parameters["@curr_Code"].Value = update.Rows[i][0];
+                        cmd.Parameters["@curr_Title"].Value = update.Rows[i][1];
+                        cmd.Parameters["@curr_Units"].Value = update.Rows[i][2];
+                        //check if the cell was blank
+                        if (!String.IsNullOrEmpty(update.Rows[i][3].ToString()) == true)
+                        {
+                            cmd.Parameters["@curr_Pre_Req"].Value = update.Rows[i][3];
+                        }
+                        else
+                        {
+                            cmd.Parameters["@curr_Pre_Req"].Value = " ";
+                        }
+                        cmd.Parameters["@curr_Semester"].Value = update.Rows[i][4];
+                        if (!String.IsNullOrEmpty(update.Rows[i][5].ToString()) == true)
+                        {
+                            cmd.Parameters["@curr_Yearlevel"].Value = int.Parse((string)update.Rows[i][5]);
+                        }
+                        else
+                        {
+                            cmd.Parameters["@curr_Yearlevel"].Value = 0;
+                        }
+                        cmd.Parameters["@curr_Department"].Value = update.Rows[i][6];
+                        cmd.Parameters["@curr_Batch"].Value = int.Parse((string)update.Rows[i][7]);
+                        cmd.CommandTimeout = 60;
+                    }
+
+                    //Used for executing queries that does not return any data
+                    _ = cmd.ExecuteNonQuery();
+                }
+
+                //close the connection
+                dbc.Close();
+
+                _ = MessageBox.Show("Succesfully updated the curriculum!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                refresh();
+                addActivityUpdateCurr();
+
+            }
+            else if (Import_list.Items.IsEmpty)
+            {
+                _ = MessageBox.Show("Please choose the file you want to save.");
+            }
+
+            //closing else
+            else
+            {
+                _ = MessageBox.Show("Please make sure all the fields are filled.");
+            }
+            //}
+            //catch (Exception)
+            //{
+            //MessageBox.Show("There is something wrong with your file. " +
+            //    "Check if the data are in the correct format or if the file is used by another application, close it and try again."
+            //    , "", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
+        }
+        public void refresh()
+        {
+            btn_saveCurriculum.IsEnabled = false;
+            txt_Filepath.Text = "";
+            Import_list.ItemsSource = null;
+            Import_list.Items.Clear();
+        }
+
+        private void btn_saveCurriculum_Click(object sender, RoutedEventArgs e)
+        {
+            if (Import_list.Items.IsEmpty == false && txt_Filepath.Text != "")
+            {
+                checkCurriculum();
+            }
+            else
+            {
+                _ = MessageBox.Show("Please choose a valid file (.csv) first and try again."
+                    , "", MessageBoxButton.OK, MessageBoxImage.Information);
+                refresh();
+            }
+        }
 
         //MessageBox.Show(ex.ToString(), "", MessageBoxButton.OK, MessageBoxImage.Error);
         //MessageBox.Show("The file was either corrupted or data are incorrect format.");
         public static object ToDBNull(object value)
         {
             if (null != value)
+            {
                 return value;
+            }
+
             return DBNull.Value;
         }
         //refresah the curriculum list
@@ -433,14 +589,14 @@ namespace Student_Subject_Evaluation.MVVM.View
             check_BSEE.IsChecked = false;
             check_BSIT.IsChecked = false;
             check_firstsem.IsChecked = false;
-            check_secsem.IsChecked = false ;
+            check_secsem.IsChecked = false;
             check_year1.IsChecked = false;
-            check_year2.IsChecked = false;  
+            check_year2.IsChecked = false;
             check_year3.IsChecked = false;
             check_year4.IsChecked = false;
-            check_alldep.IsChecked = false; 
+            check_alldep.IsChecked = false;
             check_allsem.IsChecked = false;
-            check_allyear.IsChecked = false;    
+            check_allyear.IsChecked = false;
             txt_searchCurr.Text = "";
             Curriculumlist();
         }
@@ -451,13 +607,13 @@ namespace Student_Subject_Evaluation.MVVM.View
             int year;
             string semester1 = "First Sem"; string semester3 = "Second Sem";
             string semester2 = "First Semester"; string semester4 = "Second Semester";
-            string dep1 = "Civil Engineering"; 
+            string dep1 = "Civil Engineering";
             string dep3 = "Information Technology";
             string dep2 = "Electrical Engineering";
 
             //If the filter for all department, all semester and first year was selected 
-            if (check_alldep.IsChecked == true && check_allsem.IsChecked == true && check_year1.IsChecked == true 
-                && check_year2.IsChecked ==false && check_year3.IsChecked == false && check_year4.IsChecked == false)
+            if (check_alldep.IsChecked == true && check_allsem.IsChecked == true && check_year1.IsChecked == true
+                && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 1;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
@@ -491,7 +647,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -538,7 +694,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -585,7 +741,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -632,7 +788,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -645,7 +801,7 @@ namespace Student_Subject_Evaluation.MVVM.View
 
             //If the filter for all department, first semester and first year
             if (check_alldep.IsChecked == true && check_firstsem.IsChecked == true && check_year1.IsChecked == true
-                && check_secsem.IsChecked==false && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
+                && check_secsem.IsChecked == false && check_year2.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
             {
                 year = 1;
                 string query1 = "Select * From `tbl_curriculum` where (`curr_Semester` ='"
@@ -677,7 +833,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -722,7 +878,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -767,7 +923,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -812,7 +968,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -857,7 +1013,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -902,7 +1058,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -947,7 +1103,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -992,7 +1148,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1004,7 +1160,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             }
 
             //If the filter for BSIT department, first semester and all year level was selected 
-            if (check_BSIT.IsChecked == true && check_firstsem.IsChecked == true && check_allyear.IsChecked == true && check_secsem.IsChecked==false)
+            if (check_BSIT.IsChecked == true && check_firstsem.IsChecked == true && check_allyear.IsChecked == true && check_secsem.IsChecked == false)
             {
                 int year1 = 1; int year3 = 3;
                 int year2 = 2; int year4 = 4;
@@ -1038,7 +1194,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1084,7 +1240,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1130,7 +1286,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1142,7 +1298,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             }
 
             //If the filter for BSCE department, second semester semester and all year level was selected 
-            if (check_BSCE.IsChecked == true && check_secsem.IsChecked == true && check_allyear.IsChecked == true && check_firstsem.IsChecked == false) 
+            if (check_BSCE.IsChecked == true && check_secsem.IsChecked == true && check_allyear.IsChecked == true && check_firstsem.IsChecked == false)
             {
                 int year1 = 1; int year3 = 3;
                 int year2 = 2; int year4 = 4;
@@ -1176,7 +1332,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1222,7 +1378,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1268,7 +1424,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1309,7 +1465,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1352,7 +1508,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1392,7 +1548,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1432,7 +1588,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1472,7 +1628,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1513,7 +1669,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1554,7 +1710,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1595,7 +1751,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1636,7 +1792,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1680,7 +1836,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1724,7 +1880,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1768,7 +1924,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1812,7 +1968,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1856,7 +2012,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1900,7 +2056,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1944,7 +2100,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -1989,7 +2145,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -2004,7 +2160,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             else if (check_BSIT.IsChecked == true && check_firstsem.IsChecked == true && check_year2.IsChecked == true
                 && check_BSEE.IsChecked == false && check_BSCE.IsChecked == false && check_secsem.IsChecked == false
                 && check_year1.IsChecked == false && check_year3.IsChecked == false && check_year4.IsChecked == false)
-                
+
             {
                 year = 2;
                 string query1 = "Select * From `tbl_curriculum` where `curr_Department` = '"
@@ -2034,7 +2190,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -2078,7 +2234,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -2122,7 +2278,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -2166,7 +2322,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -2210,7 +2366,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -2254,7 +2410,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -2298,7 +2454,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -2342,7 +2498,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -2386,7 +2542,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -2430,7 +2586,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -2474,7 +2630,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -2518,7 +2674,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -2562,7 +2718,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -2606,7 +2762,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -2650,7 +2806,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -2694,7 +2850,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             CourseBatch = reader.GetString(7),
                         };
 
-                        Course_list.Items.Add(_subjects);
+                        _ = Course_list.Items.Add(_subjects);
                     }
                 }
                 else
@@ -2738,7 +2894,7 @@ namespace Student_Subject_Evaluation.MVVM.View
 
         private void check_alldep_Checked(object sender, RoutedEventArgs e)
         {
-            bool selectAll_Dep = (check_alldep.IsChecked ==true);
+            bool selectAll_Dep = check_alldep.IsChecked == true;
             check_BSCE.IsChecked = selectAll_Dep;
             check_BSEE.IsChecked = selectAll_Dep;
             check_BSIT.IsChecked = selectAll_Dep;
@@ -2748,14 +2904,19 @@ namespace Student_Subject_Evaluation.MVVM.View
         {
             check_alldep.IsChecked = null;
             if ((check_BSCE.IsChecked == true) && (check_BSEE.IsChecked == true) && (check_BSIT.IsChecked == true))
+            {
                 check_alldep.IsChecked = true;
+            }
+
             if ((check_BSCE.IsChecked == false) && (check_BSEE.IsChecked == false) && (check_BSIT.IsChecked == false))
+            {
                 check_alldep.IsChecked = false;
+            }
         }
 
         private void check_allSem(object sender, RoutedEventArgs e)
         {
-            bool selectAll_Sem = (check_allsem.IsChecked == true);
+            bool selectAll_Sem = check_allsem.IsChecked == true;
             check_firstsem.IsChecked = selectAll_Sem;
             check_secsem.IsChecked = selectAll_Sem;
         }
@@ -2764,14 +2925,19 @@ namespace Student_Subject_Evaluation.MVVM.View
         {
             check_allsem.IsChecked = null;
             if ((check_firstsem.IsChecked == true) && (check_secsem.IsChecked == true))
+            {
                 check_allsem.IsChecked = true;
+            }
+
             if ((check_firstsem.IsChecked == false) && (check_secsem.IsChecked == false))
+            {
                 check_allsem.IsChecked = false;
+            }
         }
 
         private void check_allYearlevel(object sender, RoutedEventArgs e)
         {
-            bool selectAll_Year = (check_allyear.IsChecked == true);
+            bool selectAll_Year = check_allyear.IsChecked == true;
             check_year1.IsChecked = selectAll_Year;
             check_year2.IsChecked = selectAll_Year;
             check_year3.IsChecked = selectAll_Year;
@@ -2781,14 +2947,92 @@ namespace Student_Subject_Evaluation.MVVM.View
         private void check_singleYear(object sender, RoutedEventArgs e)
         {
             check_allyear.IsChecked = null;
-            if ((check_year1.IsChecked == true) && (check_year2.IsChecked == true) && (check_year3.IsChecked == true) && (check_year4.IsChecked==true))
+            if ((check_year1.IsChecked == true) && (check_year2.IsChecked == true) && (check_year3.IsChecked == true) && (check_year4.IsChecked == true))
+            {
                 check_allyear.IsChecked = true;
+            }
+
             if ((check_year1.IsChecked == false) && (check_year2.IsChecked == false) && (check_year3.IsChecked == false) && (check_year4.IsChecked == false))
+            {
                 check_allyear.IsChecked = false;
+            }
+        }
+
+        //add activity logs
+        public void addActivityImportCurr()
+        {
+            string query = "INSERT INTO  `tbl_activitylog` ( `log_ID`, `log_Time`, `log_Date`, `log_UserID`, `log_Activity`, `log_Detail`)  VALUES (@ID, @time, @date, @user, @activity, @details)";
+            MySqlConnection databaseConnection2 = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase2 = new MySqlCommand(query, databaseConnection2);
+            _ = commandDatabase2.Parameters.AddWithValue("@ID", 0);
+            _ = commandDatabase2.Parameters.AddWithValue("@time", DateTime.Now.ToString("H:mm"));
+            _ = commandDatabase2.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+            _ = commandDatabase2.Parameters.AddWithValue("@user", int.Parse(txtUserID.Text));
+            _ = commandDatabase2.Parameters.AddWithValue("@activity", "Import Curriculum");
+            _ = commandDatabase2.Parameters.AddWithValue("@details", txtUserName.Text + " imported a new curriculum from a CSV file.");
+            commandDatabase2.CommandTimeout = 60;
+            MySqlDataReader reader2;
+            try
+            {
+                databaseConnection2.Open();
+                reader2 = commandDatabase2.ExecuteReader();
+                databaseConnection2.Close();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        public void addActivityUpdateCurr()
+        {
+            string query = "INSERT INTO  `tbl_activitylog` ( `log_ID`, `log_Time`, `log_Date`, `log_UserID`, `log_Activity`, `log_Detail`)  VALUES (@ID, @time, @date, @user, @activity, @details)";
+            MySqlConnection databaseConnection2 = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase2 = new MySqlCommand(query, databaseConnection2);
+            _ = commandDatabase2.Parameters.AddWithValue("@ID", 0);
+            _ = commandDatabase2.Parameters.AddWithValue("@time", DateTime.Now.ToString("H:mm"));
+            _ = commandDatabase2.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+            _ = commandDatabase2.Parameters.AddWithValue("@user", int.Parse(txtUserID.Text));
+            _ = commandDatabase2.Parameters.AddWithValue("@activity", "Update Curriculum");
+            _ = commandDatabase2.Parameters.AddWithValue("@details", txtUserName.Text + " updated a curriculum from a CSV file.");
+            commandDatabase2.CommandTimeout = 60;
+            MySqlDataReader reader2;
+            try
+            {
+                databaseConnection2.Open();
+                reader2 = commandDatabase2.ExecuteReader();
+                databaseConnection2.Close();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        public void addActivityLogout()
+        {
+            string query = "INSERT INTO  `tbl_activitylog` ( `log_ID`, `log_Time`, `log_Date`, `log_UserID`, `log_Activity`, `log_Detail`)  VALUES (@ID, @time, @date, @user, @activity, @details)";
+            MySqlConnection databaseConnection2 = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase2 = new MySqlCommand(query, databaseConnection2);
+            _ = commandDatabase2.Parameters.AddWithValue("@ID", 0);
+            _ = commandDatabase2.Parameters.AddWithValue("@time", DateTime.Now.ToString("H:mm"));
+            _ = commandDatabase2.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+            _ = commandDatabase2.Parameters.AddWithValue("@user", int.Parse(txtUserID.Text));
+            _ = commandDatabase2.Parameters.AddWithValue("@activity", "Logout");
+            _ = commandDatabase2.Parameters.AddWithValue("@details", txtUserName.Text + " logout of the system.");
+            commandDatabase2.CommandTimeout = 60;
+            MySqlDataReader reader2;
+            try
+            {
+                databaseConnection2.Open();
+                reader2 = commandDatabase2.ExecuteReader();
+                databaseConnection2.Close();
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 
- }
+}
 
 
 

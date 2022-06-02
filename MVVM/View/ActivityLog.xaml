@@ -1,0 +1,218 @@
+﻿<UserControl x:Class="Student_Subject_Evaluation.MVVM.View.ActivityLog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Student_Subject_Evaluation.MVVM.View" xmlns:viewModel="clr-namespace:Student_Subject_Evaluation.MVVM.View_Model"
+             mc:Ignorable="d" 
+             Height="auto" Width="Auto"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch" FontFamily="Tienne Black">
+    <UserControl.DataContext>
+        <viewModel:ActivityLogViewModel/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="334*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Border Background="white" 
+                Grid.RowSpan="3">
+            <StackPanel Margin="80,25,50,0" 
+                        Height="67" 
+                        VerticalAlignment="Top">
+                <TextBlock Text="Activity Log" 
+                       Foreground="#FFDF612B" FontSize="45"  
+                       FontWeight="Bold"
+                       FontFamily="Tienne"
+                       VerticalAlignment="Center"/>
+            </StackPanel>
+
+        </Border>
+        
+        <!--Orange line-->
+        <StackPanel Grid.Row="1" Grid.RowSpan="2" >
+            <StackPanel Grid.Row="1" Margin="0">
+                <materialDesign:Card Height="10" 
+                    VerticalAlignment="Top" 
+                    Background="#f1ac6a" 
+                    d:LayoutOverrides="LeftMargin, RightMargin, 
+                    TopMargin, BottomMargin"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                    materialDesign:ShadowAssist.ShadowEdges="Bottom"/>
+            </StackPanel>
+
+            <!--BODYYY-->
+            <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <materialDesign:Card
+                             UniformCornerRadius="20"
+                             Background="White" VerticalAlignment="Top"
+                             HorizontalAlignment="Center"
+                             materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" Height="520" Width="990" Margin="0,30,0,100">
+
+                    <!--Stackpanel for the Activity Log-->
+                    <Grid Grid.Column="1" Grid.Row="1">
+
+                        <Grid Width="300" Margin="0,0,30,0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="525">
+                            <Label Content="FILTER:" FontFamily="Roboto" 
+                           FontWeight="Bold"
+                           FontSize="14" 
+                           Foreground="#e36934"
+                           HorizontalAlignment="Left" Margin="25,3,0,50" Height="27" VerticalAlignment="Top"/>
+                           
+                            <Label Content="Custom Date Range:" FontFamily="Roboto" 
+                           FontWeight="Bold"
+                           FontSize="14" 
+                           Foreground="#e36934"
+                           HorizontalAlignment="Left" Margin="25,33,0,0" Height="30" VerticalAlignment="Top" Width="147"/>
+                            <!--Export Date logs-->
+                            <DatePicker
+                                  SelectedDate="{Binding Path=Date}"
+                                  Margin="26,70,25,0"
+                                  x:Name="DateFrom" Padding="10 0"
+                                  materialDesign:HintAssist.Hint="Date From:"
+                                  FontFamily="Roboto"
+                                  FontSize="16" FontWeight="Bold" VerticalAlignment="Top" Height="40"
+                                  Style="{StaticResource MaterialDesignFilledDatePicker}" DisplayDate="2022-06-02"/>
+                            <DatePicker
+                                  SelectedDate="{Binding Path=Date}"
+                                  Margin="26,130,25,0"
+                                  x:Name="DateTo" Padding="10 0"
+                                  materialDesign:HintAssist.Hint="Date To:"
+                                  FontFamily="Roboto"
+                                  FontSize="16" FontWeight="Bold" VerticalAlignment="Top" Height="40"
+                                  Style="{StaticResource MaterialDesignFilledDatePicker}" DisplayDate="2022-06-02"/>
+
+                            <!--Export Activity Log-->
+                            <Button x:Name="btn_exportLogs"
+                            Content="EXPORT"
+                            Margin="0,181,0,50"
+                            BorderThickness="0" FontSize="16"
+                            Height="40" Width="150"
+                            FontFamily="Tienne" FontWeight="Bold"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Background="#FFFF9800" Foreground="White"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                            materialDesign:RippleAssist.Feedback="#DD000000" Click="btn_exportLogs_Click" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                            <Button x:Name="btn_ApplyFilter"
+                            Content="APPLY FILTER"
+                            Margin="0,194,0,10"
+                            BorderThickness="0" FontSize="16"
+                            Height="40" Width="150"
+                            FontFamily="Tienne" FontWeight="Bold"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Background="#FFFF9800" Foreground="White"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                            materialDesign:RippleAssist.Feedback="#DD000000" VerticalAlignment="Top" HorizontalAlignment="Center" Click="btn_ApplyFilter_Click"/>
+
+                            <WrapPanel VerticalAlignment="Top" Margin="0,286,0,0" HorizontalAlignment="Center" Height="173" d:LayoutOverrides="LeftPosition, RightPosition">
+                                <Button x:Name="btn_refreshLog"
+                                        Height="40" Width="150"
+                                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                        materialDesign:RippleAssist.Feedback="#DD000000" 
+                                        Click="btn_refreshLog_Click" ToolTip="Refresh the table and clear filters" Margin="0,83,0,0">
+
+                                    <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                                        <Image Source="/Images/refresh.png" Stretch="Uniform" HorizontalAlignment="Left" Margin="0,0,7,0" Width="22" Height="22" VerticalAlignment="Center"/>
+                                        <TextBlock Text="REFRESH" 
+                                                   Padding="10" 
+                                                   Foreground="#DDFCFCFC"
+                                                   FontFamily="Tienne" 
+                                                   FontSize="16" 
+                                                   FontWeight="Bold" Margin="25,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                   />
+                                    </Grid>
+                                </Button>
+                            </WrapPanel>
+                        </Grid>
+
+                        <!--Datagrid for the Course Curriculum-->
+                        <WrapPanel VerticalAlignment="Top" HorizontalAlignment="Left" Margin="40,0,0,0" Width="615">
+                            <Label Content="Activity History Log:" FontFamily="Roboto" 
+                           FontWeight="Bold"
+                           FontSize="20" 
+                           Foreground="#e36934"
+                           HorizontalAlignment="Center" Margin="0,4,0,50" Height="35" VerticalAlignment="Top"/>
+                            <DataGrid x:Name="Activity_log"
+                                            FontFamily="Roboto"
+                                            FontSize="12"
+                                            CanUserSortColumns="True"
+                                            CanUserAddRows="False"
+                                            materialDesign:DataGridAssist.CellPadding="4 2 2 2"
+                                            materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
+                                            ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                                            HorizontalContentAlignment="Stretch" 
+                                            VerticalContentAlignment="Stretch"
+                                            ToolTip="Course Curriculum"
+                                            HorizontalAlignment="Left"
+                                            IsReadOnly="True" 
+                                            IsTextSearchEnabled="True" 
+                                            CanUserResizeRows="False" 
+                                            RowDetailsVisibilityMode="Visible"
+                                            CanUserReorderColumns="False" 
+                                            CanUserResizeColumns="False" 
+                                            GridLinesVisibility="None"
+                                            BorderThickness="0" 
+                                            Padding="5,5,5,5" 
+                                            FontWeight="Normal"
+                                            VerticalAlignment="Top"
+                                            CanUserDeleteRows="False" 
+                                            ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                                            ScrollViewer.CanContentScroll="True"
+                                            HorizontalScrollBarVisibility="Auto" Height="450" Width="605" Margin="0,-51,0,0">
+
+                                <!--<ColumnHeader>-->
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn 
+                                                    Header="ID" 
+                                                    Binding="{Binding ActivityID}"
+                                                    Width="30" 
+                                                    FontFamily="Tienne" 
+                                                    FontSize="12" 
+                                                    IsReadOnly="True"/>
+                                    <DataGridTextColumn 
+                                                    Header="Time" 
+                                                    Binding="{Binding ActivityTime}"
+                                                    Width="50" 
+                                                    FontFamily="Tienne" 
+                                                    FontSize="12" 
+                                                    IsReadOnly="True"/>
+                                    <DataGridTextColumn 
+                                                    Header="Date" 
+                                                    Binding="{Binding ActivityDate}"
+                                                    Width="80" 
+                                                    FontFamily="Tienne" 
+                                                    FontSize="12" 
+                                                    IsReadOnly="True"/>
+                                    <DataGridTextColumn 
+                                                    Header="Activity" 
+                                                    Binding="{Binding Activity}"
+                                                    Width="150" 
+                                                    FontFamily="Tienne" 
+                                                    FontSize="12" 
+                                                    IsReadOnly="True"/>
+                                    <DataGridTextColumn 
+                                                    Header="Detail" 
+                                                    Binding="{Binding ActivityDetail}"
+                                                    Width="600" 
+                                                    FontFamily="Tienne" 
+                                                    FontSize="12" 
+                                                    IsReadOnly="True"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </WrapPanel>
+                    </Grid>
+                </materialDesign:Card>
+            </WrapPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

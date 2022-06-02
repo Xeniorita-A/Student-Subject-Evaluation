@@ -105,19 +105,28 @@
   <ItemGroup>
     <Folder Include="MVVM\Model\" />
     <Folder Include="Evaluation Forms\" />
+    <Folder Include="Activity Logs\" />
+    <Folder Include="Reports\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.16.0" />
     <PackageReference Include="EPPlus" Version="6.0.4" />
     <PackageReference Include="ExcelDataReader" Version="3.6.0" />
     <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
+    <PackageReference Include="Microsoft.Graph" Version="4.29.0" />
+    <PackageReference Include="Microsoft.TestPlatform" Version="17.2.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
     <PackageReference Include="MySql.Data" Version="8.0.29" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
     <PackageReference Include="Nito.AsyncEx.Context" Version="5.1.2" />
     <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="PdfRpt.Core" Version="1.4.4" />
+    <PackageReference Include="Syncfusion.Pdf.Net.Core" Version="20.1.0.58" />
+    <PackageReference Include="Syncfusion.XlsIO.Net.Core" Version="20.1.0.58" />
+    <PackageReference Include="Syncfusion.XlsIORenderer.Net.Core" Version="20.1.0.58" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
-    <PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
   </ItemGroup>
 
 </Project>

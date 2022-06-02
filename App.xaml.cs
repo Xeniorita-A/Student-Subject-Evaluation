@@ -1,4 +1,7 @@
 ﻿using System.Windows;
+using Syncfusion.XlsIO;
+using Syncfusion.XlsIORenderer;
+using Syncfusion.Pdf;
 
 namespace Student_Subject_Evaluation
 {
@@ -7,5 +10,10 @@ namespace Student_Subject_Evaluation
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            //Register Syncfusion license
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NjQ5NzM5QDMyMzAyZTMxMmUzMEh1YklJSHFoVTZuZ3BOREVtZEc3QkhiWXI1Mm5Zb0d5N05sQ3RCTWxnVkE9");
+        }
     }
 }

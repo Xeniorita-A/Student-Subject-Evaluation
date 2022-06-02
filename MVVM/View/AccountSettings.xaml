@@ -42,16 +42,16 @@
                 <!--Hidden textblock where we put the usernmae/email of the user-->
                 <TextBlock x:Name="txtUserDetails"  
                        Foreground="#FFDF612B"
-                       FontSize="16" Margin="200,20,0,190"
+                       FontSize="16" Margin="200,-56,0,190"
                        Padding="0" Text="User Name"
                        Height="30" d:LayoutOverrides="Height"
                        HorizontalAlignment="Center" 
                        VerticalAlignment="Top" Visibility="Hidden"/>
 
                 <!--Hidden textbox where we put the Account ID of the user-->
-                <TextBox x:Name="txtUserID"  
+                <TextBox x:Name="getUserID"  
                        Foreground="#FFDF612B"
-                       FontSize="16" Margin="20,20,200,190"
+                       FontSize="16" Margin="20,-60,200,190"
                        Padding="0" Text="0"
                        Height="30" d:LayoutOverrides="Height"
                        HorizontalAlignment="Center" 

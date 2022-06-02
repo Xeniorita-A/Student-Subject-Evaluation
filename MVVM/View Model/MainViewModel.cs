@@ -10,18 +10,20 @@ namespace Student_Subject_Evaluation.MVVM.View_Model
         public RelayCommand CurriculumViewCommand { get; set; }
         public RelayCommand EvaluationViewCommand { get; set; }
         public RelayCommand StudentViewCommand { get; set; }
+        public RelayCommand ActivityLogViewCommand { get; set; }
 
         public HomeViewModel HomeVm { get; set; }
         public AccountViewModel AccountVm { get; set; }
         public CurriculumViewModel CurriculumVm { get; set; }
         public EvaluationViewModel EvaluationVm { get; set; }
         public StudentViewModel StudentVm { get; set; }
+        public ActivityLogViewModel ActivityLogVm { get; set; }
 
         private object _currentView;
 
         public Object CurrentView
         {
-            get { return _currentView; }
+            get => _currentView;
             set
             {
                 _currentView = value;
@@ -36,6 +38,7 @@ namespace Student_Subject_Evaluation.MVVM.View_Model
             CurriculumVm = new CurriculumViewModel();
             EvaluationVm = new EvaluationViewModel();
             StudentVm = new StudentViewModel();
+            ActivityLogVm = new ActivityLogViewModel();
             CurrentView = HomeVm;
 
             HomeViewCommand = new RelayCommand(o =>
@@ -61,6 +64,10 @@ namespace Student_Subject_Evaluation.MVVM.View_Model
             StudentViewCommand = new RelayCommand(o =>
             {
                 CurrentView = StudentVm;
+            });
+            ActivityLogViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = ActivityLogVm;
             });
         }
     }

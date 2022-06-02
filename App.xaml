@@ -36,6 +36,10 @@
                 <view:Student/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:ActivityLogViewModel}">
+                <view:ActivityLog/>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
