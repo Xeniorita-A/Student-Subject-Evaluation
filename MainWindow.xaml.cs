@@ -24,7 +24,7 @@ namespace Student_Subject_Evaluation
             User = UserPass;
             AccountID = _ID;
             AccountName = _Name;
-            date.Text = DateTime.Now.ToString("dddddd , MM/dd/yyyy, hh:mm");
+            date.Text = DateTime.Now.ToString("dddddd , yyyy/MM/dd");
 
         }
 

@@ -311,10 +311,10 @@ namespace Student_Subject_Evaluation.MVVM.View
                     PdfDocument pdfDocument = renderer.ConvertToPDF(workbook);
                     //Set layout option as FitAllColumnsOnOnePage
                     settings.LayoutOptions = LayoutOptions.FitAllColumnsOnOnePage;
-                    FileStream outputStream0 = new FileStream("Generated_Report_" + txt_ReportStudNum.Text + "_"
-                    + "_" + txt_ReportStudDep.Text + "_"
-                    + DateTime.Now.ToString("dd-MM-yyyy") + ".pdf", FileMode.Create, FileAccess.Write);
-                    pdfDocument.Save(outputStream0);
+                    //FileStream outputStream0 = new FileStream("Generated_Report_" + txt_ReportStudNum.Text + "_"
+                    //+ "_" + txt_ReportStudDep.Text + "_"
+                    //+ DateTime.Now.ToString("dd-MM-yyyy") + ".pdf", FileMode.Create, FileAccess.Write);
+                    //pdfDocument.Save(outputStream0);
                     MessageBox.Show("Successfully Saved as a PDF file.");
                     #region Save
 
@@ -425,20 +425,32 @@ namespace Student_Subject_Evaluation.MVVM.View
                         using (FileStream? stream = System.IO.File.OpenRead(path))
                         {
                             pck.Load(stream);
-                        }
+                        }                        
                         ExcelWorksheet? ws = pck.Workbook.Worksheets.First();
                         DataTable tbl = new DataTable();
-                        if (!String.IsNullOrEmpty(ws.Cells[Address: "B2"].Value.ToString()) == false && !String.IsNullOrEmpty(ws.Cells[Address: "B3"].Value.ToString()) == false)
+                        try
                         {
-                            _ = MessageBox.Show("It seems like you are missing a required field. Please check your data and try again.", "", MessageBoxButton.OK, MessageBoxImage.Error);
-                            clearAfterSaved();
+                            if (!String.IsNullOrEmpty(ws.Cells[Address: "B2"].Value.ToString()) == false)
+                            {
+                                _ = MessageBox.Show("It seems like you are missing a required field. Please check your data and try again.", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                                clearAfterSaved();
+                            }
+                            else if (!String.IsNullOrEmpty(ws.Cells[Address: "B3"].Value.ToString()) == false)
+                            {
+                                _ = MessageBox.Show("It seems like you are missing a required field. Please check your data and try again.", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                                clearAfterSaved();
+                            }
+                            else
+                            {
+                                txt_StudentName.Text = ws.Cells[Address: "B2"].Value.ToString();
+                                txt_StudentNum.Text = ws.Cells[Address: "B3"].Value.ToString();
+                                txt_StudentCurrYear.Text = ws.Cells[Address: "E3"].Value.ToString();
+                                txt_StudentDep.Text = ws.Cells[Address: "E2"].Value.ToString();
+                            }
                         }
-                        else
+                        catch (Exception)
                         {
-                            txt_StudentName.Text = ws.Cells[Address: "B2"].Value.ToString();
-                            txt_StudentNum.Text = ws.Cells[Address: "B3"].Value.ToString();
-                            txt_StudentCurrYear.Text = ws.Cells[Address: "E3"].Value.ToString();
-                            txt_StudentDep.Text = ws.Cells[Address: "E2"].Value.ToString();
+
                         }
                         bool hasHeader = true;
                         foreach (ExcelRangeBase? firstRowCell in ws.Cells[5, 1, 1, ws.Dimension.End.Column])

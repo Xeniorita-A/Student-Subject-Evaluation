@@ -144,7 +144,7 @@
                        VerticalAlignment="Top" 
                        Grid.Row="1" Margin="44,387,44,0" >
                 <Run Text="            "/>
-                <Run Text="03/19/2022 8:35:36 PM"/>
+                <Run Text="03/19/2022"/>
                 </TextBlock>
             </WrapPanel>
 

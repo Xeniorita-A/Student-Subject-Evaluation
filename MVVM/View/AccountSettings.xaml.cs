@@ -128,8 +128,14 @@ namespace Student_Subject_Evaluation.MVVM.View
                     }
                     else if (pbx_acountPassword.Password != "")
                     {
-                        _ = commandDatabase.Parameters.AddWithValue("@password", EncryptPassword.HashString(pbx_acountPassword.Password));
-                        MessageBox.Show("Success update password encrypt");
+                        if (pbx_acountPassword.Password.Length >= 8 && pbx_acountPassword.Password.Length <= 12)
+                        {
+                            _ = commandDatabase.Parameters.AddWithValue("@password", EncryptPassword.HashString(pbx_acountPassword.Password));
+                        }
+                        else
+                        {
+                            MessageBox.Show("Please make sure that the password you inputted was atleast 8 characters.", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
                     }
                     MySqlDataReader myReader = commandDatabase.ExecuteReader();
                     commandDatabase.CommandTimeout = 60;
