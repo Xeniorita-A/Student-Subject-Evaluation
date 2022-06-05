@@ -214,7 +214,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                 worksheet.Cells[Address: "B3:C3"].Merge = true;
                 worksheet.Cells[Address: "B4:C4"].Merge = true;
                 worksheet.Cells[Address: "E2:F2"].Merge = true;
-                worksheet.Cells[Address: "E3:F3"].Merge = true;
+                worksheet.Cells[Address: "E3:G3"].Merge = true;
                 worksheet.Cells[Address: "E4:F4"].Merge = true;
                 worksheet.Column(col: 1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 
@@ -263,7 +263,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                 worksheet.Row(3).Style.WrapText = true;
                 worksheet.Column(5).Style.WrapText = true;
                 worksheet.Column(6).Style.WrapText = true;
-                worksheet.Cells[Address: "E3"].Style.WrapText = true;
                 worksheet.Column(col: 2).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                 worksheet.Column(col: 3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                 worksheet.Column(col: 4).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
@@ -280,17 +279,11 @@ namespace Student_Subject_Evaluation.MVVM.View
                 worksheet.Column(col: 6).Style.Numberformat.Format = "0.00";
                 worksheet.DeleteRow(7);
                 worksheet.PrinterSettings.FitToPage = true;
-                //databaseConnection.Close();
                 // set some document properties
                 excelPackage.Workbook.Properties.Title = "Grade Report for Student '" + txt_ReportStudNum.Text + "'.";
                 excelPackage.Workbook.Properties.Author = txtUserName.Text;
                 await excelPackage.SaveAsync();
 
-                ////convert the excel package to a byte array
-                //byte[] bin = excelPackage.GetAsByteArray();
-                //File.WriteAllBytes("C:/Student Subject Evaluation System/Reports/Reports/Generated_Report.xlsx", bin);
-
-                //excelPackage.SaveAs(new FileInfo("Generated Report.xlsx"));
                 MessageBox.Show("Generated Report as Excel. Converting to PDF file, please wait..");
                 using (ExcelEngine excelEngine = new ExcelEngine())
                 {
@@ -444,8 +437,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                             {
                                 txt_StudentName.Text = ws.Cells[Address: "B2"].Value.ToString();
                                 txt_StudentNum.Text = ws.Cells[Address: "B3"].Value.ToString();
-                                txt_StudentCurrYear.Text = ws.Cells[Address: "E3"].Value.ToString();
-                                txt_StudentDep.Text = ws.Cells[Address: "E2"].Value.ToString();
+                                txt_StudentCurrYear.Text = ws.Cells[Address: "E2"].Value.ToString();
+                                txt_StudentDep.Text = ws.Cells[Address: "E3"].Value.ToString();
                             }
                         }
                         catch (Exception)
@@ -983,7 +976,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             _ = commandDatabase2.Parameters.AddWithValue("@user", int.Parse(txtUserID.Text));
             _ = commandDatabase2.Parameters.AddWithValue("@activity", "Update Grade Record");
             _ = commandDatabase2.Parameters.AddWithValue("@details", txtUserName.Text + " updated a grade record for student "
-                + txt_StudentName.Text + " (" + txt_StudentNum.Text + ") batch " + int.Parse(txt_StudentCurrYear.Text) + ".");
+                + txt_StudentName.Text + " (" + txt_StudentNum.Text + ").");
             commandDatabase2.CommandTimeout = 60;
             MySqlDataReader reader2;
             try
@@ -1008,7 +1001,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             _ = commandDatabase2.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
             _ = commandDatabase2.Parameters.AddWithValue("@user", int.Parse(txtUserID.Text));
             _ = commandDatabase2.Parameters.AddWithValue("@activity", "Generate Report");
-            _ = commandDatabase2.Parameters.AddWithValue("@details", txtUserName.Text + " generated a report of grade record for student "
+            _ = commandDatabase2.Parameters.AddWithValue("@details", txtUserName.Text + " generated a report for student "
                 + txt_ReportStudName.Text + " (" + txt_ReportStudNum.Text + ").");
             commandDatabase2.CommandTimeout = 60;
             MySqlDataReader reader2;

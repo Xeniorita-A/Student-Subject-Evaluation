@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
-        Height="760" Width="1360"
+        Height="750" Width="1360"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         WindowStyle="SingleBorderWindow"
@@ -74,15 +74,15 @@
                 FontFamily="Tienne" FontSize="12" Width="207" Height="17" Margin="26,0,0,0"/>
                     <TextBlock Text="VALENZUELA" 
                 Foreground="White" 
-                FontSize="32" Padding="0"
+                FontSize="30" Padding="0"
                 FontWeight="Normal" 
                 FontStretch="Normal"
-                FontFamily="Tienne" Width="207" HorizontalAlignment="Center" Margin="19,0,0,0"/>
+                FontFamily="Tienne" Width="178" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </StackPanel>
             </StackPanel>
 
             <!--Employee Menu Buttons-->
-            <WrapPanel Grid.Row="1" Orientation="Vertical" Margin="25,0,25,95">
+            <WrapPanel Grid.Row="1" Orientation="Vertical" Margin="25,0,25,70">
                 <StackPanel Grid.Row="1" Margin="0,0,0,-10">
                     <RadioButton x:Name="btn_Home" Content="Home"
                              Height="40" Width="250"
@@ -137,13 +137,13 @@
             </WrapPanel>
 
             <!--Date-->
-            <WrapPanel Grid.Row="1" Orientation="Vertical" Margin="52,13,52,0">
+            <WrapPanel Grid.Row="1" Orientation="Vertical" Margin="52,0,52,0">
                 <TextBlock x:Name="date"  
                        Foreground="White" Height="30" 
                        FontWeight="Bold" 
                        VerticalAlignment="Top" 
-                       Grid.Row="1" Margin="44,387,44,0" >
-                <Run Text="            "/>
+                       Grid.Row="1" Margin="0,380,0,0" HorizontalAlignment="Left" Width="196" Padding="29,0,0,0" >
+                <Run Text=""/>
                 <Run Text="03/19/2022"/>
                 </TextBlock>
             </WrapPanel>

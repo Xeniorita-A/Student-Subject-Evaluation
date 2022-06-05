@@ -58,17 +58,17 @@
                        VerticalAlignment="Top" Visibility="Hidden"/>
             </Grid>
 
-            <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <materialDesign:Card Height="520" Width="550"
+            <WrapPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,18">
+                <materialDesign:Card Height="500" Width="550"
                         UniformCornerRadius="20"
                         Background="White"
                         Padding="10"
                         materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                        VerticalAlignment="Top" HorizontalAlignment="Center" Margin="50,20,50,100">
-                    <Grid>
+                        VerticalAlignment="Top" HorizontalAlignment="Center" Margin="50,10,50,23">
+                    <Grid Margin="0,10,0,0">
                         <Button x:Name="changeName"
                                 Content="CHANGE"
-                                Margin="314,39,50,0"
+                                Margin="314,32,50,0"
                                 BorderThickness="0"
                                 Height="35" Width="130"
                                 VerticalAlignment="Top"
@@ -81,7 +81,7 @@
                         <Button x:Name="changeEmail"
                                 Content="CHANGE" VerticalAlignment="Top"
                                 BorderThickness="0"
-                                Margin="314,120,50,0"
+                                Margin="314,105,50,0"
                                 Height="35" Width="130"
                                 FontFamily="Tienne" FontWeight="Bold"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
@@ -91,7 +91,7 @@
                         <Button x:Name="changeUsername"
                                 Content="CHANGE" VerticalAlignment="Top"
                                 BorderThickness="0"
-                                Margin="314,200,50,0"
+                                Margin="314,181,50,0"
                                 Height="35" Width="130"
                                 FontFamily="Tienne" FontWeight="Bold"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
@@ -100,7 +100,7 @@
                                 materialDesign:RippleAssist.Feedback="#DD000000" Click="changeUsername_click" HorizontalAlignment="Right"/>
                         <Button x:Name="changePassword"
                                 Content="CHANGE" VerticalAlignment="Top"
-                                Margin="314,280,50,0"
+                                Margin="314,259,50,0"
                                 BorderThickness="0"
                                 Height="40" Width="130"
                                 FontFamily="Tienne" FontWeight="Bold"
@@ -110,7 +110,7 @@
                                 materialDesign:RippleAssist.Feedback="#DD000000" Click="changePassword_click" HorizontalAlignment="Right"/>
                         <Button x:Name="btn_updateAccount"
                                 Content="SAVE" VerticalAlignment="Top"
-                                Margin="314,368,50,0"
+                                Margin="314,343,50,0"
                                 BorderThickness="0"
                                 Height="35" Width="130"
                                 FontFamily="Tienne" FontWeight="Bold"
@@ -120,7 +120,7 @@
                                 materialDesign:RippleAssist.Feedback="#DD000000" Click="updateAccount_click" HorizontalAlignment="Right"/>
                         <Button x:Name="btn_cancel"
                                 Content="CANCEL" VerticalAlignment="Top"
-                                Margin="314,420,50,10"
+                                Margin="314,401,50,10"
                                 BorderThickness="0"
                                 Height="35" Width="130"
                                 FontFamily="Tienne" FontWeight="Bold"
@@ -129,7 +129,7 @@
                                 materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                 materialDesign:RippleAssist.Feedback="#DD000000" Click="cancelChanges" HorizontalAlignment="Right"/>
 
-                        <Grid Margin="30,10,30,30" HorizontalAlignment="Left" Width="283">
+                        <Grid Margin="30,0,30,30" HorizontalAlignment="Left" Width="283">
                             <Label Content="Name" FontFamily="Roboto" 
                                FontWeight="Bold"
                                FontSize="16" Margin="20,0,0,0" 
@@ -158,7 +158,7 @@
                                FontWeight="Bold"
                                FontSize="16" 
                                HorizontalAlignment="Left" 
-                               Margin="20,80,0,0"
+                               Margin="20,75,0,0"
                                Foreground="#e36934" Height="30" VerticalAlignment="Top" d:LayoutOverrides="Height"/>
                             <TextBox x:Name="txt_accountEmail"
                                Height="40" Width="250" 
@@ -178,15 +178,15 @@
                                TextWrapping="Wrap"
                                materialDesign:TextFieldAssist.TextFieldCornerRadius="4"
                                Style="{StaticResource MaterialDesignFilledTextBox}"
-                               Margin="20,110,0,0"/>
+                               Margin="20,105,0,0"/>
                             <Label Content="Username" FontFamily="Roboto" 
                                FontWeight="Bold"
                                FontSize="16" 
                                HorizontalAlignment="Left" 
-                               Margin="20,160,0,0"
+                               Margin="20,150,0,0"
                                Foreground="#e36934" Height="28" VerticalAlignment="Top" d:LayoutOverrides="Height"/>
                             <TextBox x:Name="txt_acountUsername"
-                               Margin="20,190,10,0"
+                               Margin="20,180,10,0"
                                Height="40" Width="250" 
                                Padding="10 0 0 0"
                                VerticalContentAlignment="Stretch"
@@ -208,10 +208,10 @@
                                FontWeight="Bold"
                                FontSize="16" 
                                HorizontalAlignment="Left" 
-                               Margin="20,235,0,0"
+                               Margin="20,230,0,0"
                                Foreground="#e36934" Height="25" VerticalAlignment="Top"/>
                             <PasswordBox x:Name="pbx_acountPassword"
-                               Margin="20,270,10,0"
+                               Margin="20,259,10,0"
                                Height="40" Width="250"
                                CaretBrush="#FFE36934"
                                Style="{StaticResource MaterialDesignFilledPasswordBox}"
@@ -232,11 +232,11 @@
                                FontWeight="Bold"
                                FontSize="16" 
                                HorizontalAlignment="Left" 
-                               Margin="20,330,0,0"
+                               Margin="20,320,0,0"
                                Foreground="#e36934" Height="28" VerticalAlignment="Top"/>
                             <ComboBox x:Name="cbx_accDepartment" Width="250" Padding="10 0 0 0"
                                HorizontalAlignment="Left" 
-                               Margin="20,340,0,41" FontSize="18" FontFamily="Roboto"
+                               Margin="20,355,0,41" FontSize="18" FontFamily="Roboto"
                                Style="{StaticResource MaterialDesignFilledComboBox}" 
                                HorizontalContentAlignment="Left" 
                                ScrollViewer.VerticalScrollBarVisibility="Disabled" 

@@ -123,8 +123,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                 ws.Cells[Address: "A3"].Value = "Student Number:";
                 ws.Cells[Address: "D2"].Value = "Curriculum Year:";
                 ws.Cells[Address: "D3"].Value = "Department:";
-                ws.Cells[Address: "E2"].Value = cbx_evalDepartment.Text;
-                ws.Cells[Address: "E3"].Value = int.Parse(txt_currYear.Text);
+                ws.Cells[Address: "E2"].Value = int.Parse(txt_currYear.Text);
+                ws.Cells[Address: "E3"].Value = cbx_evalDepartment.Text;
                 ws.Cells[Address: "A5"].Value = "Subject ID";
                 ws.Cells[Address: "B5"].Value = "Subject Code";
                 ws.Cells[Address: "C5"].Value = "Subject Title";
@@ -270,7 +270,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             _ = commandDatabase2.Parameters.AddWithValue("@user", int.Parse(txtUserID.Text));
             _ = commandDatabase2.Parameters.AddWithValue("@activity", "Export Evaluation Form");
             _ = commandDatabase2.Parameters.AddWithValue("@details", txtUserName.Text + " exported an evaluation form for batch "
-                + int.Parse(txt_currYear.Text) + ", Department of " + cbx_evalDepartment.Text + ", " + cbx_evalSemester.Text + " and year level" + int.Parse(cbx_evalYearlevel.Text) + ".");
+                + int.Parse(txt_currYear.Text) + ", " + cbx_evalSemester.Text + " and year level" + int.Parse(cbx_evalYearlevel.Text) + ".");
             commandDatabase2.CommandTimeout = 60;
             MySqlDataReader reader2;
             try

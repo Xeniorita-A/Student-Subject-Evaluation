@@ -84,13 +84,13 @@
                         FontFamily="Tienne" FontSize="20" 
                         FontWeight="Bold" Height="54" 
                         Width="250">
-                        <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,-3">
                             <materialDesign:Card
                              UniformCornerRadius="20"
                              Background="White" VerticalAlignment="Center"
                              HorizontalAlignment="Center"
                              materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" Height="520" Width="990" Margin="0,20,0,100">
+                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" Height="510" Width="990" Margin="0,20,0,100">
 
                                 <!--Stackpanel for the Course Curriculum List-->
                                 <Grid Grid.Column="1" Grid.Row="1">
@@ -148,7 +148,7 @@
                                             CanUserDeleteRows="False" 
                                             ScrollViewer.VerticalScrollBarVisibility="Visible" 
                                             ScrollViewer.CanContentScroll="True"
-                                            HorizontalScrollBarVisibility="Auto" Height="400">
+                                            HorizontalScrollBarVisibility="Auto" Height="380">
 
                                             <!--<ColumnHeader>-->
                                             <DataGrid.Columns>
@@ -267,13 +267,13 @@
                                         </Button>
                                     </Grid>
 
-                                    <WrapPanel VerticalAlignment="Bottom" Margin="0,10,50,20" HorizontalAlignment="Right">
+                                    <WrapPanel VerticalAlignment="Bottom" Margin="0,10,50,5" HorizontalAlignment="Right">
                                         <Button x:Name="btn_refresh"
                                         Height="30"
                                         Width="130"
                                         materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                         materialDesign:RippleAssist.Feedback="#DD000000" 
-                                        Click="refresh_List" ToolTip="Refresh the table and clear filters">
+                                        Click="refresh_List" ToolTip="Refresh the table and clear filters" Margin="0,0,0,20">
 
                                             <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center">
                                                 <Image Source="/Images/refresh.png" Stretch="Uniform" HorizontalAlignment="Left" Margin="0,0,7,0" Width="22" Height="22" VerticalAlignment="Center"/>
@@ -298,13 +298,13 @@
                         FontFamily="Tienne" FontSize="20" 
                         FontWeight="Bold" Height="50" 
                         Width="250">
-                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0">
+                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0">
                             <materialDesign:Card Margin="30,20,30,100"
                              UniformCornerRadius="20"
                              Background="White" VerticalAlignment="Top"
                              HorizontalAlignment="Center"
                              materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" Height="520">
+                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" Height="480">
 
                                 <!--Grid for the Course Curriculum List where we load the excel file-->
                                 <Grid Width="990" 
@@ -345,7 +345,7 @@
                                         HorizontalContentAlignment="Stretch" 
                                         VerticalContentAlignment="Stretch"
                                         ToolTip="Course Curriculum from CSV file"
-                                        HorizontalAlignment="Center" Height="337"
+                                        HorizontalAlignment="Center" Height="300"
                                         IsReadOnly="True" 
                                         IsTextSearchEnabled="True" 
                                         CanUserResizeRows="False" 
@@ -409,7 +409,7 @@
 
                                     <Button x:Name="btn_saveCurriculum"
                                             Content="SAVE"
-                                            Margin="0,0,30,10"
+                                            Margin="0,0,30,45"
                                             BorderThickness="0,0,0,0"
                                             FontFamily="Tienne" FontWeight="Bold"
                                             Style="{StaticResource MaterialDesignRaisedButton}"

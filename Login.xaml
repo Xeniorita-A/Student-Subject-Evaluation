@@ -11,7 +11,7 @@
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True"
-        Height="768" Width="1366"
+        Height="750" Width="1350"
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch">
 
@@ -35,22 +35,22 @@
         <Border Grid.RowSpan="4" Grid.ColumnSpan="4">
             <StackPanel Margin="1">
                 <Image Source="/Images/plv_login.png" 
-                       Height="769" Width="Auto"
+                       Height="750" Width="Auto"
                        HorizontalAlignment="Stretch"/>
             </StackPanel>
         </Border>
 
         <!--Stack panel for the login (Helps to ensure it is centered)-->
-        <StackPanel Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
+        <StackPanel Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0,3,0,0">
 
             <!-- (u can only use card if you are using materialdesign theme)-->
             <materialDesign:Card UniformCornerRadius="20" Grid.Row="1" 
                 Grid.RowSpan="2" Grid.Column="1"
-                Margin ="20"
+                Margin ="20,0,20,0"
                 Grid.ColumnSpan="2" Height="370"
                 Width="420" Background="#B2E36934" 
                 materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                <StackPanel Margin="-1,0,0,0">
+                <StackPanel Margin="0,-2,0,0">
                     <TextBlock Text="CEIT Student Subject Evaluation System"
                            FontFamily="Tienne"
                            FontSize="16"

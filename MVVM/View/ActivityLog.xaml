@@ -72,7 +72,7 @@
                              Background="White" VerticalAlignment="Top"
                              HorizontalAlignment="Center"
                              materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" Height="520" Width="990" Margin="0,30,0,100">
+                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" Height="520" Width="990" Margin="0,30,0,50">
 
                     <!--Stackpanel for the Activity Log-->
                     <Grid Grid.Column="1" Grid.Row="1">
@@ -83,7 +83,7 @@
                            FontSize="14" 
                            Foreground="#e36934"
                            HorizontalAlignment="Left" Margin="25,3,0,50" Height="27" VerticalAlignment="Top"/>
-                           
+
                             <Label Content="Custom Date Range:" FontFamily="Roboto" 
                            FontWeight="Bold"
                            FontSize="14" 
@@ -152,7 +152,7 @@
                         </Grid>
 
                         <!--Datagrid for the Course Curriculum-->
-                        <WrapPanel VerticalAlignment="Top" HorizontalAlignment="Left" Margin="40,0,0,0" Width="615">
+                        <WrapPanel VerticalAlignment="Top" HorizontalAlignment="Left" Margin="40,0,0,0" Width="620">
                             <Label Content="Activity History Log:" FontFamily="Roboto" 
                            FontWeight="Bold"
                            FontSize="20" 
@@ -184,7 +184,7 @@
                                             CanUserDeleteRows="False" 
                                             ScrollViewer.VerticalScrollBarVisibility="Visible" 
                                             ScrollViewer.CanContentScroll="True"
-                                            HorizontalScrollBarVisibility="Auto" Height="450" Width="605" Margin="0,-51,0,0">
+                                            HorizontalScrollBarVisibility="Auto" Height="450" Width="610" Margin="0,-51,0,0">
 
                                 <!--<ColumnHeader>-->
                                 <DataGrid.Columns>
@@ -219,7 +219,7 @@
                                     <DataGridTextColumn 
                                                     Header="Detail" 
                                                     Binding="{Binding ActivityDetail}"
-                                                    Width="600" 
+                                                    Width="700" 
                                                     FontFamily="Tienne" 
                                                     FontSize="12" 
                                                     IsReadOnly="True"/>

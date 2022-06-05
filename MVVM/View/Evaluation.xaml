@@ -59,14 +59,14 @@
         </StackPanel>
 
 
-        <WrapPanel Grid.Row="1" Margin="0,30,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
+        <WrapPanel Grid.Row="1" Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
             <materialDesign:Card Height="auto" Width="auto"
                              UniformCornerRadius="20"
                              Background="White"
                              materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left">
+                             materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" Margin="0,10,0,0">
                 <Grid Width="900">
-                    <Grid Width="300" Margin="30,30,93,30" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <Grid Width="300" Margin="30,30,93,20" VerticalAlignment="Top" HorizontalAlignment="Left">
                         <Label Content="EXPORT EVALUATION FORM:" FontFamily="Roboto" 
                            FontWeight="Bold"
                            FontSize="20" 
@@ -162,7 +162,7 @@
                     </Grid>
 
                     <!--Datagrid for the Course Curriculum-->
-                    <WrapPanel VerticalAlignment="Top" HorizontalAlignment="Left" Height="388" Margin="335,55,0,0" Width="508" ItemWidth="510" ItemHeight="400">
+                    <WrapPanel VerticalAlignment="Top" HorizontalAlignment="Left" Height="438" Margin="335,55,0,0" Width="508" ItemWidth="510" ItemHeight="400">
                         <DataGrid x:Name="Export_list"
                                             FontFamily="Roboto"
                                             FontSize="12"
@@ -189,7 +189,7 @@
                                             CanUserDeleteRows="False" 
                                             ScrollViewer.VerticalScrollBarVisibility="Visible" 
                                             ScrollViewer.CanContentScroll="True"
-                                            HorizontalScrollBarVisibility="Auto" Height="380" Width="516">
+                                            HorizontalScrollBarVisibility="Auto" Height="400" Width="516">
 
                             <!--<ColumnHeader>-->
                             <DataGrid.Columns>
