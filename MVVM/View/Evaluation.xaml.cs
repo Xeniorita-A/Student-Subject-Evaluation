@@ -101,8 +101,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                 ws.Cells[Address: "A1"].Value = "EVALUATION FORM";
                 ws.Cells[Address: "B2:C2"].Merge = true;
                 ws.Cells[Address: "B3:C3"].Merge = true;
-                ws.Cells[Address: "E2:F2"].Merge = true;
-                ws.Cells[Address: "E3:F3"].Merge = true;
+                ws.Cells[Address: "E2:G2"].Merge = true;
+                ws.Cells[Address: "E3:G3"].Merge = true;
                 ws.Cells[Address: "A1:G1"].Merge = true;
                 ws.Column(col: 1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
@@ -121,10 +121,10 @@ namespace Student_Subject_Evaluation.MVVM.View
                 //Name, student number, and the Course year and section
                 ws.Cells[Address: "A2"].Value = "Name:";
                 ws.Cells[Address: "A3"].Value = "Student Number:";
-                ws.Cells[Address: "D2"].Value = "Curriculum Year:";
-                ws.Cells[Address: "D3"].Value = "Department:";
-                ws.Cells[Address: "E2"].Value = int.Parse(txt_currYear.Text);
-                ws.Cells[Address: "E3"].Value = cbx_evalDepartment.Text;
+                ws.Cells[Address: "D2"].Value = "Department:";
+                ws.Cells[Address: "D3"].Value = "Curriculum Year:";
+                ws.Cells[Address: "E2"].Value = cbx_evalDepartment.Text;
+                ws.Cells[Address: "E3"].Value = int.Parse(txt_currYear.Text);
                 ws.Cells[Address: "A5"].Value = "Subject ID";
                 ws.Cells[Address: "B5"].Value = "Subject Code";
                 ws.Cells[Address: "C5"].Value = "Subject Title";
@@ -132,8 +132,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                 ws.Cells[Address: "E5"].Value = "Pre Requisites";
                 ws.Cells[Address: "F5"].Value = "Final Grade";
                 ws.Cells[Address: "G5"].Value = "Remarks";
-                ws.Row(row: 2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-                ws.Row(row: 3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
 
                 //format other thing
                 ws.Column(col: 1).Width = 16;
@@ -149,8 +147,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                 ws.Column(col: 5).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 ws.Column(col: 6).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 ws.Column(col: 7).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                ws.Cells[Address: "D2"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-                ws.Cells[Address: "D3"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                ws.Row(row: 2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                ws.Row(row: 3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                ws.Row(row: 4).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
                 ws.Column(col: 6).Style.Numberformat.Format = "0.00";
                 ws.DeleteRow(6);
                 await package.SaveAsync();
@@ -246,7 +245,16 @@ namespace Student_Subject_Evaluation.MVVM.View
         private void btn_exportEval_Click(object sender, RoutedEventArgs e)
         {
             //Task.Run(async () => await ExportEval());
-            _ = ExportEval();
+            if (Export_list.Items.IsEmpty == false && cbx_evalDepartment.SelectedIndex !=-1 
+                && txt_currYear.Text != "" && cbx_evalSemester.SelectedIndex!=-1 && cbx_evalYearlevel.SelectedIndex != -1)
+            {
+                ExportEval();
+            }
+            else
+            {
+                MessageBox.Show("Please make sure that you have inputted necessary information. " +
+                    "\nAlso, make sure to import curriculum first before creating an evaluation form.", "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void btn_display_Click(object sender, RoutedEventArgs e)

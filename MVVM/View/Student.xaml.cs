@@ -213,9 +213,9 @@ namespace Student_Subject_Evaluation.MVVM.View
                 worksheet.Cells[Address: "B2:C2"].Merge = true;
                 worksheet.Cells[Address: "B3:C3"].Merge = true;
                 worksheet.Cells[Address: "B4:C4"].Merge = true;
-                worksheet.Cells[Address: "E2:F2"].Merge = true;
+                worksheet.Cells[Address: "E3:F3"].Merge = true;
+                worksheet.Cells[Address: "E2:G2"].Merge = true;
                 worksheet.Cells[Address: "E3:G3"].Merge = true;
-                worksheet.Cells[Address: "E4:F4"].Merge = true;
                 worksheet.Column(col: 1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 
                 worksheet.Row(row: 1).Style.Font.Size = 20;
@@ -233,11 +233,11 @@ namespace Student_Subject_Evaluation.MVVM.View
                 worksheet.Cells[Address: "B2"].Value = txt_ReportStudName.Text;
                 worksheet.Cells[Address: "B3"].Value = txt_ReportStudNum.Text;
                 worksheet.Cells[Address: "B4"].Value = int.Parse(unitsTaken.Text);
-                worksheet.Cells[Address: "D2"].Value = "Year:";
-                worksheet.Cells[Address: "D3"].Value = "Department:";
+                worksheet.Cells[Address: "D2"].Value = "Department:";
+                worksheet.Cells[Address: "D3"].Value = "Year:";
                 worksheet.Cells[Address: "D4"].Value = "Lacking Units:";
-                worksheet.Cells[Address: "E2"].Value = int.Parse(txt_ReportstudBatch.Text);
-                worksheet.Cells[Address: "E3"].Value = txt_ReportStudDep.Text;
+                worksheet.Cells[Address: "E2"].Value = txt_ReportStudDep.Text;
+                worksheet.Cells[Address: "E3"].Value = int.Parse(txt_ReportstudBatch.Text);
                 worksheet.Cells[Address: "E4"].Value = int.Parse(unitsLacking.Text);
 
                 //Sa table
@@ -259,8 +259,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                 worksheet.Column(col: 7).Width = 8;
                 worksheet.Column(2).Style.WrapText = true;
                 worksheet.Column(3).Style.WrapText = true;
-                worksheet.Row(2).Style.WrapText = true;
-                worksheet.Row(3).Style.WrapText = true;
                 worksheet.Column(5).Style.WrapText = true;
                 worksheet.Column(6).Style.WrapText = true;
                 worksheet.Column(col: 2).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
@@ -273,6 +271,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                 worksheet.Cells[Address: "D3"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                 worksheet.Cells[Address: "A4"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                 worksheet.Cells[Address: "D4"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                worksheet.Row(row: 1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                 worksheet.Row(row: 2).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                 worksheet.Row(row: 3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                 worksheet.Row(row: 4).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
@@ -437,8 +436,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                             {
                                 txt_StudentName.Text = ws.Cells[Address: "B2"].Value.ToString();
                                 txt_StudentNum.Text = ws.Cells[Address: "B3"].Value.ToString();
-                                txt_StudentCurrYear.Text = ws.Cells[Address: "E2"].Value.ToString();
-                                txt_StudentDep.Text = ws.Cells[Address: "E3"].Value.ToString();
+                                txt_StudentDep.Text = ws.Cells[Address: "E2"].Value.ToString();
+                                txt_StudentCurrYear.Text = ws.Cells[Address: "E3"].Value.ToString();
                             }
                         }
                         catch (Exception)
