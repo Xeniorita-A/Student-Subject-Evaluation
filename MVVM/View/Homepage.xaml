@@ -103,6 +103,10 @@
                        FontFamily="Tienne"/>
                     </StackPanel>
                 </WrapPanel>
+                
+                
+                
+                
 
                 <WrapPanel>
                     <StackPanel HorizontalAlignment="Left">
@@ -116,31 +120,21 @@
         </StackPanel>
 
 
-        <!--Popupbox (three dots)-->
-        <StackPanel Grid.Row="0" Margin="0,0,0,5">
+        <!--HELP-->
+        <StackPanel>
+            <Button x:Name="btn_EXIT"
+                    Height="30"
+                    Width="30"
+                    Padding="1,0,0,0"
+                    Margin="0 20 20 0"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                    materialDesign:RippleAssist.Feedback="#DD000000" 
+                    Click="btn_help_Click" ToolTip="Are you Having trouble using the system?" VerticalAlignment="Top" HorizontalAlignment="Right">
+                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                    <Image Source="/Images/help.png" Stretch="Uniform" Width="22" Height="22" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-            <materialDesign:PopupBox 
-                HorizontalAlignment="Right"
-                Margin="0 20 20 0"
-                PlacementMode="BottomAndAlignRightEdges"
-                StaysOpen="False"
-                Height="50">
-                <StackPanel Margin="10"
-                            Orientation="Vertical"
-                            HorizontalAlignment="Center">
-                    <StackPanel>
-                        <Button ToolTip="Are you Having trouble using the system?"
-                            Margin="10 0 10 0"
-                            Content="Help" Click="btn_help_Click"/>
-                    </StackPanel>
-                    <StackPanel>
-                        <Button x:Name="btn_exit" Content="Exit"
-                            ToolTip="Exit Application"
-                            Click="exitApp" Margin="10 0 10 0"/>
-                    </StackPanel>
-                </StackPanel>
-            </materialDesign:PopupBox>
+                </Grid>
+            </Button>
         </StackPanel>
-
     </Grid>
 </UserControl>

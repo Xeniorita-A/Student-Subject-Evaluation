@@ -41,7 +41,6 @@ namespace Student_Subject_Evaluation.MVVM.View
             public int Final_Grade { get; set; }
             public string? Remarks { get; set; }
 
-            public List<GradeRecord> Employee { get; set; }
         }
 
         public class StudentList
@@ -89,16 +88,16 @@ namespace Student_Subject_Evaluation.MVVM.View
                 {
                     fName = lObjFileDlge.FileName;
                     txt_GradeFilepath.Text = fName.ToString();
-                    _ = getDataTableFromExcel(txt_GradeFilepath.Text);
+                    getDataTableFromExcel(txt_GradeFilepath.Text);
                 }
                 if (System.IO.File.Exists(fName) == true)
                 {
                     txt_GradeFilepath.Text = fName.ToString();
-                    _ = getDataTableFromExcel(txt_GradeFilepath.Text);
+                    getDataTableFromExcel(txt_GradeFilepath.Text);
                 }
                 else
                 {
-                    _ = MessageBox.Show("File not found!");
+                     MessageBox.Show("File not found!");
                 }
             }
             catch (Exception)
@@ -107,16 +106,11 @@ namespace Student_Subject_Evaluation.MVVM.View
             }
         }
 
-        private void GenerateReport_click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private async Task ExportReports()
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             //This where we will save the template
-            FileInfo? rep = new FileInfo(fileName: @"C:\Student Subject Evaluation System\Reports\Generated_Report.xlsx");
+            FileInfo? rep = new FileInfo(fileName: @"C:\Student Subject Evaluation System\Student Subject Evaluation\Reports\Generated_Report.xlsx");
             await saveExcelReport(rep);
         }
 
@@ -229,7 +223,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                 worksheet.Row(row: 2).Style.Font.Bold = true;
                 worksheet.Row(row: 3).Style.Font.Bold = true;
                 worksheet.Row(row: 4).Style.Font.Bold = true;
-                worksheet.Row(row: 5).Style.Font.Bold = true;
+                worksheet.Row(row: 6).Style.Font.Bold = true;
                 worksheet.Row(row: 1).Style.Font.Color.SetColor(Color.DarkOrange);
 
                 //Name, student number, and the Course year and section
@@ -255,6 +249,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                 worksheet.Cells[Address: "F6"].Value = "Final Grade";
                 worksheet.Cells[Address: "G6"].Value = "Remarks";
                 //format other thing
+
                 worksheet.Column(col: 1).Width = 13;
                 worksheet.Column(col: 2).Width = 8;
                 worksheet.Column(col: 3).Width = 25;
@@ -370,16 +365,7 @@ namespace Student_Subject_Evaluation.MVVM.View
         }
 
         //Code for exiting the app
-        private void exitApp(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to log out and exit application?", "EXIT",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                addActivityLogout();
-                System.Windows.Application.Current.Shutdown();
-            }
-        }
-
+       
         //recently added for import of grades (Evaluation forms)
         private async void btnChooseFile(object sender, RoutedEventArgs e)
         {
@@ -484,11 +470,11 @@ namespace Student_Subject_Evaluation.MVVM.View
             {
                 if (txt_GradeFilepath.Text == "")
                 {
-                    _ = MessageBox.Show("Please input the file path or click choose");
+                    MessageBox.Show("Please input the file path or click choose");
                 }
                 else if (txt_GradeFilepath.Text != "")
                 {
-                    _ = getDataTableFromExcel(txt_GradeFilepath.Text);
+                    getDataTableFromExcel(txt_GradeFilepath.Text);
                 }
             }
         }

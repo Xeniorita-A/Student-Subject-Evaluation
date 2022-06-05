@@ -28,6 +28,7 @@
     <None Remove="Images\close.png" />
     <None Remove="Images\eye.png" />
     <None Remove="Images\filter.png" />
+    <None Remove="Images\help.png" />
     <None Remove="Images\plv-home.png" />
     <None Remove="Images\plv-logo.png" />
     <None Remove="Images\plv_login.png" />
@@ -90,6 +91,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\filter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\help.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\plv-logo.png">

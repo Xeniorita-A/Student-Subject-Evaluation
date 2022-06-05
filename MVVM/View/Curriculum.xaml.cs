@@ -184,24 +184,6 @@ namespace Student_Subject_Evaluation.MVVM.View
             }
         }
 
-        private void Help_Click(object sender, RoutedEventArgs e)
-        {
-            HelpModule w = new HelpModule();
-            w.Content = new HelpPage();
-            w.Show();
-        }
-
-        //Code to exit the Application
-        private void ExitApp(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to log out and exit application?", "EXIT",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                addActivityLogout();
-                System.Windows.Application.Current.Shutdown();
-            }
-        }
-
         //For the list where we load the csv file
         public class ImportSubject
         {
@@ -2135,6 +2117,13 @@ namespace Student_Subject_Evaluation.MVVM.View
             catch (Exception)
             {
             }
+        }
+
+        private void btn_help_Click(object sender, RoutedEventArgs e)
+        {
+            HelpModule w = new HelpModule();
+            w.Content = new HelpPage();
+            w.Show();
         }
     }
 

@@ -16,7 +16,8 @@
         WindowStyle="SingleBorderWindow"
         BorderThickness="1"
         BorderBrush="OrangeRed"
-        WindowState="Normal">
+        WindowState="Normal"
+        >
 
     <Window.DataContext>
         <viewModel:MainViewModel/>

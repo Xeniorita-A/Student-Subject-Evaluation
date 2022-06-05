@@ -46,21 +46,11 @@ namespace Student_Subject_Evaluation.MVVM.View
             w.Show();
         }
 
-        private void exitApp(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to log out and exit application?", "EXIT",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                addActivityLogout();
-                Application.Current.Shutdown();
-            }
-        }
-
         private async Task ExportEval()
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             //This where we will save the template
-            FileInfo? file = new FileInfo(fileName: @"C:\Student Subject Evaluation System\Evaluation Forms\EvaluationForm.xlsx");
+            FileInfo? file = new FileInfo(fileName: @"C:\Student Subject Evaluation System\Student Subject Evaluation\Evaluation Forms\EvaluationForm.xlsx");
             await saveExcelFile(file);
         }
 
@@ -121,7 +111,12 @@ namespace Student_Subject_Evaluation.MVVM.View
                 ws.Row(row: 2).Style.Font.Bold = true;
                 ws.Row(row: 3).Style.Font.Bold = true;
                 ws.Row(row: 5).Style.Font.Bold = true;
-                ws.Row(row: 1).Style.Font.Color.SetColor(Color.DarkOrange);
+                ws.Cells[Address: "A5:G5"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                ws.Cells[Address: "A5:G5"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkOrange);
+                ws.Row(row: 1).Style.Font.Color.SetColor(Color.White);
+                ws.Row(row: 5).Style.Font.Color.SetColor(Color.White);
+                ws.Cells[Address: "A1:G1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                ws.Cells[Address: "A1:G1"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkOrange);
 
                 //Name, student number, and the Course year and section
                 ws.Cells[Address: "A2"].Value = "Name:";

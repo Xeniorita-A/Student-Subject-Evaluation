@@ -12,7 +12,6 @@ namespace Student_Subject_Evaluation.MVVM.View
     /// </summary>
     public partial class AccountSettings : UserControl
     {
-
         //Open a connection
         const string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=db_commission;";
         public AccountSettings()
@@ -20,34 +19,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             InitializeComponent();
             txtUserDetails.Text = MainWindow.MWinstance.User.Text;
             getUserID.Text = MainWindow.MWinstance.AccountID.Text;
-            accountView();
-
-            //Hashing the data
-            string plainData = "Mahesh";
-            Console.WriteLine("Raw data: {0}", plainData);
-            string hashedData = ComputeSha256Hash(plainData);
-            Console.WriteLine("Hash {0}", hashedData);
-            Console.WriteLine(ComputeSha256Hash("Mahesh"));
-            _ = Console.ReadLine();
-        }
-
-        //Hashing 
-        static string ComputeSha256Hash(string rawData)
-        {
-            // Create a SHA256   
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                // ComputeHash - returns byte array  
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-
-                // Convert byte array to a string   
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    _ = builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
+            accountView();           
         }
 
         //Populate the fields in Account Settings
@@ -141,7 +113,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                     string query = "UPDATE tbl_account SET account_ID = @id, " +
                         "account_Username= @username, account_Email = @email, account_Password = @password," +
                         "account_Name = @name,account_Department = @department WHERE account_ID = @id";
-                    String hashedData = ComputeSha256Hash(pbx_acountPassword.Password);
                     MySqlConnection databaseConnection = new MySqlConnection(connectionString);
                     MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
                     databaseConnection.Open();
@@ -157,7 +128,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                     }
                     else if (pbx_acountPassword.Password != "")
                     {
-                        _ = commandDatabase.Parameters.AddWithValue("@password", hashedData);
+                        _ = commandDatabase.Parameters.AddWithValue("@password", EncryptPassword.HashString(pbx_acountPassword.Password));
+                        MessageBox.Show("Success update password encrypt");
                     }
                     MySqlDataReader myReader = commandDatabase.ExecuteReader();
                     commandDatabase.CommandTimeout = 60;
@@ -168,12 +140,12 @@ namespace Student_Subject_Evaluation.MVVM.View
                 }
                 else
                 {
-                    _ = MessageBox.Show("One of the fields is empty!");
+                     MessageBox.Show("One of the fields is empty!");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _ = MessageBox.Show(ex.ToString(), "", MessageBoxButton.OK, MessageBoxImage.Error);
+               
             }
 
 
@@ -197,16 +169,6 @@ namespace Student_Subject_Evaluation.MVVM.View
             w.Show();
         }
 
-        //Code to exit the app
-        private void exitApp(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to log out and exit application?", "EXIT",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                addActivityLogout();
-                Application.Current.Shutdown();
-            }
-        }
         public void addActivityUpdateAccount()
         {
             string query = "INSERT INTO  `tbl_activitylog` ( `log_ID`, `log_Time`, `log_Date`, `log_UserID`, `log_Activity`, `log_Detail`)  VALUES (@ID, @time, @date, @user, @activity, @detail)";

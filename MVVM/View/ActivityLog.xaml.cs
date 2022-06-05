@@ -185,7 +185,7 @@ namespace Student_Subject_Evaluation.MVVM.View
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             //This where we will save the template
-            FileInfo? rep = new FileInfo(fileName: @"C:\Student Subject Evaluation System\Activity Logs\Activity_Log.xlsx");
+            FileInfo? rep = new FileInfo(fileName: @"C:\Student Subject Evaluation System\Student Subject Evaluation\Activity Logs\Activity_Log.xlsx");
             if (DateTo.Text != "" && DateFrom.Text != "" && Activity_log.Items.IsEmpty == false)
             {
                 await exportFiltered(rep);
@@ -452,16 +452,6 @@ namespace Student_Subject_Evaluation.MVVM.View
             HelpModule w = new HelpModule();
             w.Content = new HelpPage();
             w.Show();
-        }
-
-        private void exitApp(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to log out and exit application?", "EXIT",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                addActivityLogout();
-                Application.Current.Shutdown();
-            }
         }
     }
 }
