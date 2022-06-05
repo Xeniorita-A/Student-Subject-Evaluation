@@ -110,7 +110,7 @@ namespace Student_Subject_Evaluation.MVVM.View
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             //This where we will save the template
-            FileInfo? rep = new FileInfo(fileName: @"C:\Student Subject Evaluation System\Student Subject Evaluation\Reports\Generated_Report.xlsx");
+            FileInfo? rep = new FileInfo(fileName: @"C:\Student Subject Evaluation System\Reports\Generated_Report.xlsx");
             await saveExcelReport(rep);
         }
 
@@ -297,8 +297,11 @@ namespace Student_Subject_Evaluation.MVVM.View
 
                     IApplication application = excelEngine.Excel;
                     application.DefaultVersion = ExcelVersion.Xlsx;
-                    FileStream inputStream = new FileStream("../../../Reports/Generated_Report.xlsx", FileMode.Open, FileAccess.Read);
-                    IWorkbook workbook = application.Workbooks.Open(inputStream);
+                    string path = @"C:\Student Subject Evaluation System\Reports\Generated_Report.xlsx";
+                    FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read);
+                    //FileStream inputStream = new FileStream("../../../Reports/Generated_Report.xlsx", FileMode.Open, FileAccess.Read);
+                    IWorkbook workbook = application.Workbooks.Open(stream);
+                    //MessageBox.Show("Able to read excel files");
                     //Initialize XlsIORendererSettings
                     XlsIORendererSettings settings = new XlsIORendererSettings();
                     //Initialize XlsIO renderer.
@@ -308,8 +311,14 @@ namespace Student_Subject_Evaluation.MVVM.View
                     PdfDocument pdfDocument = renderer.ConvertToPDF(workbook);
                     //Set layout option as FitAllColumnsOnOnePage
                     settings.LayoutOptions = LayoutOptions.FitAllColumnsOnOnePage;
-
+                    FileStream outputStream0 = new FileStream("Generated_Report_" + txt_ReportStudNum.Text + "_"
+                    + "_" + txt_ReportStudDep.Text + "_"
+                    + DateTime.Now.ToString("dd-MM-yyyy") + ".pdf", FileMode.Create, FileAccess.Write);
+                    pdfDocument.Save(outputStream0);
+                    MessageBox.Show("Successfully Saved as a PDF file.");
                     #region Save
+
+
                     //Saving the workbook
                     SaveFileDialog saveFileDialog = new SaveFileDialog();
                     saveFileDialog.Filter = "Files(*.pdf)|*.pdf";
@@ -339,7 +348,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                             //process.Start();
                         }
                         outputStream.Dispose();
-                        inputStream.Dispose();
+                        stream.Dispose();
                         addActivityGenerateReport();
                         txt_ReportstudBatch.Text = "";
                         txt_ReportStudDep.Text = "";
