@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
-        Height="770" Width="1366"
+        Height="760" Width="1360"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         WindowStyle="SingleBorderWindow"
@@ -30,7 +30,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="315"/>
+                <RowDefinition Height="298"/>
                 <RowDefinition />
             </Grid.RowDefinitions>
 
@@ -40,49 +40,49 @@
                        Foreground="White"
                        FontSize="16" Margin="138,16,0,0"
                        Padding="0"
-                       Height="30" d:LayoutOverrides="Height"
+                       Height="30" d:LayoutOverrides="Height, LeftMargin, RightMargin, TopMargin, BottomMargin"
                        HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden"/>
             <TextBox x:Name="_ID" 
                        Text="0" 
                        Foreground="White"
                        FontSize="16" Margin="105,18,0,0"
                        Padding="0"
-                       Height="30" d:LayoutOverrides="Height"
-                       HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden"/>
+                       Height="30" d:LayoutOverrides="Height, LeftMargin, RightMargin, TopMargin, BottomMargin"
+                       HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden" Width="11"/>
             <TextBox x:Name="_Name" 
                        Text="Name" 
                        Foreground="White"
                        FontSize="16" Margin="105,41,0,0"
                        Padding="0"
-                       Height="30" d:LayoutOverrides="Height"
-                       HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden"/>
+                       Height="30" d:LayoutOverrides="Height, LeftMargin, RightMargin, TopMargin, BottomMargin"
+                       HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden" Width="44"/>
 
             <!--LOGO-->
             <WrapPanel>
-                <StackPanel Orientation="Horizontal" Margin="72,70,71,85" >
-                    <Image x:Name="Plv_logo" Source="/Images/Plv-logo.png" Height="150" Width="150" HorizontalAlignment="Center" RenderTransformOrigin="0.641,-0.001" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                <StackPanel Orientation="Horizontal" Margin="73,60,71,85" >
+                    <Image x:Name="Plv_logo" Source="/Images/Plv-logo.png" Height="150" Width="150" HorizontalAlignment="Center" RenderTransformOrigin="0.641,-0.001" VerticalAlignment="Center" Margin="0,0,0,-7"/>
                 </StackPanel>
             </WrapPanel>
 
             <!--Label-->
             <StackPanel>
-                <StackPanel Margin="0,254,0,0" VerticalAlignment="Bottom" Height="61" Width="291" HorizontalAlignment="Center">
+                <StackPanel Margin="0,238,0,0" VerticalAlignment="Bottom" Height="61" Width="291" HorizontalAlignment="Center">
                     <TextBlock Text="PAMANTASAN NG LUNGSOD NG" 
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Center" 
                 Foreground="White" 
-                FontFamily="Tienne" FontSize="14" Width="207" Height="17"/>
+                FontFamily="Tienne" FontSize="12" Width="207" Height="17" Margin="26,0,0,0"/>
                     <TextBlock Text="VALENZUELA" 
                 Foreground="White" 
-                FontSize="35" Padding="0"
+                FontSize="32" Padding="0"
                 FontWeight="Normal" 
                 FontStretch="Normal"
-                FontFamily="Tienne" Width="207" HorizontalAlignment="Center"/>
+                FontFamily="Tienne" Width="207" HorizontalAlignment="Center" Margin="19,0,0,0"/>
                 </StackPanel>
             </StackPanel>
 
             <!--Employee Menu Buttons-->
-            <WrapPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <WrapPanel Grid.Row="1" Orientation="Vertical" Margin="25,0,25,95">
                 <StackPanel Grid.Row="1" Margin="0,0,0,-10">
                     <RadioButton x:Name="btn_Home" Content="Home"
                              Height="40" Width="250"
@@ -137,7 +137,7 @@
             </WrapPanel>
 
             <!--Date-->
-            <WrapPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <WrapPanel Grid.Row="1" Orientation="Vertical" Margin="52,13,52,0">
                 <TextBlock x:Name="date"  
                        Foreground="White" Height="30" 
                        FontWeight="Bold" 
