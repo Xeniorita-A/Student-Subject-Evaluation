@@ -186,6 +186,19 @@
                                                materialDesign:HintAssist.Foreground="#f1ac6a" 
                                                VerticalAlignment="Top"
                                                TextWrapping="Wrap"/>
+                                            <TextBlock x:Name="txt_StudNameCheck"
+                                               Height="40" Width="200"
+                                               Margin="10,108,0,0"
+                                               Padding="10 10"
+                                               HorizontalAlignment="Left"
+                                               Foreground="Black"
+                                               FontSize="14"
+                                               FontFamily="Roboto"
+                                               materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                               materialDesign:TextFieldAssist.HasClearButton="True"
+                                               materialDesign:HintAssist.Foreground="#f1ac6a" 
+                                               VerticalAlignment="Top"
+                                               TextWrapping="Wrap" Visibility="Hidden"/>
                                             <Label Content="Department" FontFamily="Roboto"
                                                FontWeight="Bold"
                                                FontSize="16" Margin="5,137,0,202" 
@@ -204,6 +217,19 @@
                                                materialDesign:HintAssist.Foreground="#f1ac6a" 
                                                VerticalAlignment="Top"
                                                TextWrapping="Wrap"/>
+                                            <TextBlock x:Name="txt_CheckStudentDep"
+                                               Height="40" Width="200"
+                                               Margin="10,174,0,0"
+                                               Padding="10 10"
+                                               HorizontalAlignment="Left"
+                                               Foreground="Black"
+                                               FontSize="14"
+                                               FontFamily="Roboto"
+                                               materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                               materialDesign:TextFieldAssist.HasClearButton="True"
+                                               materialDesign:HintAssist.Foreground="#f1ac6a" 
+                                               VerticalAlignment="Top"
+                                               TextWrapping="Wrap" Visibility="Hidden"/>
                                             <Label Content="Curriculum Year" FontFamily="Roboto"
                                                FontWeight="Bold"
                                                FontSize="16" Margin="5,201,0,131" 
@@ -222,6 +248,19 @@
                                                materialDesign:HintAssist.Foreground="#f1ac6a" 
                                                VerticalAlignment="Top"
                                                TextWrapping="Wrap"/>
+                                            <TextBlock x:Name="txt_CheckStudentBatch"
+                                               Height="40" Width="200"
+                                               Margin="10,237,0,0"
+                                               Padding="10 10"
+                                               HorizontalAlignment="Left"
+                                               Foreground="Black"
+                                               FontSize="14"
+                                               FontFamily="Roboto"
+                                               materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                               materialDesign:TextFieldAssist.HasClearButton="True"
+                                               materialDesign:HintAssist.Foreground="#f1ac6a" 
+                                               VerticalAlignment="Top"
+                                               TextWrapping="Wrap" Visibility="Hidden"/>
                                         </Grid>
                                     </Grid>
 

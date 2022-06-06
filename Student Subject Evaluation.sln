@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "..\Setup1\Setup1.vdproj", "{4EFE1223-CA6A-4BA0-914C-66BD6A9FBC0C}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "..\..\MSI (Active)\Setup\Setup.vdproj", "{1D216371-C64F-46FD-9022-1D162E1D7B19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,10 +28,10 @@ Global
 		{623454E6-7089-4AC0-AB21-4D9299693530}.Release|Any CPU.Build.0 = Release|Any CPU
 		{623454E6-7089-4AC0-AB21-4D9299693530}.Release|x64.ActiveCfg = Release|x64
 		{623454E6-7089-4AC0-AB21-4D9299693530}.Release|x64.Build.0 = Release|x64
-		{4EFE1223-CA6A-4BA0-914C-66BD6A9FBC0C}.Debug|Any CPU.ActiveCfg = Debug
-		{4EFE1223-CA6A-4BA0-914C-66BD6A9FBC0C}.Debug|x64.ActiveCfg = Debug
-		{4EFE1223-CA6A-4BA0-914C-66BD6A9FBC0C}.Release|Any CPU.ActiveCfg = Release
-		{4EFE1223-CA6A-4BA0-914C-66BD6A9FBC0C}.Release|x64.ActiveCfg = Release
+		{1D216371-C64F-46FD-9022-1D162E1D7B19}.Debug|Any CPU.ActiveCfg = Debug
+		{1D216371-C64F-46FD-9022-1D162E1D7B19}.Debug|x64.ActiveCfg = Debug
+		{1D216371-C64F-46FD-9022-1D162E1D7B19}.Release|Any CPU.ActiveCfg = Release
+		{1D216371-C64F-46FD-9022-1D162E1D7B19}.Release|x64.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

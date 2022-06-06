@@ -119,7 +119,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                 ws.Cells[Address: "A1:G1"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkOrange);
 
                 //Name, student number, and the Course year and section
-                ws.Cells[Address: "A2"].Value = "Name:";
+                ws.Cells[Address: "A2"].Value = "Name (FN MI. LN):";
                 ws.Cells[Address: "A3"].Value = "Student Number:";
                 ws.Cells[Address: "D2"].Value = "Department:";
                 ws.Cells[Address: "D3"].Value = "Curriculum Year:";

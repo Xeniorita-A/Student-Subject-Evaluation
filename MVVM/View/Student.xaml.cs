@@ -606,7 +606,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                 if (count == 1)
                 {
                     //Let's get the student ID and store it in a hidden label
-                    string q2 = "SELECT `student_ID` FROM `tbl_student` WHERE `student_StudentNo` LIKE '" + student_number + "%'";
+                    string q2 = "SELECT * FROM `tbl_student` WHERE `student_StudentNo` LIKE '" + student_number + "%'";
                     MySqlConnection dbc = new MySqlConnection(connectionString);
                     MySqlCommand commandDatabase1 = new MySqlCommand(q2, dbc);
                     commandDatabase1.CommandTimeout = 60;
@@ -615,12 +615,26 @@ namespace Student_Subject_Evaluation.MVVM.View
                     while (dr.Read())
                     {
                         txt_getStudID.Text = dr.GetValue(0).ToString();
+                        txt_StudNameCheck.Text = dr.GetValue(2).ToString();
+                        txt_StudentDep.Text = dr.GetValue(3).ToString();
+                        txt_CheckStudentBatch.Text = dr.GetValue(4).ToString();
                     }
                     dbc.Close();
-                    if (txt_getStudID.Text != "0" && txt_getStudID.Text != "")
-                    {
-                        checkGradeRecord();
-                    }
+                        if (txt_StudNameCheck.Text != txt_StudentName.Text || txt_StudentDep.Text != txt_StudentDep.Text || txt_CheckStudentBatch.Text != txt_StudentCurrYear.Text)
+                        {
+                            if (MessageBox.Show("A student with ID number " + txt_StudentNum.Text + " was already registered with the following details: "
+                            +"\nStudent Name: "+ txt_StudNameCheck.Text 
+                            +"\nDepartment: " + txt_StudentDep.Text   
+                            +"\nBatch: " + txt_CheckStudentBatch.Text 
+                            +"\nIf you proceed the following details will be updated. Do you still want to proceed?", "Info", MessageBoxButton.YesNo,
+                            MessageBoxImage.Question) == MessageBoxResult.Yes)
+                            {
+                                updateStudentDetails();
+                            }
+                        }
+                        else
+                        {
+                        }
                 }
                 else if (count == 0)
                 {
@@ -672,7 +686,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                 _ = cmd.Parameters.AddWithValue("@stud_dep", txt_StudentDep.Text);
                 _ = cmd.Parameters.AddWithValue("@stud_batch", txt_StudentCurrYear.Text);
                 MySqlDataReader myReader = cmd.ExecuteReader();
-                _ = MessageBox.Show("Successfully added student.");
+                _ = MessageBox.Show("Successfully added student.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 addActivityInsertStudent();
                 dbConnection.Close();
 
@@ -683,6 +697,37 @@ namespace Student_Subject_Evaluation.MVVM.View
                 if (txt_getStudID.Text != "0" && txt_getStudID.Text != "")
                 {
                     insertGrade();
+                }
+            }
+            catch (Exception) { }
+        }
+        public void updateStudentDetails()
+        {
+            try
+            {
+                //Insert a new record for student
+                String q1 = "UPDATE `tbl_student` SET `student_StudentNo`=@stud_no,`student_Name`=@stud_name,`student_Department`=@stud_dep, `student_Batch`=@stud_batch WHERE `student_ID`=@stud_ID";
+                MySqlConnection dbConnection = new MySqlConnection(connectionString);
+                MySqlCommand cmd = new MySqlCommand(q1, dbConnection);
+                dbConnection.Open();
+                _ = cmd.Parameters.AddWithValue("@stud_ID", txt_getStudID.Text);
+                _ = cmd.Parameters.AddWithValue("@@stud_no", txt_StudentNum.Text);
+                _ = cmd.Parameters.AddWithValue("@stud_name", txt_StudentName.Text);
+                _ = cmd.Parameters.AddWithValue("@stud_dep", txt_StudentDep.Text);
+                _ = cmd.Parameters.AddWithValue("@stud_batch", txt_StudentCurrYear.Text);
+                MySqlDataReader myReader = cmd.ExecuteReader();
+                addActivityUpdateStudent();
+                _ = MessageBox.Show("Successfully updated the student details of student "+txt_StudentNum.Text+".", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                addActivityInsertStudent();
+                dbConnection.Close();
+
+                //end of code for inserting student
+                //checkGradeRecord();
+                getStudentID();
+
+                if (txt_getStudID.Text != "0" && txt_getStudID.Text != "")
+                {
+                    checkGradeRecord();
                 }
             }
             catch (Exception) { }
@@ -815,7 +860,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                 _ = cmd.ExecuteNonQuery();
             }
             dbc.Close();
-            _ = MessageBox.Show("Succesfully updated the grades of student " + txt_getStudID.Text + ", "
+            _ = MessageBox.Show("Succesfully updated the grades of student " + txt_StudentNum.Text + ", "
                 + txt_StudentName.Text + ".", "", MessageBoxButton.OK, MessageBoxImage.Information);
             addActivityUpdateGrade();
 
@@ -921,8 +966,8 @@ namespace Student_Subject_Evaluation.MVVM.View
             _ = commandDatabase2.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
             _ = commandDatabase2.Parameters.AddWithValue("@user", int.Parse(txtUserID.Text));
             _ = commandDatabase2.Parameters.AddWithValue("@activity", "Insert Student");
-            _ = commandDatabase2.Parameters.AddWithValue("@details", txtUserName.Text + " inserted a new record for student "
-                + txt_StudentName.Text + " (" + txt_StudentNum.Text + ") from the Department of " + txt_StudentDep.Text
+            _ = commandDatabase2.Parameters.AddWithValue("@details", txtUserName.Text + " inserted a new grade for student "
+                + txt_StudentName.Text + " (" + txt_StudentNum.Text + ") from Department of " + txt_StudentDep.Text
                 + " batch " + int.Parse(txt_StudentCurrYear.Text) + ".");
             commandDatabase2.CommandTimeout = 60;
             MySqlDataReader reader2;
@@ -950,7 +995,34 @@ namespace Student_Subject_Evaluation.MVVM.View
             _ = commandDatabase2.Parameters.AddWithValue("@user", int.Parse(txtUserID.Text));
             _ = commandDatabase2.Parameters.AddWithValue("@activity", "Insert Grade Record");
             _ = commandDatabase2.Parameters.AddWithValue("@details", txtUserName.Text + " inserted a new grade record for student "
-                + txt_StudentName.Text + " (" + txt_StudentNum.Text + ") batch " + int.Parse(txt_StudentCurrYear.Text) + ".");
+                + txt_StudentName.Text + " (" + txt_StudentNum.Text + ").");
+            commandDatabase2.CommandTimeout = 60;
+            MySqlDataReader reader2;
+            try
+            {
+                databaseConnection2.Open();
+                reader2 = commandDatabase2.ExecuteReader();
+                databaseConnection2.Close();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        public void addActivityUpdateStudent()
+        {
+            _ = MainWindow.MWinstance.AccountID.Text;
+            _ = MainWindow.MWinstance.AccountName.Text;
+            string query = "INSERT INTO  `tbl_activitylog` ( `log_ID`, `log_Time`, `log_Date`, `log_UserID`, `log_Activity`, `log_Detail`)  VALUES (@ID, @time, @date, @user, @activity, @details)";
+            MySqlConnection databaseConnection2 = new MySqlConnection(connectionString);
+            MySqlCommand commandDatabase2 = new MySqlCommand(query, databaseConnection2);
+            _ = commandDatabase2.Parameters.AddWithValue("@ID", 0);
+            _ = commandDatabase2.Parameters.AddWithValue("@time", DateTime.Now.ToString("H:mm"));
+            _ = commandDatabase2.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+            _ = commandDatabase2.Parameters.AddWithValue("@user", int.Parse(txtUserID.Text));
+            _ = commandDatabase2.Parameters.AddWithValue("@activity", "Update Student Details");
+            _ = commandDatabase2.Parameters.AddWithValue("@details", txtUserName.Text + " updated the record of student "
+                + txt_StudentName.Text + " (" + txt_StudentNum.Text + ").");
             commandDatabase2.CommandTimeout = 60;
             MySqlDataReader reader2;
             try
