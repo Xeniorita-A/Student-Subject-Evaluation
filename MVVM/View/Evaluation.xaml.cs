@@ -50,7 +50,7 @@ namespace Student_Subject_Evaluation.MVVM.View
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             //This where we will save the template
-            FileInfo? file = new FileInfo(fileName: @"C:\Student Subject Evaluation System\Student Subject Evaluation\Evaluation Forms\EvaluationForm.xlsx");
+            FileInfo? file = new FileInfo(fileName: @"C:\Student Subject Evaluation System\Evaluation Forms\EvaluationForm.xlsx");
             await saveExcelFile(file);
         }
 
