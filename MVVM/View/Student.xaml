@@ -348,7 +348,7 @@
                                      materialDesign:ShadowAssist.ShadowDepth="Depth3"
                                      materialDesign:ShadowAssist.ShadowEdges="Bottom,Left">
                                     <!--Search box and Icon-->
-                                    <Grid Height="50" Margin="405,5,40,0"
+                                    <Grid Height="50" Margin="20,5,20,0"
                                                         VerticalAlignment="Top">
                                         <TextBox x:Name="txt_searchStudents"
                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -368,6 +368,7 @@
                                             materialDesign:HintAssist.Hint="SEARCH" 
                                             materialDesign:ShadowAssist.ShadowDepth="Depth1"
                                             TextChanged="TextSearchStuds_Changed"/>
+                                        
                                     </Grid>
                                     <!--Stackpanel for the Student List-->
                                     <StackPanel Grid.Column="1" Grid.Row="1" Margin="30,0,30,0">
