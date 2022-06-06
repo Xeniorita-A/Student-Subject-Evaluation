@@ -50,6 +50,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             public string? StudentName { get; set; }
             public string? StudentDep { get; set; }
             public int StudentBatch { get; set; }
+            public string? StudentEvalDate { get; set; }
         }
 
         public class studentReport
@@ -271,7 +272,6 @@ namespace Student_Subject_Evaluation.MVVM.View
                 worksheet.Cells[Address: "D3"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                 worksheet.Cells[Address: "A4"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                 worksheet.Cells[Address: "D4"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
-                worksheet.Row(row: 1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                 worksheet.Row(row: 2).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                 worksheet.Row(row: 3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                 worksheet.Row(row: 4).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
@@ -515,7 +515,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                         StudentIDNum = reader.GetString(1),
                         StudentName = reader.GetString(2),
                         StudentDep = reader.GetString(3),
-                        StudentBatch = reader.GetInt16(4)
+                        StudentBatch = reader.GetInt16(4),
+                        StudentEvalDate = Convert.ToDateTime(reader.GetString(5)).ToString("yyyy-MM-dd")
                     };
 
                     _ = Students_list.Items.Add(studs);
@@ -565,7 +566,8 @@ namespace Student_Subject_Evaluation.MVVM.View
                         StudentIDNum = reader.GetString(1),
                         StudentName = reader.GetString(2),
                         StudentDep = reader.GetString(3),
-                        StudentBatch = reader.GetInt16(4)
+                        StudentBatch = reader.GetInt16(4),
+                        StudentEvalDate = Convert.ToDateTime(reader.GetString(5)).ToString("yyyy-MM-dd")
                     };
 
                     _ = Students_list.Items.Add(studs);
@@ -676,7 +678,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             try
             {
                 //Insert a new record for student
-                String q1 = "INSERT INTO `tbl_student` (`student_ID`,`student_StudentNo`,`student_Name`,`student_Department`, `student_Batch`) VALUES (@stud_ID, @stud_no, @stud_name, @stud_dep, @stud_batch)";
+                String q1 = "INSERT INTO `tbl_student` (`student_ID`,`student_StudentNo`,`student_Name`,`student_Department`, `student_Batch`, `student_DateEvaluated`) VALUES (@stud_ID, @stud_no, @stud_name, @stud_dep, @stud_batch, @dateEval)";
                 MySqlConnection dbConnection = new MySqlConnection(connectionString);
                 MySqlCommand cmd = new MySqlCommand(q1, dbConnection);
                 dbConnection.Open();
@@ -685,6 +687,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                 _ = cmd.Parameters.AddWithValue("@stud_name", txt_StudentName.Text);
                 _ = cmd.Parameters.AddWithValue("@stud_dep", txt_StudentDep.Text);
                 _ = cmd.Parameters.AddWithValue("@stud_batch", txt_StudentCurrYear.Text);
+                _ = cmd.Parameters.AddWithValue("@dateEval", DateTime.Now.ToString("yyyy-MM-dd"));
                 MySqlDataReader myReader = cmd.ExecuteReader();
                 _ = MessageBox.Show("Successfully added student.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 addActivityInsertStudent();
@@ -706,7 +709,7 @@ namespace Student_Subject_Evaluation.MVVM.View
             try
             {
                 //Insert a new record for student
-                String q1 = "UPDATE `tbl_student` SET `student_StudentNo`=@stud_no,`student_Name`=@stud_name,`student_Department`=@stud_dep, `student_Batch`=@stud_batch WHERE `student_ID`=@stud_ID";
+                String q1 = "UPDATE `tbl_student` SET `student_StudentNo`=@stud_no,`student_Name`=@stud_name,`student_Department`=@stud_dep, `student_Batch`=@stud_batch, `student_DateEvaluated`=@dateEval WHERE `student_ID`=@stud_ID" ;
                 MySqlConnection dbConnection = new MySqlConnection(connectionString);
                 MySqlCommand cmd = new MySqlCommand(q1, dbConnection);
                 dbConnection.Open();
@@ -715,6 +718,7 @@ namespace Student_Subject_Evaluation.MVVM.View
                 _ = cmd.Parameters.AddWithValue("@stud_name", txt_StudentName.Text);
                 _ = cmd.Parameters.AddWithValue("@stud_dep", txt_StudentDep.Text);
                 _ = cmd.Parameters.AddWithValue("@stud_batch", txt_StudentCurrYear.Text);
+                _ = cmd.Parameters.AddWithValue("@dateEval", DateTime.Now.ToString("yyyy-MM-dd"));
                 MySqlDataReader myReader = cmd.ExecuteReader();
                 addActivityUpdateStudent();
                 _ = MessageBox.Show("Successfully updated the student details of student "+txt_StudentNum.Text+".", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -881,6 +885,8 @@ namespace Student_Subject_Evaluation.MVVM.View
         private void refresh_StudentList(object sender, RoutedEventArgs e)
         {
             txt_searchStudents.Text = "";
+            customDate.Text = "";
+            check_Today.IsChecked = false;
             showStudents();
         }
 
@@ -1122,6 +1128,109 @@ namespace Student_Subject_Evaluation.MVVM.View
             {
                 _ = MessageBox.Show("Please select a student first!");
             }
+        }
+
+        private void customDate_CalendarOpened(object sender, RoutedEventArgs e)
+        {
+            check_Today.IsChecked = false;
+        }
+
+        private void customDate_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            customDate.ToolTip = "Choose a custom date";
+        }
+
+        private void customDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            check_Today.IsChecked = false;
+            try
+            {
+                if (customDate.Text != "" && check_Today.IsChecked == false)
+                {
+                    Students_list.Items.Clear();
+                    string q2 = "SELECT * FROM tbl_student WHERE `student_DateEvaluated` ='" +
+                        DateTime.Parse(customDate.Text).ToString("yyyy-MM-dd") + "'";
+                    MySqlConnection dbc = new MySqlConnection(connectionString);
+                    MySqlCommand commandDatabase1 = new MySqlCommand(q2, dbc);
+                    commandDatabase1.CommandTimeout = 60;
+                    dbc.Open();
+                    MySqlDataReader reader = commandDatabase1.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            StudentList studs = new StudentList
+                            {
+                                StudentID = reader.GetInt16(0),
+                                StudentIDNum = reader.GetString(1),
+                                StudentName = reader.GetString(2),
+                                StudentDep = reader.GetString(3),
+                                StudentBatch = reader.GetInt16(4),
+                                StudentEvalDate = Convert.ToDateTime(reader.GetString(5)).ToString("yyyy-MM-dd")
+                            };
+
+                            _ = Students_list.Items.Add(studs);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No rows found.");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        private void check_Today_Checked(object sender, RoutedEventArgs e)
+        {
+            customDate.Text = "";
+            try
+            {
+                if (customDate.Text == "" && check_Today.IsChecked == true)
+                {
+                    Students_list.Items.Clear();
+                    string q2 = "SELECT * FROM tbl_student WHERE `student_DateEvaluated` ='" +
+                    DateTime.Now.ToString("yyyy-MM-dd") + "'";
+                    MySqlConnection dbc = new MySqlConnection(connectionString);
+                    MySqlCommand commandDatabase1 = new MySqlCommand(q2, dbc);
+                    commandDatabase1.CommandTimeout = 60;
+                    dbc.Open();
+                    MySqlDataReader reader = commandDatabase1.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            StudentList studs = new StudentList
+                            {
+                                StudentID = reader.GetInt16(0),
+                                StudentIDNum = reader.GetString(1),
+                                StudentName = reader.GetString(2),
+                                StudentDep = reader.GetString(3),
+                                StudentBatch = reader.GetInt16(4),
+                                StudentEvalDate = Convert.ToDateTime(reader.GetString(5)).ToString("yyyy-MM-dd")
+                            };
+
+                            _ = Students_list.Items.Add(studs);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No rows found.");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        private void check_Today_Unchecked(object sender, RoutedEventArgs e)
+        {
+            showStudents();
         }
     }
 }

@@ -348,11 +348,11 @@
                                      materialDesign:ShadowAssist.ShadowDepth="Depth3"
                                      materialDesign:ShadowAssist.ShadowEdges="Bottom,Left">
                                     <!--Search box and Icon-->
-                                    <Grid Height="50" Margin="20,5,20,0"
+                                    <Grid Height="56" Margin="20,10,20,0"
                                                         VerticalAlignment="Top">
                                         <TextBox x:Name="txt_searchStudents"
                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                            VerticalAlignment="Top"
+                                            VerticalAlignment="Center"
                                             Height="35" Width="250"
                                             AcceptsReturn="True"
                                             TextWrapping="Wrap"
@@ -368,7 +368,31 @@
                                             materialDesign:HintAssist.Hint="SEARCH" 
                                             materialDesign:ShadowAssist.ShadowDepth="Depth1"
                                             TextChanged="TextSearchStuds_Changed"/>
-                                        
+                                        <Label Content="Students Evaluated:" FontFamily="Roboto" 
+                                           FontWeight="Bold"
+                                           FontSize="14" 
+                                           Foreground="#e36934"
+                                           HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="147" Margin="0,-10,0,-1"/>
+                                        <CheckBox Name="check_Today"
+                                                        Content="Today" FontSize="14"
+                                                        materialDesign:CheckBoxAssist.CheckBoxSize="20" Height="50" Margin="19,3,0,3" Checked="check_Today_Checked" Unchecked="check_Today_Unchecked" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center"  />
+
+                                        <DatePicker
+                                              SelectedDate="{Binding Path=Date}"
+                                              x:Name="customDate" Padding="10 0"
+                                              materialDesign:HintAssist.Hint="Custom Date"
+                                              FontFamily="Roboto"
+                                              FontSize="14" FontWeight="Bold" VerticalAlignment="Center" Height="20"
+                                              Style="{StaticResource MaterialDesignDatePicker}" DisplayDate="2022-06-02" HorizontalAlignment="Left" Margin="97,2,0,0" Width="160" CalendarOpened="customDate_CalendarOpened" MouseEnter="customDate_MouseEnter" SelectedDateChanged="customDate_SelectedDateChanged"/>
+                                        <!--<Button x:Name="btn_filter"
+                                                Height="20"
+                                                Width="30" Content="GO"
+                                                Padding="1,0,0,0" Foreground="White"
+                                                Margin="263,18,20,0"
+                                                materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                                materialDesign:RippleAssist.Feedback="#DD000000" 
+                                                Click="btn_help_Click" ToolTip="Click to find students evaluated on the day you want" VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Bold">
+                                        </Button>-->
                                     </Grid>
                                     <!--Stackpanel for the Student List-->
                                     <StackPanel Grid.Column="1" Grid.Row="1" Margin="30,0,30,0">
@@ -404,7 +428,7 @@
                                                 <DataGridTextColumn 
                                                 Header="Student ID" 
                                                 Binding="{Binding StudentIDNum}"
-                                                Width="150" 
+                                                Width="100" 
                                                 FontFamily="Tienne" 
                                                 FontSize="16" 
                                                 IsReadOnly="True">
@@ -419,21 +443,29 @@
                                                 <DataGridTextColumn 
                                                 Header="Department" 
                                                 Binding="{Binding StudentDep}"
-                                                Width="250" 
+                                                Width="220" 
                                                 FontFamily="Tienne" 
                                                 FontSize="16" 
                                                 IsReadOnly="True"/>
                                                 <DataGridTextColumn 
                                                 Header="Batch No." 
                                                 Binding="{Binding StudentBatch}"
-                                                Width="100" 
+                                                Width="120" 
+                                                FontFamily="Tienne" 
+                                                FontSize="16" 
+                                                IsReadOnly="True"
+                                                />
+                                                <DataGridTextColumn 
+                                                Header="Last Evaluated On" 
+                                                Binding="{Binding StudentEvalDate}"
+                                                Width="120" 
                                                 FontFamily="Tienne" 
                                                 FontSize="16" 
                                                 IsReadOnly="True"
                                                 />
                                             </DataGrid.Columns>
                                         </DataGrid>
-                                        <Grid VerticalAlignment="Bottom" Margin="0,10,40,15" HorizontalAlignment="Right">
+                                        <Grid VerticalAlignment="Bottom" Margin="0,10,0,15" HorizontalAlignment="Right">
                                             <Button x:Name="btn_refreshStudents"
                                                 Height="30"
                                                 Width="150"
